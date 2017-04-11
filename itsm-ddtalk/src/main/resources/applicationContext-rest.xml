@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+  xmlns="http://www.springframework.org/schema/beans"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:jaxws="http://cxf.apache.org/jaxws"
+  xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://cxf.apache.org/jaxws 
+    http://cxf.apache.org/schemas/jaxws.xsd
+    http://cxf.apache.org/jaxrs
+    http://cxf.apache.org/schemas/jaxrs.xsd">
+  <!-- http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd 特别注意上面加粗带下划线的部分，这是新增加的配置。我们发布restful WebService需要用到它。 然后在配置文件中添加如下配置 -->
+  <import resource="classpath:META-INF/cxf/cxf.xml" />
+  <!-- <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" /> -->
+  <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+  <!-- 只能处理字符串，Web页面不能用json对象提交，使用JSON的方法转换：JSON.stringify(fdata) -->
+  <!-- 页面提交JSon数据： 坑多 -->
+  <!-- 对于Jettison，不能直接是对象的json，需要包装一层，例：对象A，提交的json格式为{'aaaa'（随机变量）: {A的属性列表}} -->
+  <!-- 对于Jackson，需要直接是对象的json，例：对象A，提交的json格式为{A的属性列表} -->
+  <!-- Jettison JSon Provider -->
+  <bean
+    id="jsonProvider"
+    class="org.apache.cxf.jaxrs.provider.json.JSONProvider">
+    <property
+      name="dropRootElement"
+      value="true" />
+    <property
+      name="dropCollectionWrapperElement"
+      value="true" />
+    <property
+      name="serializeAsArray"
+      value="true" />
+    <!-- <property name="jaxbElementClassMap"> <util:map id="jaxbElementClassMap"> <entry key="com.hp.ciic.prj.entity.ProjectInfo" value="Project" /> </util:map> </property> -->
+  </bean>
+  <!-- jackson JSon provider -->
+  <bean
+    id="jacksonMapper"
+    class="com.fasterxml.jackson.databind.ObjectMapper">
+    <property name="dateFormat">
+      <!-- <bean class="java.text.SimpleDateFormat"> -->
+      <bean class="com.yum.itsm.ddtalk.common.ws.CustDateFormat">
+        <!-- <constructor-arg type="java.lang.String" value="yyyy-MM-dd'T'HH:mm:ss.SSSZ" /> -->
+        <constructor-arg
+          type="java.lang.String"
+          value="yyyy-MM-dd HH:mm:ss" />
+      </bean>
+    </property>
+  </bean>
+  <!-- 将未知属性造成的转换失败关闭 -->
+  <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property
+      name="targetObject"
+      ref="jacksonMapper" />
+    <property
+      name="targetMethod"
+      value="configure" />
+    <property name="arguments">
+      <list>
+        <value type="com.fasterxml.jackson.databind.DeserializationFeature">FAIL_ON_UNKNOWN_PROPERTIES</value>
+        <value>false</value>
+      </list>
+    </property>
+  </bean>
+  <bean
+    id="jacksonJaxbJsonProvider"
+    class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider" />
+  <bean
+    id="jacksonProvider"
+    class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider">
+    <property
+      name="mapper"
+      ref="jacksonMapper" />
+  </bean>
+
+  <!-- 这里的地址很重要，客户端需要通过这个地址来访问WebService -->
+  <jaxrs:server
+    id="projectRestService"
+    address="/">
+    <jaxrs:serviceBeans>
+	  <bean class="com.yum.itsm.ddtalk.common.ws.CommonRestService" />
+    </jaxrs:serviceBeans>
+    <jaxrs:extensionMappings>
+      <entry
+        key="json"
+        value="application/json" />
+      <entry
+        key="xml"
+        value="application/xml" />
+    </jaxrs:extensionMappings>
+    <jaxrs:languageMappings>
+      <entry
+        key="en"
+        value="en-gb" />
+    </jaxrs:languageMappings>
+    <jaxrs:providers>
+      <!-- <ref bean="jsonProvider" /> -->
+      <ref bean="jacksonProvider" />
+    </jaxrs:providers>
+    <jaxrs:inInterceptors>
+      <bean class="com.yum.itsm.ddtalk.common.ws.CXFInInterceptor" />
+    </jaxrs:inInterceptors>
+    <jaxrs:outInterceptors>
+      <bean class="com.yum.itsm.ddtalk.common.ws.CXFOutInterceptor" />
+      <!-- <bean class="org.apache.cxf.jaxrs.provider.jsonp.JsonpPostStreamInterceptor" /> -->
+    </jaxrs:outInterceptors>
+  </jaxrs:server>
+</beans>
