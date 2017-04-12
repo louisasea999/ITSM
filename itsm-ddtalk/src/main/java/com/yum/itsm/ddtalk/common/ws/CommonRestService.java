@@ -18,6 +18,8 @@ import javax.ws.rs.core.UriInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.yum.itsm.ddtalk.common.dto.BusinessMsgDTO;
+
 @Path(value="/")
 @Produces("application/json")
 public class CommonRestService extends BaseRestService {
@@ -43,14 +45,14 @@ public class CommonRestService extends BaseRestService {
 	@Path("/date")
     @Consumes({ "application/json", "application/xml" })
     @Produces({ "application/json; charset=UTF-8", "application/xml; charset=UTF-8" })
-	public MsgDTO getCurrentDate(@Context UriInfo uriInfo) {
+	public BusinessMsgDTO getCurrentDate(@Context UriInfo uriInfo) {
 		logger.info("#### getCurrentDate #####");
 		logger.info("Method : " + request.getMethod());
 		logger.info("uri : " + uriInfo.getPath());
 		logger.info("uriInfo : " + uriInfo);
 //		logger.info(uriInfo.getPathParameters());
 		logger.info(uriInfo.getQueryParameters().toString());
-		MsgDTO msgDTO = new MsgDTO();
+		BusinessMsgDTO msgDTO = new BusinessMsgDTO();
 		msgDTO.setData(new Date());
 		return msgDTO;
 	}

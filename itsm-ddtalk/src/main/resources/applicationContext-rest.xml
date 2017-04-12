@@ -85,6 +85,8 @@
     address="/">
     <jaxrs:serviceBeans>
 	  <bean class="com.yum.itsm.ddtalk.common.ws.CommonRestService" />
+	  <bean class="com.yum.itsm.ddtalk.busi.ws.VendorInfoRestService" />
+	  <bean class="com.yum.itsm.ddtalk.busi.ws.StoreInfoRestService" />
     </jaxrs:serviceBeans>
     <jaxrs:extensionMappings>
       <entry

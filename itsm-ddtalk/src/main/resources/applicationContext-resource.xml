@@ -115,4 +115,10 @@
 			expression="(execution(* com.yum.itsm.ddtalk..service.*.*(..)))" />
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
 	</aop:config>
+	
+	<bean id="httpClientService" class="com.yum.itsm.ddtalk.common.service.impl.HttpClientServiceImpl" />	
+	<bean id="ddTalkService" class="com.yum.itsm.ddtalk.common.service.impl.DDTalkServiceImpl">
+		<property name="corpId" value="${ddtalk.corpid}" />
+		<property name="corpSecret" value="${ddtalk.corpsecret}" />
+	</bean>
 </beans>
