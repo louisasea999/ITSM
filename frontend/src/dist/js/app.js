@@ -1,21 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Gist
- @zhijunzhou
- Sign out
- Watch 1,350
-  Star 15,785
- Fork 5,712 almasaeed2010/AdminLTE
- Code  Issues 99  Pull requests 11  Projects 1  Wiki  Pulse  Graphs
-Branch: master Find file Copy pathAdminLTE/dist/js/app.js
-a1f6bb0  on 27 Feb
-@almasaeed2010 almasaeed2010 Update version to 2.3.12
-16 contributors @almasaeed2010 @YasserHassan @xvonabur @suvjunmd @Skasi @simivar @zviryatko @pbihler @0xMatt @marcusportmann @lxsameer @lukechilds @Dennis14e @fschaeffer @Strato @blz-ea
-RawBlameHistory     
-773 lines (708 sloc)  22.7 KB
 /*! AdminLTE app.js
  * ================
  * Main JS application file for AdminLTE v2. This file
@@ -788,5 +770,3 @@ function _init() {
     });
   };
 }(jQuery));
-Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help
