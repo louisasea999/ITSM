@@ -1,68 +1,6 @@
 $(function () {
 
-    var baseUrl = 'http://localhost:8088/rest/api/2/'
-
-    var issues = {
-        "sections": [
-            {
-                "label": "History Search",
-                "sub": "Showing 2 of 2 matching issues",
-                "id": "hs",
-                "issues": [
-                    {
-                        "key": "YUM-2",
-                        "keyHtml": "YUM-2",
-                        "img": "/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
-                        "summary": "Test issue 2",
-                        "summaryText": "Test issue 2"
-                    },
-                    {
-                        "key": "YUM-1",
-                        "keyHtml": "YUM-1",
-                        "img": "/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
-                        "summary": "Test issue retrieve",
-                        "summaryText": "Test issue retrieve"
-                    }
-                ]
-            }
-        ]
-    };
-
-    var _issue = (function () {
-
-        return {
-            getIssues: function () {
-                var dfd = $.Deferred();
-                $.ajax({
-                    url: baseUrl + 'issue/picker',
-                    // url: 'https://api.spotify.com/v1/search?q=a&type=artist',
-                    method: 'GET',
-                    crossDomain:  true,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Atlassian-Token': 'no-check',
-                        'Access-Control-Allow-Origin': '*',
-                        'Authorization': 'Basic emhpanVuLnpob3UxOTkyOnp6ajE5OTJqaXJh'
-                    },
-                    success: function (data, status, xhr) {
-                        dfd.resolve(data, status, xhr);
-                    },
-                    error: function (xhr) {
-                        dfd.resolve(xhr);
-                    }
-                });
-                return dfd.promise();
-            }
-        }
-
-    })();
-
-    // _issue.getIssues().done(function(data, status, xhr) {
-    //     console.log(data);
-    // });
-
-    function AppViewModel() {
-        this.firstName = "Bert";
+    function AppViewModel() {        
         this.issues = [
             {
                 "key": "YUM-2",
@@ -270,18 +208,6 @@ $(function () {
         }
     }
 
-    // Activates knockout.js
     ko.applyBindings(new AppViewModel());
-
-    $('#issueTable').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "pageLength": 8
-    });
-
 
 });
