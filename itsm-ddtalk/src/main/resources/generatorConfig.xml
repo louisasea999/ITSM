@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<classPathEntry location="C:\maven_repository\postgresql\postgresql\9.1-901.jdbc4\postgresql-9.1-901.jdbc4.jar" />
+
+	<context id="public" targetRuntime="MyBatis3">
+
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="org.postgresql.Driver"
+			connectionURL="jdbc:postgresql://127.0.0.1:5432/ciic" userId="postgres" password="1q2w3e4r5t">
+			<property name="enableSubPackages" value="false" />
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<javaModelGenerator
+			targetPackage="com.ciicsh.commonservice.notification.entity"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator
+			targetPackage="mybatis"
+			targetProject="src/main/resources">
+			<property name="enableSubPackages" value="false" />
+		</sqlMapGenerator>
+
+		<javaClientGenerator
+			type="XMLMAPPER"
+			targetPackage="com.ciicsh.commonservice.notification.mapper"
+			targetProject="src/main/java">
+			<property name="enableSubPackages" value="false" />
+			<property name="exampleMethodVisibility" value="public" />
+		</javaClientGenerator>
+
+<!-- 		<table schema="notification" tableName="early_alarm_mail_status" domainObjectName="EarlyAlarmMailStatus">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+
+		<table schema="notification" tableName="early_alarm_order_receiver" domainObjectName="EarlyAlarmOrderReceiver">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+
+		<table schema="notification" tableName="early_alarm_order_result" domainObjectName="EarlyAlarmOrderResult">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="order_switch" domainObjectName="OrderSwitch">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_order" domainObjectName="EarlyAlarmOrder">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_rule" domainObjectName="EarlyAlarmRule">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_rule_cond_grp" domainObjectName="EarlyAlarmRuleCondGrp">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_rule_cond" domainObjectName="EarlyAlarmRuleCond">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_rule_receiver" domainObjectName="EarlyAlarmRuleReceiver">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_rule_resource" domainObjectName="EarlyAlarmRuleResource">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_rule_result" domainObjectName="EarlyAlarmRuleResult">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_object" domainObjectName="EarlyAlarmObject">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		
+		<table schema="notification" tableName="early_alarm_cond_col_opt" domainObjectName="EarlyAlarmCondColOpt">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+ -->
+		
+		<table schema="notification" tableName="early_alarm_column" domainObjectName="EarlyAlarmColumn">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+	</context>
+</generatorConfiguration>

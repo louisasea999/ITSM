@@ -1,5 +1,8 @@
 package com.yum.itsm.ddtalk.common.entity;
 
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlType;
+
 public class Department {
 	private Integer id;
 	private Boolean createDeptGroup;
