@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yum.itsm.ddtalk.busi.mapper.EmpleeInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.yum.itsm.ddtalk.busi.entity.EmpleeInfo" >
+    <result column="emplee_id" property="empleeId" jdbcType="INTEGER" />
+    <result column="emplee_name" property="empleeName" jdbcType="VARCHAR" />
+    <result column="service_desk_id" property="serviceDeskId" jdbcType="INTEGER" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    emplee_id, emplee_name, service_desk_id, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yum.itsm.ddtalk.busi.entity.EmpleeInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from itsm2.emplee_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.EmpleeInfoExample" >
+    delete from itsm2.emplee_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yum.itsm.ddtalk.busi.entity.EmpleeInfo" >
+    insert into itsm2.emplee_info (emplee_id, emplee_name, service_desk_id, 
+      remark)
+    values (#{empleeId,jdbcType=INTEGER}, #{empleeName,jdbcType=VARCHAR}, #{serviceDeskId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yum.itsm.ddtalk.busi.entity.EmpleeInfo" >
+    insert into itsm2.emplee_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="empleeId != null" >
+        emplee_id,
+      </if>
+      <if test="empleeName != null" >
+        emplee_name,
+      </if>
+      <if test="serviceDeskId != null" >
+        service_desk_id,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="empleeId != null" >
+        #{empleeId,jdbcType=INTEGER},
+      </if>
+      <if test="empleeName != null" >
+        #{empleeName,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceDeskId != null" >
+        #{serviceDeskId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.EmpleeInfoExample" resultType="java.lang.Integer" >
+    select count(*) from itsm2.emplee_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update itsm2.emplee_info
+    <set >
+      <if test="record.empleeId != null" >
+        emplee_id = #{record.empleeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.empleeName != null" >
+        emplee_name = #{record.empleeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceDeskId != null" >
+        service_desk_id = #{record.serviceDeskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update itsm2.emplee_info
+    set emplee_id = #{record.empleeId,jdbcType=INTEGER},
+      emplee_name = #{record.empleeName,jdbcType=VARCHAR},
+      service_desk_id = #{record.serviceDeskId,jdbcType=INTEGER},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

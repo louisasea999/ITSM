@@ -13,7 +13,7 @@
 		</commentGenerator>
 
 		<jdbcConnection driverClass="org.postgresql.Driver"
-			connectionURL="jdbc:postgresql://127.0.0.1:5432/ciic" userId="postgres" password="1q2w3e4r5t">
+			connectionURL="jdbc:postgresql://127.0.0.1:5432/itsm" userId="postgres" password="1q2w3e4r5t">
 			<property name="enableSubPackages" value="false" />
 		</jdbcConnection>
 
@@ -22,7 +22,7 @@
 		</javaTypeResolver>
 
 		<javaModelGenerator
-			targetPackage="com.ciicsh.commonservice.notification.entity"
+			targetPackage="com.yum.itsm.ddtalk.busi.entity"
 			targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
 			<property name="trimStrings" value="true" />
@@ -36,66 +36,25 @@
 
 		<javaClientGenerator
 			type="XMLMAPPER"
-			targetPackage="com.ciicsh.commonservice.notification.mapper"
+			targetPackage="com.yum.itsm.ddtalk.busi.mapper"
 			targetProject="src/main/java">
 			<property name="enableSubPackages" value="false" />
 			<property name="exampleMethodVisibility" value="public" />
 		</javaClientGenerator>
-
-<!-- 		<table schema="notification" tableName="early_alarm_mail_status" domainObjectName="EarlyAlarmMailStatus">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
-
-		<table schema="notification" tableName="early_alarm_order_receiver" domainObjectName="EarlyAlarmOrderReceiver">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
-
-		<table schema="notification" tableName="early_alarm_order_result" domainObjectName="EarlyAlarmOrderResult">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
 		
-		<table schema="notification" tableName="order_switch" domainObjectName="OrderSwitch">
+		<table schema="itsm2" tableName="emplee_info" domainObjectName="EmpleeInfo">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
-		
-		<table schema="notification" tableName="early_alarm_order" domainObjectName="EarlyAlarmOrder">
+		<table schema="itsm2" tableName="dining_room" domainObjectName="DiningRoom">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
-		
-		<table schema="notification" tableName="early_alarm_rule" domainObjectName="EarlyAlarmRule">
+		<table schema="itsm2" tableName="district_info" domainObjectName="DistrictInfo">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
-		
-		<table schema="notification" tableName="early_alarm_rule_cond_grp" domainObjectName="EarlyAlarmRuleCondGrp">
+		<table schema="itsm2" tableName="service_desk" domainObjectName="ServiceDesk">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
-		
-		<table schema="notification" tableName="early_alarm_rule_cond" domainObjectName="EarlyAlarmRuleCond">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
-		
-		<table schema="notification" tableName="early_alarm_rule_receiver" domainObjectName="EarlyAlarmRuleReceiver">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
-		
-		<table schema="notification" tableName="early_alarm_rule_resource" domainObjectName="EarlyAlarmRuleResource">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
-		
-		<table schema="notification" tableName="early_alarm_rule_result" domainObjectName="EarlyAlarmRuleResult">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
-		
-		<table schema="notification" tableName="early_alarm_object" domainObjectName="EarlyAlarmObject">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
-		
-		<table schema="notification" tableName="early_alarm_cond_col_opt" domainObjectName="EarlyAlarmCondColOpt">
-			<property name="useActualColumnNames" value="false"/>
-		</table>
- -->
-		
-		<table schema="notification" tableName="early_alarm_column" domainObjectName="EarlyAlarmColumn">
+		<table schema="itsm2" tableName="sup_project_group" domainObjectName="SupProjectGroup">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
 	</context>

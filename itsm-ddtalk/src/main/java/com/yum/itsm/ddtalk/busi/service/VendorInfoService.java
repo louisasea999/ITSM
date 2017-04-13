@@ -6,4 +6,6 @@ import com.yum.itsm.ddtalk.common.entity.Department;
 
 public interface VendorInfoService {
 	List<Department> getDepartmentList();
+	
+	void ddTalkDepartmentUpdater();
 }

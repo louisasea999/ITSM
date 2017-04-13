@@ -6,8 +6,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
  	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				 <ref bean="triggerAlarmCheckerTrigger" />
-				 <ref bean="triggerAlarmMailerTrigger" />
+				 <ref bean="ddTalkDepartmentUpdaterTrigger" />
 			</list>
 		</property>
 	</bean>
