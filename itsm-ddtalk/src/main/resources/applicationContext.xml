@@ -8,9 +8,10 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-	<!-- -->
+	<!-- 
 	<beans:import resource="spring-job.xml"></beans:import>
 	<beans:import resource="scheduler-factory.xml"></beans:import>
+	-->
 	<beans:import resource="applicationContext-resources.xml"/>
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 

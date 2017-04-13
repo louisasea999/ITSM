@@ -114,52 +114,52 @@ public class SupProjectGroupExample {
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdEqualTo(Long value) {
             addCriterion("sup_project_group_id =", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdNotEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdNotEqualTo(Long value) {
             addCriterion("sup_project_group_id <>", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdGreaterThan(Integer value) {
+        public Criteria andSupProjectGroupIdGreaterThan(Long value) {
             addCriterion("sup_project_group_id >", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdGreaterThanOrEqualTo(Long value) {
             addCriterion("sup_project_group_id >=", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdLessThan(Integer value) {
+        public Criteria andSupProjectGroupIdLessThan(Long value) {
             addCriterion("sup_project_group_id <", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdLessThanOrEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdLessThanOrEqualTo(Long value) {
             addCriterion("sup_project_group_id <=", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdIn(List<Integer> values) {
+        public Criteria andSupProjectGroupIdIn(List<Long> values) {
             addCriterion("sup_project_group_id in", values, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdNotIn(List<Integer> values) {
+        public Criteria andSupProjectGroupIdNotIn(List<Long> values) {
             addCriterion("sup_project_group_id not in", values, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdBetween(Integer value1, Integer value2) {
+        public Criteria andSupProjectGroupIdBetween(Long value1, Long value2) {
             addCriterion("sup_project_group_id between", value1, value2, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andSupProjectGroupIdNotBetween(Long value1, Long value2) {
             addCriterion("sup_project_group_id not between", value1, value2, "supProjectGroupId");
             return (Criteria) this;
         }

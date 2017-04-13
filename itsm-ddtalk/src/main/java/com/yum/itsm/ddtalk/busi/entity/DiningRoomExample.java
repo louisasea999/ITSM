@@ -114,52 +114,52 @@ public class DiningRoomExample {
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdEqualTo(Integer value) {
+        public Criteria andDiningRoomIdEqualTo(Long value) {
             addCriterion("dining_room_id =", value, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdNotEqualTo(Integer value) {
+        public Criteria andDiningRoomIdNotEqualTo(Long value) {
             addCriterion("dining_room_id <>", value, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdGreaterThan(Integer value) {
+        public Criteria andDiningRoomIdGreaterThan(Long value) {
             addCriterion("dining_room_id >", value, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andDiningRoomIdGreaterThanOrEqualTo(Long value) {
             addCriterion("dining_room_id >=", value, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdLessThan(Integer value) {
+        public Criteria andDiningRoomIdLessThan(Long value) {
             addCriterion("dining_room_id <", value, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdLessThanOrEqualTo(Integer value) {
+        public Criteria andDiningRoomIdLessThanOrEqualTo(Long value) {
             addCriterion("dining_room_id <=", value, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdIn(List<Integer> values) {
+        public Criteria andDiningRoomIdIn(List<Long> values) {
             addCriterion("dining_room_id in", values, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdNotIn(List<Integer> values) {
+        public Criteria andDiningRoomIdNotIn(List<Long> values) {
             addCriterion("dining_room_id not in", values, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdBetween(Integer value1, Integer value2) {
+        public Criteria andDiningRoomIdBetween(Long value1, Long value2) {
             addCriterion("dining_room_id between", value1, value2, "diningRoomId");
             return (Criteria) this;
         }
 
-        public Criteria andDiningRoomIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andDiningRoomIdNotBetween(Long value1, Long value2) {
             addCriterion("dining_room_id not between", value1, value2, "diningRoomId");
             return (Criteria) this;
         }
@@ -244,52 +244,52 @@ public class DiningRoomExample {
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdEqualTo(Integer value) {
+        public Criteria andDistrictIdEqualTo(Long value) {
             addCriterion("district_id =", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdNotEqualTo(Integer value) {
+        public Criteria andDistrictIdNotEqualTo(Long value) {
             addCriterion("district_id <>", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdGreaterThan(Integer value) {
+        public Criteria andDistrictIdGreaterThan(Long value) {
             addCriterion("district_id >", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andDistrictIdGreaterThanOrEqualTo(Long value) {
             addCriterion("district_id >=", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdLessThan(Integer value) {
+        public Criteria andDistrictIdLessThan(Long value) {
             addCriterion("district_id <", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdLessThanOrEqualTo(Integer value) {
+        public Criteria andDistrictIdLessThanOrEqualTo(Long value) {
             addCriterion("district_id <=", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdIn(List<Integer> values) {
+        public Criteria andDistrictIdIn(List<Long> values) {
             addCriterion("district_id in", values, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdNotIn(List<Integer> values) {
+        public Criteria andDistrictIdNotIn(List<Long> values) {
             addCriterion("district_id not in", values, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdBetween(Integer value1, Integer value2) {
+        public Criteria andDistrictIdBetween(Long value1, Long value2) {
             addCriterion("district_id between", value1, value2, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andDistrictIdNotBetween(Long value1, Long value2) {
             addCriterion("district_id not between", value1, value2, "districtId");
             return (Criteria) this;
         }

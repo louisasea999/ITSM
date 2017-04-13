@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yum.itsm.ddtalk.busi.mapper.DiningRoomMapper" >
   <resultMap id="BaseResultMap" type="com.yum.itsm.ddtalk.busi.entity.DiningRoom" >
-    <result column="dining_room_id" property="diningRoomId" jdbcType="INTEGER" />
+    <id column="dining_room_id" property="diningRoomId" jdbcType="BIGINT" />
     <result column="dining_room_name" property="diningRoomName" jdbcType="VARCHAR" />
-    <result column="district_id" property="districtId" jdbcType="INTEGER" />
+    <result column="district_id" property="districtId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,6 +81,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from itsm2.dining_room
+    where dining_room_id = #{diningRoomId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from itsm2.dining_room
+    where dining_room_id = #{diningRoomId,jdbcType=BIGINT}
+  </delete>
   <delete id="deleteByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningRoomExample" >
     delete from itsm2.dining_room
     <if test="_parameter != null" >
@@ -90,7 +100,7 @@
   <insert id="insert" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningRoom" >
     insert into itsm2.dining_room (dining_room_id, dining_room_name, district_id
       )
-    values (#{diningRoomId,jdbcType=INTEGER}, #{diningRoomName,jdbcType=VARCHAR}, #{districtId,jdbcType=INTEGER}
+    values (#{diningRoomId,jdbcType=BIGINT}, #{diningRoomName,jdbcType=VARCHAR}, #{districtId,jdbcType=BIGINT}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningRoom" >
@@ -108,13 +118,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="diningRoomId != null" >
-        #{diningRoomId,jdbcType=INTEGER},
+        #{diningRoomId,jdbcType=BIGINT},
       </if>
       <if test="diningRoomName != null" >
         #{diningRoomName,jdbcType=VARCHAR},
       </if>
       <if test="districtId != null" >
-        #{districtId,jdbcType=INTEGER},
+        #{districtId,jdbcType=BIGINT},
       </if>
     </trim>
   </insert>
@@ -128,13 +138,13 @@
     update itsm2.dining_room
     <set >
       <if test="record.diningRoomId != null" >
-        dining_room_id = #{record.diningRoomId,jdbcType=INTEGER},
+        dining_room_id = #{record.diningRoomId,jdbcType=BIGINT},
       </if>
       <if test="record.diningRoomName != null" >
         dining_room_name = #{record.diningRoomName,jdbcType=VARCHAR},
       </if>
       <if test="record.districtId != null" >
-        district_id = #{record.districtId,jdbcType=INTEGER},
+        district_id = #{record.districtId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -143,11 +153,29 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update itsm2.dining_room
-    set dining_room_id = #{record.diningRoomId,jdbcType=INTEGER},
+    set dining_room_id = #{record.diningRoomId,jdbcType=BIGINT},
       dining_room_name = #{record.diningRoomName,jdbcType=VARCHAR},
-      district_id = #{record.districtId,jdbcType=INTEGER}
+      district_id = #{record.districtId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningRoom" >
+    update itsm2.dining_room
+    <set >
+      <if test="diningRoomName != null" >
+        dining_room_name = #{diningRoomName,jdbcType=VARCHAR},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where dining_room_id = #{diningRoomId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningRoom" >
+    update itsm2.dining_room
+    set dining_room_name = #{diningRoomName,jdbcType=VARCHAR},
+      district_id = #{districtId,jdbcType=BIGINT}
+    where dining_room_id = #{diningRoomId,jdbcType=BIGINT}
   </update>
 </mapper>

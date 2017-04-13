@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yum.itsm.ddtalk.busi.mapper.SupProjectGroupMapper" >
   <resultMap id="BaseResultMap" type="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup" >
-    <result column="sup_project_group_id" property="supProjectGroupId" jdbcType="INTEGER" />
+    <id column="sup_project_group_id" property="supProjectGroupId" jdbcType="BIGINT" />
     <result column="sup_project_group_name" property="supProjectGroupName" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
@@ -81,6 +81,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from itsm2.sup_project_group
+    where sup_project_group_id = #{supProjectGroupId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from itsm2.sup_project_group
+    where sup_project_group_id = #{supProjectGroupId,jdbcType=BIGINT}
+  </delete>
   <delete id="deleteByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.SupProjectGroupExample" >
     delete from itsm2.sup_project_group
     <if test="_parameter != null" >
@@ -90,7 +100,7 @@
   <insert id="insert" parameterType="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup" >
     insert into itsm2.sup_project_group (sup_project_group_id, sup_project_group_name, 
       remark)
-    values (#{supProjectGroupId,jdbcType=INTEGER}, #{supProjectGroupName,jdbcType=VARCHAR}, 
+    values (#{supProjectGroupId,jdbcType=BIGINT}, #{supProjectGroupName,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup" >
@@ -108,7 +118,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="supProjectGroupId != null" >
-        #{supProjectGroupId,jdbcType=INTEGER},
+        #{supProjectGroupId,jdbcType=BIGINT},
       </if>
       <if test="supProjectGroupName != null" >
         #{supProjectGroupName,jdbcType=VARCHAR},
@@ -128,7 +138,7 @@
     update itsm2.sup_project_group
     <set >
       <if test="record.supProjectGroupId != null" >
-        sup_project_group_id = #{record.supProjectGroupId,jdbcType=INTEGER},
+        sup_project_group_id = #{record.supProjectGroupId,jdbcType=BIGINT},
       </if>
       <if test="record.supProjectGroupName != null" >
         sup_project_group_name = #{record.supProjectGroupName,jdbcType=VARCHAR},
@@ -143,11 +153,29 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update itsm2.sup_project_group
-    set sup_project_group_id = #{record.supProjectGroupId,jdbcType=INTEGER},
+    set sup_project_group_id = #{record.supProjectGroupId,jdbcType=BIGINT},
       sup_project_group_name = #{record.supProjectGroupName,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup" >
+    update itsm2.sup_project_group
+    <set >
+      <if test="supProjectGroupName != null" >
+        sup_project_group_name = #{supProjectGroupName,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sup_project_group_id = #{supProjectGroupId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup" >
+    update itsm2.sup_project_group
+    set sup_project_group_name = #{supProjectGroupName,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where sup_project_group_id = #{supProjectGroupId,jdbcType=BIGINT}
   </update>
 </mapper>

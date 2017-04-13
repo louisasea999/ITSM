@@ -10,13 +10,21 @@ public interface ServiceDeskMapper {
 
     int deleteByExample(ServiceDeskExample example);
 
+    int deleteByPrimaryKey(Long serviceDeskId);
+
     int insert(ServiceDesk record);
 
     int insertSelective(ServiceDesk record);
 
     List<ServiceDesk> selectByExample(ServiceDeskExample example);
 
+    ServiceDesk selectByPrimaryKey(Long serviceDeskId);
+
     int updateByExampleSelective(@Param("record") ServiceDesk record, @Param("example") ServiceDeskExample example);
 
     int updateByExample(@Param("record") ServiceDesk record, @Param("example") ServiceDeskExample example);
+
+    int updateByPrimaryKeySelective(ServiceDesk record);
+
+    int updateByPrimaryKey(ServiceDesk record);
 }

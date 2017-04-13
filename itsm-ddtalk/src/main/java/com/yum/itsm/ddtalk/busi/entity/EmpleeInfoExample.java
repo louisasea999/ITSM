@@ -114,52 +114,62 @@ public class EmpleeInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdEqualTo(Integer value) {
+        public Criteria andEmpleeIdEqualTo(String value) {
             addCriterion("emplee_id =", value, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdNotEqualTo(Integer value) {
+        public Criteria andEmpleeIdNotEqualTo(String value) {
             addCriterion("emplee_id <>", value, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdGreaterThan(Integer value) {
+        public Criteria andEmpleeIdGreaterThan(String value) {
             addCriterion("emplee_id >", value, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andEmpleeIdGreaterThanOrEqualTo(String value) {
             addCriterion("emplee_id >=", value, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdLessThan(Integer value) {
+        public Criteria andEmpleeIdLessThan(String value) {
             addCriterion("emplee_id <", value, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdLessThanOrEqualTo(Integer value) {
+        public Criteria andEmpleeIdLessThanOrEqualTo(String value) {
             addCriterion("emplee_id <=", value, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdIn(List<Integer> values) {
+        public Criteria andEmpleeIdLike(String value) {
+            addCriterion("emplee_id like", value, "empleeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmpleeIdNotLike(String value) {
+            addCriterion("emplee_id not like", value, "empleeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andEmpleeIdIn(List<String> values) {
             addCriterion("emplee_id in", values, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdNotIn(List<Integer> values) {
+        public Criteria andEmpleeIdNotIn(List<String> values) {
             addCriterion("emplee_id not in", values, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdBetween(Integer value1, Integer value2) {
+        public Criteria andEmpleeIdBetween(String value1, String value2) {
             addCriterion("emplee_id between", value1, value2, "empleeId");
             return (Criteria) this;
         }
 
-        public Criteria andEmpleeIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andEmpleeIdNotBetween(String value1, String value2) {
             addCriterion("emplee_id not between", value1, value2, "empleeId");
             return (Criteria) this;
         }
@@ -244,52 +254,52 @@ public class EmpleeInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdEqualTo(Integer value) {
+        public Criteria andServiceDeskIdEqualTo(Long value) {
             addCriterion("service_desk_id =", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdNotEqualTo(Integer value) {
+        public Criteria andServiceDeskIdNotEqualTo(Long value) {
             addCriterion("service_desk_id <>", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdGreaterThan(Integer value) {
+        public Criteria andServiceDeskIdGreaterThan(Long value) {
             addCriterion("service_desk_id >", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andServiceDeskIdGreaterThanOrEqualTo(Long value) {
             addCriterion("service_desk_id >=", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdLessThan(Integer value) {
+        public Criteria andServiceDeskIdLessThan(Long value) {
             addCriterion("service_desk_id <", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdLessThanOrEqualTo(Integer value) {
+        public Criteria andServiceDeskIdLessThanOrEqualTo(Long value) {
             addCriterion("service_desk_id <=", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdIn(List<Integer> values) {
+        public Criteria andServiceDeskIdIn(List<Long> values) {
             addCriterion("service_desk_id in", values, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdNotIn(List<Integer> values) {
+        public Criteria andServiceDeskIdNotIn(List<Long> values) {
             addCriterion("service_desk_id not in", values, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdBetween(Integer value1, Integer value2) {
+        public Criteria andServiceDeskIdBetween(Long value1, Long value2) {
             addCriterion("service_desk_id between", value1, value2, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andServiceDeskIdNotBetween(Long value1, Long value2) {
             addCriterion("service_desk_id not between", value1, value2, "serviceDeskId");
             return (Criteria) this;
         }

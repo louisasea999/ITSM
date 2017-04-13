@@ -10,13 +10,21 @@ public interface DistrictInfoMapper {
 
     int deleteByExample(DistrictInfoExample example);
 
+    int deleteByPrimaryKey(Long districtId);
+
     int insert(DistrictInfo record);
 
     int insertSelective(DistrictInfo record);
 
     List<DistrictInfo> selectByExample(DistrictInfoExample example);
 
+    DistrictInfo selectByPrimaryKey(Long districtId);
+
     int updateByExampleSelective(@Param("record") DistrictInfo record, @Param("example") DistrictInfoExample example);
 
     int updateByExample(@Param("record") DistrictInfo record, @Param("example") DistrictInfoExample example);
+
+    int updateByPrimaryKeySelective(DistrictInfo record);
+
+    int updateByPrimaryKey(DistrictInfo record);
 }

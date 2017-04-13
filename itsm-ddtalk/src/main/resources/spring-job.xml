@@ -4,16 +4,16 @@
 	xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 	
-	<bean id="ddTalkDepartmentUpdaterJob"
+	<bean id="ddTalkDeptUpdaterJob"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="vendorInfoService"/>
-		<property name="targetMethod" value="ddTalkDepartmentUpdater"/>
+		<property name="targetMethod" value="ddTalkDeptUpdater"/>
 	</bean>
 
-	<bean name="ddTalkDepartmentUpdaterTrigger"
+	<bean name="ddTalkDeptUpdaterTrigger"
 		class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail">
-			<ref bean="ddTalkDepartmentUpdaterJob" />
+			<ref bean="ddTalkDeptUpdaterJob" />
 		</property>
 		<property name="cronExpression">
 			<value>0/10 * * * * ? *</value>

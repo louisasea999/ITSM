@@ -2,10 +2,10 @@ package com.yum.itsm.ddtalk.busi.service;
 
 import java.util.List;
 
-import com.yum.itsm.ddtalk.common.entity.Department;
+import com.yum.itsm.ddtalk.busi.entity.SupProjectGroup;
 
 public interface VendorInfoService {
-	List<Department> getDepartmentList();
+	List<SupProjectGroup> getDeptsFromDDTalk();
 	
-	void ddTalkDepartmentUpdater();
+	void ddTalkDeptUpdater();
 }

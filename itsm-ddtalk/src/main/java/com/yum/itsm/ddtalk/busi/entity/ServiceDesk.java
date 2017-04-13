@@ -3,21 +3,21 @@ package com.yum.itsm.ddtalk.busi.entity;
 import java.util.List;
 
 public class ServiceDesk {
-    private Integer serviceDeskId;
+    private Long serviceDeskId;
 
     private String serviceDeskName;
 
-    private Integer supProjectGroupId;
+    private Long supProjectGroupId;
 
     private String remark;
     
-    private List<EmpleeInfo> empleeInfo;
+    private List<EmpleeInfo> empleeInfos;
 
-    public Integer getServiceDeskId() {
+    public Long getServiceDeskId() {
         return serviceDeskId;
     }
 
-    public void setServiceDeskId(Integer serviceDeskId) {
+    public void setServiceDeskId(Long serviceDeskId) {
         this.serviceDeskId = serviceDeskId;
     }
 
@@ -29,11 +29,11 @@ public class ServiceDesk {
         this.serviceDeskName = serviceDeskName == null ? null : serviceDeskName.trim();
     }
 
-    public Integer getSupProjectGroupId() {
+    public Long getSupProjectGroupId() {
         return supProjectGroupId;
     }
 
-    public void setSupProjectGroupId(Integer supProjectGroupId) {
+    public void setSupProjectGroupId(Long supProjectGroupId) {
         this.supProjectGroupId = supProjectGroupId;
     }
 
@@ -45,11 +45,11 @@ public class ServiceDesk {
         this.remark = remark == null ? null : remark.trim();
     }
 
-	public List<EmpleeInfo> getEmpleeInfo() {
-		return empleeInfo;
+	public List<EmpleeInfo> getEmpleeInfos() {
+		return empleeInfos;
 	}
 
-	public void setEmpleeInfo(List<EmpleeInfo> empleeInfo) {
-		this.empleeInfo = empleeInfo;
+	public void setEmpleeInfos(List<EmpleeInfo> empleeInfos) {
+		this.empleeInfos = empleeInfos;
 	}
 }

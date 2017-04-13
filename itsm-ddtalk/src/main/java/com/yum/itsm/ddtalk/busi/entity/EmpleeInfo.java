@@ -1,20 +1,20 @@
 package com.yum.itsm.ddtalk.busi.entity;
 
 public class EmpleeInfo {
-    private Integer empleeId;
+    private String empleeId;
 
     private String empleeName;
 
-    private Integer serviceDeskId;
+    private Long serviceDeskId;
 
     private String remark;
 
-    public Integer getEmpleeId() {
+    public String getEmpleeId() {
         return empleeId;
     }
 
-    public void setEmpleeId(Integer empleeId) {
-        this.empleeId = empleeId;
+    public void setEmpleeId(String empleeId) {
+        this.empleeId = empleeId == null ? null : empleeId.trim();
     }
 
     public String getEmpleeName() {
@@ -25,11 +25,11 @@ public class EmpleeInfo {
         this.empleeName = empleeName == null ? null : empleeName.trim();
     }
 
-    public Integer getServiceDeskId() {
+    public Long getServiceDeskId() {
         return serviceDeskId;
     }
 
-    public void setServiceDeskId(Integer serviceDeskId) {
+    public void setServiceDeskId(Long serviceDeskId) {
         this.serviceDeskId = serviceDeskId;
     }
 

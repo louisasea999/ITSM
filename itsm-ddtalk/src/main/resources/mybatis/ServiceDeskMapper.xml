@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yum.itsm.ddtalk.busi.mapper.ServiceDeskMapper" >
   <resultMap id="BaseResultMap" type="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
-    <result column="service_desk_id" property="serviceDeskId" jdbcType="INTEGER" />
+    <id column="service_desk_id" property="serviceDeskId" jdbcType="BIGINT" />
     <result column="service_desk_name" property="serviceDeskName" jdbcType="VARCHAR" />
-    <result column="sup_project_group_id" property="supProjectGroupId" jdbcType="INTEGER" />
+    <result column="sup_project_group_id" property="supProjectGroupId" jdbcType="BIGINT" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -82,6 +82,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from itsm2.service_desk
+    where service_desk_id = #{serviceDeskId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from itsm2.service_desk
+    where service_desk_id = #{serviceDeskId,jdbcType=BIGINT}
+  </delete>
   <delete id="deleteByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.ServiceDeskExample" >
     delete from itsm2.service_desk
     <if test="_parameter != null" >
@@ -91,7 +101,7 @@
   <insert id="insert" parameterType="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
     insert into itsm2.service_desk (service_desk_id, service_desk_name, sup_project_group_id, 
       remark)
-    values (#{serviceDeskId,jdbcType=INTEGER}, #{serviceDeskName,jdbcType=VARCHAR}, #{supProjectGroupId,jdbcType=INTEGER}, 
+    values (#{serviceDeskId,jdbcType=BIGINT}, #{serviceDeskName,jdbcType=VARCHAR}, #{supProjectGroupId,jdbcType=BIGINT}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
@@ -112,13 +122,13 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="serviceDeskId != null" >
-        #{serviceDeskId,jdbcType=INTEGER},
+        #{serviceDeskId,jdbcType=BIGINT},
       </if>
       <if test="serviceDeskName != null" >
         #{serviceDeskName,jdbcType=VARCHAR},
       </if>
       <if test="supProjectGroupId != null" >
-        #{supProjectGroupId,jdbcType=INTEGER},
+        #{supProjectGroupId,jdbcType=BIGINT},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -135,13 +145,13 @@
     update itsm2.service_desk
     <set >
       <if test="record.serviceDeskId != null" >
-        service_desk_id = #{record.serviceDeskId,jdbcType=INTEGER},
+        service_desk_id = #{record.serviceDeskId,jdbcType=BIGINT},
       </if>
       <if test="record.serviceDeskName != null" >
         service_desk_name = #{record.serviceDeskName,jdbcType=VARCHAR},
       </if>
       <if test="record.supProjectGroupId != null" >
-        sup_project_group_id = #{record.supProjectGroupId,jdbcType=INTEGER},
+        sup_project_group_id = #{record.supProjectGroupId,jdbcType=BIGINT},
       </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
@@ -153,12 +163,34 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update itsm2.service_desk
-    set service_desk_id = #{record.serviceDeskId,jdbcType=INTEGER},
+    set service_desk_id = #{record.serviceDeskId,jdbcType=BIGINT},
       service_desk_name = #{record.serviceDeskName,jdbcType=VARCHAR},
-      sup_project_group_id = #{record.supProjectGroupId,jdbcType=INTEGER},
+      sup_project_group_id = #{record.supProjectGroupId,jdbcType=BIGINT},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
+    update itsm2.service_desk
+    <set >
+      <if test="serviceDeskName != null" >
+        service_desk_name = #{serviceDeskName,jdbcType=VARCHAR},
+      </if>
+      <if test="supProjectGroupId != null" >
+        sup_project_group_id = #{supProjectGroupId,jdbcType=BIGINT},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where service_desk_id = #{serviceDeskId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
+    update itsm2.service_desk
+    set service_desk_name = #{serviceDeskName,jdbcType=VARCHAR},
+      sup_project_group_id = #{supProjectGroupId,jdbcType=BIGINT},
+      remark = #{remark,jdbcType=VARCHAR}
+    where service_desk_id = #{serviceDeskId,jdbcType=BIGINT}
   </update>
 </mapper>

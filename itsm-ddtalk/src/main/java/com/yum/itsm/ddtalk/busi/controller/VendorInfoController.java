@@ -31,11 +31,11 @@ public class VendorInfoController {
     @Autowired
     private VendorInfoService vendorInfoService;
 
-    @RequestMapping(value = "getDepartmentList", method = {RequestMethod.GET})
-    public @ResponseBody MsgDTO getRule() {
+    @RequestMapping(value = "getDeptsFromDDTalk", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO getDeptsFromDDTalk() {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(vendorInfoService.getDepartmentList());
+        msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
         return msgDTO;
     }
 }

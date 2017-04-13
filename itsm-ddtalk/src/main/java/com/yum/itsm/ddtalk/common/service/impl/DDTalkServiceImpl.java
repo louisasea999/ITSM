@@ -17,7 +17,9 @@ import com.yum.itsm.ddtalk.common.Constants;
 import com.yum.itsm.ddtalk.common.dto.AccessTokenDDTalkMsgDTO;
 import com.yum.itsm.ddtalk.common.dto.DDTalkMsgDTO;
 import com.yum.itsm.ddtalk.common.dto.DepartmentListDDTalkMsgDTO;
-import com.yum.itsm.ddtalk.common.entity.Department;
+import com.yum.itsm.ddtalk.common.dto.UserListDDTalkMsgDTO;
+import com.yum.itsm.ddtalk.common.entity.DDTalkDepartment;
+import com.yum.itsm.ddtalk.common.entity.DDTalkUser;
 import com.yum.itsm.ddtalk.common.exception.ApplicationException;
 import com.yum.itsm.ddtalk.common.service.DDTalkService;
 import com.yum.itsm.ddtalk.common.service.HttpClientService;
@@ -27,7 +29,7 @@ import com.yum.itsm.ddtalk.common.utils.FileUtils;
 public class DDTalkServiceImpl implements DDTalkService {
 	private static final String GET_TOKEN_URL = "https://oapi.dingtalk.com/gettoken";
 	private static final String GET_DEPARTMENT_LIST_URL = "https://oapi.dingtalk.com/department/list";
-	
+	private static final String GET_USER_LIST_URL = "https://oapi.dingtalk.com/user/list";
 	
 	private String corpId;
 	private String corpSecret;
@@ -92,7 +94,7 @@ public class DDTalkServiceImpl implements DDTalkService {
 	}
 	
 	@Override
-	public List<Department> getDepartmentList() {
+	public List<DDTalkDepartment> getDepartmentList() {
 
 		Map<String, String> paras = new HashMap<>();
 		paras.put("access_token", getToken());
@@ -108,5 +110,23 @@ public class DDTalkServiceImpl implements DDTalkService {
 		}
 
 		return departmentList.getDepartment();
+	}
+	@Override
+	public List<DDTalkUser> getUserList(Long departmentId) {
+		Map<String, String> paras = new HashMap<>();
+		paras.put("access_token", getToken());
+		paras.put("department_id", String.valueOf(departmentId));
+		String resString = httpClientService.getRemoteResponse(
+				GET_USER_LIST_URL, null, null, paras
+			);
+
+        Gson gson = new Gson();
+        UserListDDTalkMsgDTO userList = gson.fromJson(resString, 
+        		new TypeToken<UserListDDTalkMsgDTO>() {}.getType());
+		if (!userList.getErrCode().equals(DDTalkMsgDTO.CODE_OK)) {
+        	throw new ApplicationException(userList.getErrMsg());
+		}
+		
+		return userList.getUserlist();
 	}
 }

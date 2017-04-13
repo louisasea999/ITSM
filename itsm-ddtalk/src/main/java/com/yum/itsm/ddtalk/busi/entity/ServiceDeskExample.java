@@ -114,52 +114,52 @@ public class ServiceDeskExample {
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdEqualTo(Integer value) {
+        public Criteria andServiceDeskIdEqualTo(Long value) {
             addCriterion("service_desk_id =", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdNotEqualTo(Integer value) {
+        public Criteria andServiceDeskIdNotEqualTo(Long value) {
             addCriterion("service_desk_id <>", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdGreaterThan(Integer value) {
+        public Criteria andServiceDeskIdGreaterThan(Long value) {
             addCriterion("service_desk_id >", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andServiceDeskIdGreaterThanOrEqualTo(Long value) {
             addCriterion("service_desk_id >=", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdLessThan(Integer value) {
+        public Criteria andServiceDeskIdLessThan(Long value) {
             addCriterion("service_desk_id <", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdLessThanOrEqualTo(Integer value) {
+        public Criteria andServiceDeskIdLessThanOrEqualTo(Long value) {
             addCriterion("service_desk_id <=", value, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdIn(List<Integer> values) {
+        public Criteria andServiceDeskIdIn(List<Long> values) {
             addCriterion("service_desk_id in", values, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdNotIn(List<Integer> values) {
+        public Criteria andServiceDeskIdNotIn(List<Long> values) {
             addCriterion("service_desk_id not in", values, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdBetween(Integer value1, Integer value2) {
+        public Criteria andServiceDeskIdBetween(Long value1, Long value2) {
             addCriterion("service_desk_id between", value1, value2, "serviceDeskId");
             return (Criteria) this;
         }
 
-        public Criteria andServiceDeskIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andServiceDeskIdNotBetween(Long value1, Long value2) {
             addCriterion("service_desk_id not between", value1, value2, "serviceDeskId");
             return (Criteria) this;
         }
@@ -244,52 +244,52 @@ public class ServiceDeskExample {
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdEqualTo(Long value) {
             addCriterion("sup_project_group_id =", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdNotEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdNotEqualTo(Long value) {
             addCriterion("sup_project_group_id <>", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdGreaterThan(Integer value) {
+        public Criteria andSupProjectGroupIdGreaterThan(Long value) {
             addCriterion("sup_project_group_id >", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdGreaterThanOrEqualTo(Long value) {
             addCriterion("sup_project_group_id >=", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdLessThan(Integer value) {
+        public Criteria andSupProjectGroupIdLessThan(Long value) {
             addCriterion("sup_project_group_id <", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdLessThanOrEqualTo(Integer value) {
+        public Criteria andSupProjectGroupIdLessThanOrEqualTo(Long value) {
             addCriterion("sup_project_group_id <=", value, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdIn(List<Integer> values) {
+        public Criteria andSupProjectGroupIdIn(List<Long> values) {
             addCriterion("sup_project_group_id in", values, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdNotIn(List<Integer> values) {
+        public Criteria andSupProjectGroupIdNotIn(List<Long> values) {
             addCriterion("sup_project_group_id not in", values, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdBetween(Integer value1, Integer value2) {
+        public Criteria andSupProjectGroupIdBetween(Long value1, Long value2) {
             addCriterion("sup_project_group_id between", value1, value2, "supProjectGroupId");
             return (Criteria) this;
         }
 
-        public Criteria andSupProjectGroupIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andSupProjectGroupIdNotBetween(Long value1, Long value2) {
             addCriterion("sup_project_group_id not between", value1, value2, "supProjectGroupId");
             return (Criteria) this;
         }

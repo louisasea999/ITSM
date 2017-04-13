@@ -1,17 +1,17 @@
 package com.yum.itsm.ddtalk.busi.entity;
 
 public class DiningRoom {
-    private Integer diningRoomId;
+    private Long diningRoomId;
 
     private String diningRoomName;
 
-    private Integer districtId;
+    private Long districtId;
 
-    public Integer getDiningRoomId() {
+    public Long getDiningRoomId() {
         return diningRoomId;
     }
 
-    public void setDiningRoomId(Integer diningRoomId) {
+    public void setDiningRoomId(Long diningRoomId) {
         this.diningRoomId = diningRoomId;
     }
 
@@ -23,11 +23,11 @@ public class DiningRoom {
         this.diningRoomName = diningRoomName == null ? null : diningRoomName.trim();
     }
 
-    public Integer getDistrictId() {
+    public Long getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Integer districtId) {
+    public void setDistrictId(Long districtId) {
         this.districtId = districtId;
     }
 }

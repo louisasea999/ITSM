@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yum.itsm.ddtalk.busi.mapper.DistrictInfoMapper" >
   <resultMap id="BaseResultMap" type="com.yum.itsm.ddtalk.busi.entity.DistrictInfo" >
-    <result column="district_id" property="districtId" jdbcType="INTEGER" />
+    <id column="district_id" property="districtId" jdbcType="BIGINT" />
     <result column="district_name" property="districtName" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -80,6 +80,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from itsm2.district_info
+    where district_id = #{districtId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from itsm2.district_info
+    where district_id = #{districtId,jdbcType=BIGINT}
+  </delete>
   <delete id="deleteByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.DistrictInfoExample" >
     delete from itsm2.district_info
     <if test="_parameter != null" >
@@ -88,7 +98,7 @@
   </delete>
   <insert id="insert" parameterType="com.yum.itsm.ddtalk.busi.entity.DistrictInfo" >
     insert into itsm2.district_info (district_id, district_name)
-    values (#{districtId,jdbcType=INTEGER}, #{districtName,jdbcType=VARCHAR})
+    values (#{districtId,jdbcType=BIGINT}, #{districtName,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yum.itsm.ddtalk.busi.entity.DistrictInfo" >
     insert into itsm2.district_info
@@ -102,7 +112,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="districtId != null" >
-        #{districtId,jdbcType=INTEGER},
+        #{districtId,jdbcType=BIGINT},
       </if>
       <if test="districtName != null" >
         #{districtName,jdbcType=VARCHAR},
@@ -119,7 +129,7 @@
     update itsm2.district_info
     <set >
       <if test="record.districtId != null" >
-        district_id = #{record.districtId,jdbcType=INTEGER},
+        district_id = #{record.districtId,jdbcType=BIGINT},
       </if>
       <if test="record.districtName != null" >
         district_name = #{record.districtName,jdbcType=VARCHAR},
@@ -131,10 +141,24 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update itsm2.district_info
-    set district_id = #{record.districtId,jdbcType=INTEGER},
+    set district_id = #{record.districtId,jdbcType=BIGINT},
       district_name = #{record.districtName,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yum.itsm.ddtalk.busi.entity.DistrictInfo" >
+    update itsm2.district_info
+    <set >
+      <if test="districtName != null" >
+        district_name = #{districtName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where district_id = #{districtId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yum.itsm.ddtalk.busi.entity.DistrictInfo" >
+    update itsm2.district_info
+    set district_name = #{districtName,jdbcType=VARCHAR}
+    where district_id = #{districtId,jdbcType=BIGINT}
   </update>
 </mapper>

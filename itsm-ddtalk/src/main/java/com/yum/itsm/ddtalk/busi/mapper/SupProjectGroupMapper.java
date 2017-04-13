@@ -10,13 +10,21 @@ public interface SupProjectGroupMapper {
 
     int deleteByExample(SupProjectGroupExample example);
 
+    int deleteByPrimaryKey(Long supProjectGroupId);
+
     int insert(SupProjectGroup record);
 
     int insertSelective(SupProjectGroup record);
 
     List<SupProjectGroup> selectByExample(SupProjectGroupExample example);
 
+    SupProjectGroup selectByPrimaryKey(Long supProjectGroupId);
+
     int updateByExampleSelective(@Param("record") SupProjectGroup record, @Param("example") SupProjectGroupExample example);
 
     int updateByExample(@Param("record") SupProjectGroup record, @Param("example") SupProjectGroupExample example);
+
+    int updateByPrimaryKeySelective(SupProjectGroup record);
+
+    int updateByPrimaryKey(SupProjectGroup record);
 }

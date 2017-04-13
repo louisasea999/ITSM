@@ -114,52 +114,52 @@ public class DistrictInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdEqualTo(Integer value) {
+        public Criteria andDistrictIdEqualTo(Long value) {
             addCriterion("district_id =", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdNotEqualTo(Integer value) {
+        public Criteria andDistrictIdNotEqualTo(Long value) {
             addCriterion("district_id <>", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdGreaterThan(Integer value) {
+        public Criteria andDistrictIdGreaterThan(Long value) {
             addCriterion("district_id >", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andDistrictIdGreaterThanOrEqualTo(Long value) {
             addCriterion("district_id >=", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdLessThan(Integer value) {
+        public Criteria andDistrictIdLessThan(Long value) {
             addCriterion("district_id <", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdLessThanOrEqualTo(Integer value) {
+        public Criteria andDistrictIdLessThanOrEqualTo(Long value) {
             addCriterion("district_id <=", value, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdIn(List<Integer> values) {
+        public Criteria andDistrictIdIn(List<Long> values) {
             addCriterion("district_id in", values, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdNotIn(List<Integer> values) {
+        public Criteria andDistrictIdNotIn(List<Long> values) {
             addCriterion("district_id not in", values, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdBetween(Integer value1, Integer value2) {
+        public Criteria andDistrictIdBetween(Long value1, Long value2) {
             addCriterion("district_id between", value1, value2, "districtId");
             return (Criteria) this;
         }
 
-        public Criteria andDistrictIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andDistrictIdNotBetween(Long value1, Long value2) {
             addCriterion("district_id not between", value1, value2, "districtId");
             return (Criteria) this;
         }

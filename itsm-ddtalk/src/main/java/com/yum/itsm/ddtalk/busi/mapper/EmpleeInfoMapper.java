@@ -10,13 +10,21 @@ public interface EmpleeInfoMapper {
 
     int deleteByExample(EmpleeInfoExample example);
 
+    int deleteByPrimaryKey(String empleeId);
+
     int insert(EmpleeInfo record);
 
     int insertSelective(EmpleeInfo record);
 
     List<EmpleeInfo> selectByExample(EmpleeInfoExample example);
 
+    EmpleeInfo selectByPrimaryKey(String empleeId);
+
     int updateByExampleSelective(@Param("record") EmpleeInfo record, @Param("example") EmpleeInfoExample example);
 
     int updateByExample(@Param("record") EmpleeInfo record, @Param("example") EmpleeInfoExample example);
+
+    int updateByPrimaryKeySelective(EmpleeInfo record);
+
+    int updateByPrimaryKey(EmpleeInfo record);
 }

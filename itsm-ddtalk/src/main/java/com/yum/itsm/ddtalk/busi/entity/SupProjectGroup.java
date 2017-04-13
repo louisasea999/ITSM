@@ -3,7 +3,7 @@ package com.yum.itsm.ddtalk.busi.entity;
 import java.util.List;
 
 public class SupProjectGroup {
-    private Integer supProjectGroupId;
+    private Long supProjectGroupId;
 
     private String supProjectGroupName;
 
@@ -11,11 +11,11 @@ public class SupProjectGroup {
     
     private List<ServiceDesk> serviceDesks;
 
-    public Integer getSupProjectGroupId() {
+    public Long getSupProjectGroupId() {
         return supProjectGroupId;
     }
 
-    public void setSupProjectGroupId(Integer supProjectGroupId) {
+    public void setSupProjectGroupId(Long supProjectGroupId) {
         this.supProjectGroupId = supProjectGroupId;
     }
 

@@ -1,15 +1,15 @@
 package com.yum.itsm.ddtalk.busi.entity;
 
 public class DistrictInfo {
-    private Integer districtId;
+    private Long districtId;
 
     private String districtName;
 
-    public Integer getDistrictId() {
+    public Long getDistrictId() {
         return districtId;
     }
 
-    public void setDistrictId(Integer districtId) {
+    public void setDistrictId(Long districtId) {
         this.districtId = districtId;
     }
 

@@ -9,7 +9,8 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
+import com.yum.itsm.ddtalk.busi.entity.EmpleeInfo;
+import com.yum.itsm.ddtalk.busi.entity.ServiceDesk;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroup;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroupExample;
 import com.yum.itsm.ddtalk.busi.mapper.EmpleeInfoMapper;
@@ -17,7 +18,8 @@ import com.yum.itsm.ddtalk.busi.mapper.ServiceDeskMapper;
 import com.yum.itsm.ddtalk.busi.mapper.SupProjectGroupMapper;
 import com.yum.itsm.ddtalk.busi.service.VendorInfoService;
 import com.yum.itsm.ddtalk.common.Constants;
-import com.yum.itsm.ddtalk.common.entity.Department;
+import com.yum.itsm.ddtalk.common.entity.DDTalkDepartment;
+import com.yum.itsm.ddtalk.common.entity.DDTalkUser;
 import com.yum.itsm.ddtalk.common.exception.ApplicationException;
 import com.yum.itsm.ddtalk.common.service.DDTalkService;
 
@@ -43,14 +45,13 @@ public class VendorInfoServiceImpl implements VendorInfoService {
     EmpleeInfoMapper empleeInfoMapper;
     
 	@Override
-	public List<Department> getDepartmentList() {
-		return ddTalkService.getDepartmentList();
+	public List<SupProjectGroup> getDeptsFromDDTalk() {
+		return procDDtalkDepts();
 	}
 
 	@Override
-	public void ddTalkDepartmentUpdater() {
-		// TODO 算法需要改进
-		List<SupProjectGroup> supsFromDD = procDDtalkDepartments();
+	public void ddTalkDeptUpdater() {
+		List<SupProjectGroup> supsFromDD = procDDtalkDepts();
 		
 		SupProjectGroupExample supExam = new SupProjectGroupExample();
 		List<SupProjectGroup> supsFromDB = supProjectGroupMapper.selectByExample(supExam);
@@ -58,27 +59,28 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 		
 	}
 	
-	private List<SupProjectGroup> procDDtalkDepartments() {
-		List<Department> departments = ddTalkService.getDepartmentList();
-		Integer parentId = 0;
-		Iterator<Department> it = departments.iterator();
+	private List<SupProjectGroup> procDDtalkDepts() {
+		List<DDTalkDepartment> departments = ddTalkService.getDepartmentList();
+		Long parentId = 0L;
+		Iterator<DDTalkDepartment> it = departments.iterator();
 		while(it.hasNext()) {
-			Department dept = it.next();
+			DDTalkDepartment dept = it.next();
 			if (dept.getName().equals(Constants.SUP_NAME)) {
-				parentId = dept.getParentid();
+				parentId = dept.getId();
 				it.remove();
 				break;
 			}
 		}
-		if (parentId == 0) {
+		if (parentId.equals(0L)) {
 			throw new ApplicationException("没有发现服务商部门");
 		}
 
+		// 服务商
 		List<SupProjectGroup> ret= new ArrayList<SupProjectGroup>();
 		it = departments.iterator();
 		while(it.hasNext()) {
-			Department dept = it.next();
-			if (dept.getParentid() == parentId) {
+			DDTalkDepartment dept = it.next();
+			if (dept.getParentid() != null && dept.getParentid().equals(parentId)) {
 				SupProjectGroup sup = new SupProjectGroup();
 				sup.setSupProjectGroupId(dept.getId());
 				sup.setSupProjectGroupName(dept.getName());
@@ -88,21 +90,36 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 			}
 		}
 		
-//		for (SupProjectGroup sup : ret) {
-//			it = departments.iterator();
-//			
-//			while(it.hasNext()) {
-//				Department dept = it.next();
-//				if (dept.getParentid() == sup.getSupProjectGroupId()) {
-//					SupProjectGroup sup = new SupProjectGroup();
-//					sup.setSupProjectGroupId(dept.getId());
-//					sup.setSupProjectGroupName(dept.getName());
-//					sup.setRemark(Constants.GSON.toJson(dept));
-//					ret.add(sup);
-//					it.remove();
-//				}
-//			}
-//		}
+		// 服务站
+		for (SupProjectGroup sup : ret) {
+			sup.setServiceDesks(new ArrayList<ServiceDesk>());
+			it = departments.iterator();
+			while(it.hasNext()) {
+				DDTalkDepartment dept = it.next();
+				if (dept.getParentid() != null && dept.getParentid().equals(sup.getSupProjectGroupId())) {
+					ServiceDesk desk = new ServiceDesk();
+					desk.setServiceDeskId(dept.getId());
+					desk.setServiceDeskName(dept.getName());
+					desk.setSupProjectGroupId(sup.getSupProjectGroupId());
+					desk.setRemark(Constants.GSON.toJson(dept));
+					
+					// 工作人员
+					desk.setEmpleeInfos(new ArrayList<EmpleeInfo>());
+					List<DDTalkUser> userList = ddTalkService.getUserList(dept.getId());
+					for (DDTalkUser user : userList) {
+						EmpleeInfo emp = new EmpleeInfo();
+						emp.setEmpleeId(user.getUserid());
+						emp.setEmpleeName(user.getName());
+						emp.setServiceDeskId(desk.getServiceDeskId());
+						emp.setRemark(Constants.GSON.toJson(user));
+						desk.getEmpleeInfos().add(emp);
+					}
+					
+					sup.getServiceDesks().add(desk);
+					it.remove();
+				}
+			}
+		}
 		
 		return ret;
 	}
