@@ -7,7 +7,7 @@ http://www.springframework.org/schema/beans http://www.springframework.org/schem
 	<bean id="ddTalkDeptUpdaterJob"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="vendorInfoService"/>
-		<property name="targetMethod" value="ddTalkDeptUpdater"/>
+		<property name="targetMethod" value="updateSupProjectGroupInfo"/>
 	</bean>
 
 	<bean name="ddTalkDeptUpdaterTrigger"

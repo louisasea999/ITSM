@@ -3,6 +3,8 @@ package com.yum.itsm.ddtalk.busi.mapper;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroup;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroupExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface SupProjectGroupMapper {
@@ -27,4 +29,6 @@ public interface SupProjectGroupMapper {
     int updateByPrimaryKeySelective(SupProjectGroup record);
 
     int updateByPrimaryKey(SupProjectGroup record);
+    
+    List<SupProjectGroup> getSupProjectGroupDetails(Map<String, Object> params);
 }

@@ -16,9 +16,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by liangjuzheng on 16/6/20.
- */
 @Service("connectionPoolService")
 public class ConnectionPoolServiceImpl implements ConnectionPoolService {
     private static Logger logger = Logger.getLogger(ConnectionPoolServiceImpl.class);

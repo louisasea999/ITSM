@@ -1,8 +1,10 @@
 package com.yum.itsm.ddtalk.busi.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yum.itsm.ddtalk.busi.entity.EmpleeInfo;
+import com.yum.itsm.ddtalk.busi.entity.EmpleeInfoExample;
 import com.yum.itsm.ddtalk.busi.entity.ServiceDesk;
+import com.yum.itsm.ddtalk.busi.entity.ServiceDeskExample;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroup;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroupExample;
 import com.yum.itsm.ddtalk.busi.mapper.EmpleeInfoMapper;
@@ -50,13 +54,122 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 	}
 
 	@Override
-	public void ddTalkDeptUpdater() {
+	public void updateSupProjectGroupInfo() {
 		List<SupProjectGroup> supsFromDD = procDDtalkDepts();
-		
+		this.procSupInfo(supsFromDD);
+	}
+	
+	private void procSupInfo(List<SupProjectGroup> newSups) {
+		// 服务商
+		List<SupProjectGroup> delSups = new ArrayList<SupProjectGroup>();
+		List<SupProjectGroup> updSups = new ArrayList<SupProjectGroup>();
+		List<SupProjectGroup> addSups = new ArrayList<SupProjectGroup>();
+		List<ServiceDesk> newDesks = new ArrayList<ServiceDesk>();
 		SupProjectGroupExample supExam = new SupProjectGroupExample();
-		List<SupProjectGroup> supsFromDB = supProjectGroupMapper.selectByExample(supExam);
+		List<SupProjectGroup> oldSups = supProjectGroupMapper.selectByExample(supExam);
+		Iterator<SupProjectGroup> itNewSup = newSups.iterator();
+		while(itNewSup.hasNext()) {
+			SupProjectGroup newSup = itNewSup.next();
+			newDesks.addAll(newSup.getServiceDesks());
+			Iterator<SupProjectGroup> itOldSup = oldSups.iterator();
+			while (itOldSup.hasNext()) {
+				SupProjectGroup oldSup = itOldSup.next();
+				if (oldSup.getSupProjectGroupId().equals(newSup.getSupProjectGroupId())) {
+					updSups.add(newSup);
+					itNewSup.remove();
+					itOldSup.remove();
+					break;
+				}
+			}
+		}
+		delSups.addAll(oldSups);
+		addSups.addAll(newSups);
 		
+		// 服务站
+		List<ServiceDesk> delDesks = new ArrayList<ServiceDesk>();
+		List<ServiceDesk> updDesks = new ArrayList<ServiceDesk>();
+		List<ServiceDesk> addDesks = new ArrayList<ServiceDesk>();
+		List<EmpleeInfo> newEmps = new ArrayList<EmpleeInfo>();
+		ServiceDeskExample deskExam = new ServiceDeskExample();
+		List<ServiceDesk> oldDesks = serviceDeskMapper.selectByExample(deskExam);
+		Iterator<ServiceDesk> itNewDesk = newDesks.iterator();
+		while(itNewDesk.hasNext()) {
+			ServiceDesk newDesk = itNewDesk.next();
+			newEmps.addAll(newDesk.getEmpleeInfos());
+			Iterator<ServiceDesk> itOldDesk = oldDesks.iterator();
+			while (itOldDesk.hasNext()) {
+				ServiceDesk oldDesk = itOldDesk.next();
+				if (oldDesk.getServiceDeskId().equals(newDesk.getServiceDeskId())) {
+					updDesks.add(newDesk);
+					itNewDesk.remove();
+					itOldDesk.remove();
+					break;
+				}
+			}
+		}
+		delDesks.addAll(oldDesks);
+		addDesks.addAll(newDesks);
 		
+		// 工作人员
+		List<EmpleeInfo> delEmps = new ArrayList<EmpleeInfo>();
+		List<EmpleeInfo> updEmps = new ArrayList<EmpleeInfo>();
+		List<EmpleeInfo> addEmps = new ArrayList<EmpleeInfo>();
+		EmpleeInfoExample empExam = new EmpleeInfoExample();
+		List<EmpleeInfo> oldEmps = empleeInfoMapper.selectByExample(empExam);
+		Iterator<EmpleeInfo> itNewEmp = newEmps.iterator();
+		while(itNewEmp.hasNext()) {
+			EmpleeInfo newEmp = itNewEmp.next();
+			Iterator<EmpleeInfo> itOldEmp = oldEmps.iterator();
+			while (itOldEmp.hasNext()) {
+				EmpleeInfo oldEmp = itOldEmp.next();
+				if (oldEmp.getEmpleeId().equals(newEmp.getEmpleeId())) {
+					updEmps.add(newEmp);
+					itNewEmp.remove();
+					itOldEmp.remove();
+					break;
+				}
+			}
+		}
+		delEmps.addAll(oldEmps);
+		addEmps.addAll(newEmps);
+		
+		for (SupProjectGroup sup : delSups) {
+			// 如果要使用ByPrimaryKey方法 请将参数改成id
+			supExam = new SupProjectGroupExample();
+			supExam.createCriteria().andSupProjectGroupIdEqualTo(sup.getSupProjectGroupId());
+			supProjectGroupMapper.deleteByExample(supExam);
+		}
+		for (SupProjectGroup sup : addSups) {
+			supProjectGroupMapper.insert(sup);
+		}
+		for (SupProjectGroup sup : updSups) {
+			supProjectGroupMapper.updateByPrimaryKey(sup);
+		}
+		
+
+		for (ServiceDesk desk : delDesks) {
+			deskExam = new ServiceDeskExample();
+			deskExam.createCriteria().andServiceDeskIdEqualTo(desk.getServiceDeskId());
+			serviceDeskMapper.deleteByExample(deskExam);
+		}
+		for (ServiceDesk desk : addDesks) {
+			serviceDeskMapper.insert(desk);
+		}
+		for (ServiceDesk desk : updDesks) {
+			serviceDeskMapper.updateByPrimaryKey(desk);
+		}
+		
+		for (EmpleeInfo emp : delEmps) {
+			empExam = new EmpleeInfoExample();
+			empExam.createCriteria().andEmpleeIdEqualTo(emp.getEmpleeId());
+			empleeInfoMapper.deleteByExample(empExam);
+		}
+		for (EmpleeInfo emp : addEmps) {
+			empleeInfoMapper.insert(emp);
+		}
+		for (EmpleeInfo emp : updEmps) {
+			empleeInfoMapper.updateByPrimaryKey(emp);
+		}
 	}
 	
 	private List<SupProjectGroup> procDDtalkDepts() {
@@ -122,5 +235,11 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 		}
 		
 		return ret;
+	}
+
+	@Override
+	public List<SupProjectGroup> getDeptsFromDB() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		return supProjectGroupMapper.getSupProjectGroupDetails(params);
 	}
 }

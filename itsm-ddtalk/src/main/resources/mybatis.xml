@@ -41,6 +41,6 @@
 	</mappers> -->
 
 	<typeAliases>
-		<package name="com.ciicsh.commonservice.notification.entity"></package>
+		<package name="com.yum.itsm.ddtalk.busi.entity"></package>
 	</typeAliases>
 </configuration>

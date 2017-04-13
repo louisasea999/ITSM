@@ -7,5 +7,7 @@ import com.yum.itsm.ddtalk.busi.entity.SupProjectGroup;
 public interface VendorInfoService {
 	List<SupProjectGroup> getDeptsFromDDTalk();
 	
-	void ddTalkDeptUpdater();
+	List<SupProjectGroup> getDeptsFromDB();
+	
+	void updateSupProjectGroupInfo();
 }

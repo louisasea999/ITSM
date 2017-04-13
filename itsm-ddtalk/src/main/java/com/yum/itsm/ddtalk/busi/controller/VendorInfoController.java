@@ -21,9 +21,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by liangjuzheng on 16/9/6.
- */
 @Controller
 @RequestMapping("api/vendor")
 public class VendorInfoController {
@@ -38,4 +35,21 @@ public class VendorInfoController {
         msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
         return msgDTO;
     }
+
+    @RequestMapping(value = "getDeptsFromDB", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO getDeptsFromDB() {
+        MsgDTO msgDTO = new MsgDTO();
+        msgDTO.setStatus(MsgDTO.STATUS_OK);
+        msgDTO.setData(vendorInfoService.getDeptsFromDB());
+        return msgDTO;
+    }
+
+    @RequestMapping(value = "ddTalkDeptUpdater", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO ddTalkDeptUpdater() {
+        MsgDTO msgDTO = new MsgDTO();
+        msgDTO.setStatus(MsgDTO.STATUS_OK);
+        vendorInfoService.updateSupProjectGroupInfo();
+        return msgDTO;
+    }
+    
 }

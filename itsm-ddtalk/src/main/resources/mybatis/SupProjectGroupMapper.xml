@@ -178,4 +178,45 @@
       remark = #{remark,jdbcType=VARCHAR}
     where sup_project_group_id = #{supProjectGroupId,jdbcType=BIGINT}
   </update>
+  
+  
+  
+  <resultMap id="SupProjectGroup" type="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup" extends="BaseResultMap">
+    <collection ofType="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" property="serviceDesks" resultMap="ServiceDesk" />
+  </resultMap>
+  <resultMap id="ServiceDesk" type="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
+    <id column="service_desk_id" property="serviceDeskId" jdbcType="BIGINT" />
+    <result column="service_desk_name" property="serviceDeskName" jdbcType="VARCHAR" />
+    <result column="sup_project_group_id" property="supProjectGroupId" jdbcType="BIGINT" />
+    <result column="service_desk_remark" property="remark" jdbcType="VARCHAR" />
+    <collection ofType="com.yum.itsm.ddtalk.busi.entity.EmpleeInfo" property="empleeInfos" resultMap="Emplee" />
+  </resultMap>
+  <resultMap id="Emplee" type="com.yum.itsm.ddtalk.busi.entity.EmpleeInfo" >
+    <id column="emplee_id" property="empleeId" jdbcType="VARCHAR" />
+    <result column="emplee_name" property="empleeName" jdbcType="VARCHAR" />
+    <result column="service_desk_id" property="serviceDeskId" jdbcType="BIGINT" />
+    <result column="emplee_remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getSupProjectGroupDetails" resultMap="SupProjectGroup" parameterType="Map">
+	select
+		sup.sup_project_group_id,
+		sup.sup_project_group_name,
+		sup.remark,
+		desk.service_desk_id,
+		desk.service_desk_name,
+		desk.remark as service_desk_remark,
+		emp.emplee_id,
+		emp.emplee_name,
+		emp.remark as emplee_remark
+	from 
+		itsm2.sup_project_group as sup
+		left join itsm2.service_desk as desk on
+			sup.sup_project_group_id = desk.sup_project_group_id
+		left join itsm2.emplee_info as emp on
+			desk.service_desk_id = emp.service_desk_id
+  	where 1=1 
+  		<if test="supProjectGroupId != null">
+			and sup.sup_project_group_id = #{supProjectGroupId}
+		</if>
+  </select>
 </mapper>

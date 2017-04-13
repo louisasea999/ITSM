@@ -5,9 +5,6 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by liangjuzheng on 16/6/21.
- */
 public interface ConnectionPoolService {
 //    public void prepareConnection(HttpServletRequest request) throws ClassNotFoundException, IllegalAccessException, InstantiationException;
 

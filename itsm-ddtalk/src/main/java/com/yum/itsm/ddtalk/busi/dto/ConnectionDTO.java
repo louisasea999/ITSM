@@ -2,9 +2,6 @@ package com.yum.itsm.ddtalk.busi.dto;
 
 import org.springframework.web.socket.WebSocketSession;
 
-/**
- * Created by liangjuzheng on 16/6/18.
- */
 public class ConnectionDTO {
     private String sessionId;
     private String userName;

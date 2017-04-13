@@ -1,8 +1,5 @@
 package com.yum.itsm.ddtalk.busi.dto;
 
-/**
- * Created by liangjuzheng on 16/10/19.
- */
 public class MsgDTO {
     public final static String STATUS_OK = "ok";
     public final static String STATUS_FAIL = "fail";
