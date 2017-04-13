@@ -7,8 +7,8 @@ import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yum.itsm.ddtalk.busi.dto.DepartmentListBusiMsgDTO;
 import com.yum.itsm.ddtalk.busi.service.VendorInfoService;
-import com.yum.itsm.ddtalk.common.dto.BusinessMsgDTO;
 import com.yum.itsm.ddtalk.common.ws.BaseRestService;
 
 @Path(value = "/vendor")
@@ -22,8 +22,8 @@ public class VendorInfoRestService extends BaseRestService {
     @Path("/getDepartmentList")
     @Consumes({ "application/json", "application/xml" })
     @Produces({ "application/json; charset=UTF-8", "application/xml; charset=UTF-8" })
-    public BusinessMsgDTO getRuleRepositoryList() {
-    	BusinessMsgDTO msgBean = new BusinessMsgDTO();
+    public DepartmentListBusiMsgDTO getDepartmentList() {
+    	DepartmentListBusiMsgDTO msgBean = new DepartmentListBusiMsgDTO();
     	msgBean.setData(vendorInfoService.getDepartmentList());
     	return msgBean;
     }

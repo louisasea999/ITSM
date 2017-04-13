@@ -17,7 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yum.itsm.ddtalk.common.dto.BusinessMsgDTO;
+import com.yum.itsm.ddtalk.busi.dto.BusiMsgDTO;
 import com.yum.itsm.ddtalk.common.mail.CiicMailSenderImpl;
 
 
@@ -46,13 +46,13 @@ public class MailRestService extends BaseRestService {
     @Path("/common")
     @Consumes({ "application/json", "application/xml" })
     @Produces({ "application/json; charset=UTF-8", "application/xml; charset=UTF-8" })
-    public BusinessMsgDTO sendCommonMail() {
+    public BusiMsgDTO sendCommonMail() {
 		logger.info("####sendCommonMail#####");
         String strMail = uriInfo.getQueryParameters().getFirst("mail");
 		logger.info("Method : " + request.getMethod());
 		logger.info("uri : " + uriInfo.getPath());
 		
-		BusinessMsgDTO msgBean = new BusinessMsgDTO();
+		BusiMsgDTO msgBean = new BusiMsgDTO();
 //		try {
 //            if (StringUtils.isBlank(strMail)) {
 //                throw new RuntimeException("邮件发送参数不能为空");

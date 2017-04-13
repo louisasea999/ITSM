@@ -8,9 +8,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yum.itsm.ddtalk.common.Constants;
-import com.yum.itsm.ddtalk.common.dto.AccessTokenMsgDTO;
-import com.yum.itsm.ddtalk.common.dto.DepartmentListMsgDTO;
+import com.yum.itsm.ddtalk.common.dto.AccessTokenDDTalkMsgDTO;
+import com.yum.itsm.ddtalk.common.dto.DepartmentListDDTalkMsgDTO;
 import com.yum.itsm.ddtalk.common.entity.Department;
 import com.yum.itsm.ddtalk.common.service.DDTalkService;
 import com.yum.itsm.ddtalk.common.service.HttpClientService;
@@ -49,8 +51,14 @@ public class DDTalkServiceImpl implements DDTalkService {
 				GET_TOKEN_URL, null, null, paras
 			);
 		
-		AccessTokenMsgDTO accessToken = Constants.GSON.fromJson(resString, 
-				AccessTokenMsgDTO.class);
+//		AccessTokenMsgDTO accessToken = Constants.GSON.fromJson(resString, 
+//				AccessTokenMsgDTO.class);
+		
+
+        Gson gson = new Gson();
+        AccessTokenDDTalkMsgDTO accessToken = gson.fromJson(resString, 
+        		new TypeToken<AccessTokenDDTalkMsgDTO>() {}.getType());
+        
 		// TODO 出错处理
 		return accessToken.getAccess_token();
 	}
@@ -63,10 +71,15 @@ public class DDTalkServiceImpl implements DDTalkService {
 		String resString = httpClientService.getRemoteResponse(
 				GET_DEPARTMENT_LIST_URL, null, null, paras
 			);
-		DepartmentListMsgDTO departmentList = Constants.GSON.fromJson(resString, 
-				DepartmentListMsgDTO.class);
+//		DepartmentListMsgDTO departmentList = Constants.GSON.fromJson(resString, 
+//				DepartmentListMsgDTO.class);
 		
-		return departmentList.getDepartmentList();
+
+        Gson gson = new Gson();
+        DepartmentListDDTalkMsgDTO departmentList = gson.fromJson(resString, 
+        		new TypeToken<DepartmentListDDTalkMsgDTO>() {}.getType());
+		
+		return departmentList.getDepartment();
 	}
 	
 	

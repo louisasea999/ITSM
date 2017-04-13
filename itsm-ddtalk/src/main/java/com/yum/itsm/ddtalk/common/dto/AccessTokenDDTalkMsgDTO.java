@@ -1,6 +1,8 @@
 package com.yum.itsm.ddtalk.common.dto;
 
-public class AccessTokenMsgDTO extends MsgDTO {
+import javax.xml.bind.annotation.XmlRootElement;
+
+public class AccessTokenDDTalkMsgDTO extends DDTalkMsgDTO {
 	private String access_token;
 
 	public String getAccess_token() {
