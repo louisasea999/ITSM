@@ -10,7 +10,7 @@ public interface DistrictInfoService {
 	
 	DistrictInfo getDistrictInfo(Long id);
 	
-	void saveDistrictGroupMap(Long id, List<DistrictGroupMap> maps);
+	void saveDistrictGroupMap(Long id, List<DistrictGroupMap> newMaps);
 
 	void saveDistrictGroupMap(List<DistrictGroupMap> newMaps);
 	

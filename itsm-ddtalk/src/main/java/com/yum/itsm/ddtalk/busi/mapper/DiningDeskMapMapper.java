@@ -27,4 +27,6 @@ public interface DiningDeskMapMapper {
     int updateByPrimaryKeySelective(DiningDeskMap record);
 
     int updateByPrimaryKey(DiningDeskMap record);
+    
+    long selectIdSeq();
 }

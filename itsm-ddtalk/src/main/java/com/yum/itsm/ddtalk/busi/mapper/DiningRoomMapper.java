@@ -3,6 +3,8 @@ package com.yum.itsm.ddtalk.busi.mapper;
 import com.yum.itsm.ddtalk.busi.entity.DiningRoom;
 import com.yum.itsm.ddtalk.busi.entity.DiningRoomExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface DiningRoomMapper {
@@ -27,4 +29,6 @@ public interface DiningRoomMapper {
     int updateByPrimaryKeySelective(DiningRoom record);
 
     int updateByPrimaryKey(DiningRoom record);
+    
+    List<DiningRoom> getDiningRoomDetails(Map<String, Object> params);
 }
