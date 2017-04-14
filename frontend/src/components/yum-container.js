@@ -6,7 +6,7 @@ ko.components.register('yum-container', {
       
         <section class="content">
 
-          <yum-ticket-list></yum-ticket-list>
+        <yum-create-issue></yum-create-issue>
 
         </section>
     </div>
