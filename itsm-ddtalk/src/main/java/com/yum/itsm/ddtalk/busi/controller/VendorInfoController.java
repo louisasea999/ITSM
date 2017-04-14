@@ -28,15 +28,15 @@ public class VendorInfoController {
     @Autowired
     private VendorInfoService vendorInfoService;
 
-    @RequestMapping(value = "getDeptsFromDDTalk", method = {RequestMethod.GET})
+    @RequestMapping(value = "depts_ddtalk", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptsFromDDTalk() {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
         msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
         return msgDTO;
     }
-
-    @RequestMapping(value = "getDeptsFromDB", method = {RequestMethod.GET})
+    
+    @RequestMapping(value = "depts_db", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptsFromDB() {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
@@ -44,7 +44,7 @@ public class VendorInfoController {
         return msgDTO;
     }
 
-    @RequestMapping(value = "ddTalkDeptUpdater", method = {RequestMethod.GET})
+    @RequestMapping(value = "depts_ddtalk_update", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO ddTalkDeptUpdater() {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
@@ -52,4 +52,21 @@ public class VendorInfoController {
         return msgDTO;
     }
     
+    // TODO
+    @RequestMapping(value = "dept_ddtalk", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO getDeptFromDDTalk() {
+        MsgDTO msgDTO = new MsgDTO();
+        msgDTO.setStatus(MsgDTO.STATUS_OK);
+        msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
+        return msgDTO;
+    }
+    
+    // TODO
+    @RequestMapping(value = "dept_db", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO getDeptFromDB() {
+        MsgDTO msgDTO = new MsgDTO();
+        msgDTO.setStatus(MsgDTO.STATUS_OK);
+        msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
+        return msgDTO;
+    }
 }

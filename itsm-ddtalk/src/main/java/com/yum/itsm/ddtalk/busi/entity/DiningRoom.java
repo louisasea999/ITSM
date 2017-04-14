@@ -1,11 +1,15 @@
 package com.yum.itsm.ddtalk.busi.entity;
 
+import java.util.List;
+
 public class DiningRoom {
     private Long diningRoomId;
 
     private String diningRoomName;
 
     private Long districtId;
+    
+    private List<ServiceDesk> serviceDesks;
 
     public Long getDiningRoomId() {
         return diningRoomId;
@@ -30,4 +34,12 @@ public class DiningRoom {
     public void setDistrictId(Long districtId) {
         this.districtId = districtId;
     }
+
+	public List<ServiceDesk> getServiceDesks() {
+		return serviceDesks;
+	}
+
+	public void setServiceDesks(List<ServiceDesk> serviceDesks) {
+		this.serviceDesks = serviceDesks;
+	}
 }

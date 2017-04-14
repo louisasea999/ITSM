@@ -41,7 +41,7 @@
 			<property name="enableSubPackages" value="false" />
 			<property name="exampleMethodVisibility" value="public" />
 		</javaClientGenerator>
-		
+		<!-- 
 		<table schema="itsm2" tableName="emplee_info" domainObjectName="EmpleeInfo">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
@@ -55,6 +55,13 @@
 			<property name="useActualColumnNames" value="false"/>
 		</table>
 		<table schema="itsm2" tableName="sup_project_group" domainObjectName="SupProjectGroup">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		 -->
+		<table schema="itsm2" tableName="dining_desk_map" domainObjectName="DiningDeskMap">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		<table schema="itsm2" tableName="district_group_map" domainObjectName="DistrictGroupMap">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
 	</context>
