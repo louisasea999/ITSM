@@ -35,8 +35,13 @@ public class VendorInfoController {
     @RequestMapping(value = "depts_ddtalk", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptsFromDDTalk() {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
+        try {
+            msgDTO.setStatus(MsgDTO.STATUS_OK);
+            msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
+        } catch (Exception e) {
+        	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+        	msgDTO.setMessage(e.getMessage());
+        }
         return msgDTO;
     }
     
@@ -47,8 +52,13 @@ public class VendorInfoController {
     @RequestMapping(value = "depts_db", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptsFromDB() {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(vendorInfoService.getDeptsFromDB());
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        msgDTO.setData(vendorInfoService.getDeptsFromDB());
+        } catch (Exception e) {
+        	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+        	msgDTO.setMessage(e.getMessage());
+        }
         return msgDTO;
     }
 
@@ -60,35 +70,48 @@ public class VendorInfoController {
     @RequestMapping(value = "depts_ddtalk_update", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO ddTalkDeptUpdater() {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        vendorInfoService.updateSupProjectGroupInfo();
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        vendorInfoService.updateSupProjectGroupInfo();
+        } catch (Exception e) {
+        	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+        	msgDTO.setMessage(e.getMessage());
+        }
         return msgDTO;
     }
     
-    // TODO
     /**
-     * 从钉钉取指定服务商ID的组织结构数据(包含服务站和工程师)
+     * 从钉钉取指定服务商的组织结构数据(包含服务站和工程师)
      * @return
      */
     @RequestMapping(value = "dept_ddtalk", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptFromDDTalk(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        msgDTO.setData(vendorInfoService.getDeptFromDDTalk(id));
+        } catch (Exception e) {
+        	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+        	msgDTO.setMessage(e.getMessage());
+        }
         return msgDTO;
     }
     
-    // TODO
     /**
-     * 从ITSM数据库取指定服务商ID的组织结构数据(包含服务站和工程师)
+     * 从ITSM数据库取指定服务商的组织结构数据(包含服务站和工程师)
      * @param id
      * @return
      */
     @RequestMapping(value = "dept_db", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptFromDB(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        msgDTO.setData(vendorInfoService.getDeptFromDB(id));
+        } catch (Exception e) {
+        	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+        	msgDTO.setMessage(e.getMessage());
+        }
         return msgDTO;
     }
 }

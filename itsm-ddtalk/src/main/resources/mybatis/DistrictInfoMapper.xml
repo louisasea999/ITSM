@@ -212,8 +212,4 @@
 			and district.district_id = #{districtId}
 		</if>
   </select>
-  
-  <select id="selectIdSeq" resultType="java.lang.Long" >
-		select nextval('itsm2.district_group_map_district_group_id_seq')
-  </select>
 </mapper>

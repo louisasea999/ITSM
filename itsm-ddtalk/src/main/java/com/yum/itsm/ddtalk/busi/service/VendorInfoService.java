@@ -9,5 +9,9 @@ public interface VendorInfoService {
 	
 	List<SupProjectGroup> getDeptsFromDB();
 	
+	SupProjectGroup getDeptFromDDTalk(Long id);
+	
+	SupProjectGroup getDeptFromDB(Long id);
+	
 	void updateSupProjectGroupInfo();
 }

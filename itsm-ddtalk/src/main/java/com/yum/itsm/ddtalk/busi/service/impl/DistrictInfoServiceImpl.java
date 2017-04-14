@@ -59,10 +59,10 @@ public class DistrictInfoServiceImpl implements DistrictInfoService {
 		Iterator<DistrictGroupMap> itNewMap = newMaps.iterator();
 		while(itNewMap.hasNext()) {
 			DistrictGroupMap newMap = itNewMap.next();
-			Iterator<DistrictGroupMap> itOldMap = oldMaps.iterator();
-			while (itOldMap.hasNext()) {
-				DistrictGroupMap oldMap = itOldMap.next();
-				if (oldMap.getDistrictId().equals(newMap.getDistrictId())) {
+			if (newMap.getDistrictId().equals(id)) {
+				Iterator<DistrictGroupMap> itOldMap = oldMaps.iterator();
+				while (itOldMap.hasNext()) {
+					DistrictGroupMap oldMap = itOldMap.next();
 					if (oldMap.getSupProjectGroupId().equals(newMap.getSupProjectGroupId())) {
 						newMap.setDistrictGroupId(oldMap.getDistrictGroupId());
 						updMaps.add(newMap);
@@ -70,9 +70,9 @@ public class DistrictInfoServiceImpl implements DistrictInfoService {
 						itOldMap.remove();
 						break;
 					}
-				} else {
-					throw new ApplicationException("进行了非本区域的数据");
 				}
+			} else {
+				throw new ApplicationException("进行了非本区域的数据");
 			}
 		}
 		procDistrictGroupMap(updMaps, oldMaps, newMaps);

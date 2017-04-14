@@ -50,12 +50,40 @@ public class VendorInfoServiceImpl implements VendorInfoService {
     
 	@Override
 	public List<SupProjectGroup> getDeptsFromDDTalk() {
-		return procDDtalkDepts();
+		return procDDtalkDepts(null);
+	}
+
+	@Override
+	public SupProjectGroup getDeptFromDDTalk(Long id) {
+		List<SupProjectGroup> depts = procDDtalkDepts(id);
+		if (depts != null && depts.size() > 0) {
+			return depts.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public List<SupProjectGroup> getDeptsFromDB() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		return supProjectGroupMapper.getSupProjectGroupDetails(params);
+	}
+	
+	@Override
+	public SupProjectGroup getDeptFromDB(Long id) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("supProjectGroupId", id);
+		List<SupProjectGroup> sups = supProjectGroupMapper.getSupProjectGroupDetails(params);
+		if (sups != null && sups.size() > 0) {
+			return sups.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public void updateSupProjectGroupInfo() {
-		List<SupProjectGroup> supsFromDD = procDDtalkDepts();
+		List<SupProjectGroup> supsFromDD = procDDtalkDepts(null);
 		this.procSupInfo(supsFromDD);
 	}
 	
@@ -172,7 +200,7 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 		}
 	}
 	
-	private List<SupProjectGroup> procDDtalkDepts() {
+	private List<SupProjectGroup> procDDtalkDepts(Long id) {
 		List<DDTalkDepartment> departments = ddTalkService.getDepartmentList();
 		Long parentId = 0L;
 		Iterator<DDTalkDepartment> it = departments.iterator();
@@ -193,6 +221,9 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 		it = departments.iterator();
 		while(it.hasNext()) {
 			DDTalkDepartment dept = it.next();
+			if (id != null && !dept.getId().equals(id)) {
+				continue;
+			}
 			if (dept.getParentid() != null && dept.getParentid().equals(parentId)) {
 				SupProjectGroup sup = new SupProjectGroup();
 				sup.setSupProjectGroupId(dept.getId());
@@ -235,11 +266,5 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 		}
 		
 		return ret;
-	}
-
-	@Override
-	public List<SupProjectGroup> getDeptsFromDB() {
-		Map<String, Object> params = new HashMap<String, Object>();
-		return supProjectGroupMapper.getSupProjectGroupDetails(params);
 	}
 }

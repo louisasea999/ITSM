@@ -28,8 +28,13 @@ public class DistrictInfoController {
     @RequestMapping(value = "list", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDistrictList() {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(districtInfoService.getDistrictList());
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        msgDTO.setData(districtInfoService.getDistrictList());
+        } catch (Exception e) {
+        	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+        	msgDTO.setMessage(e.getMessage());
+        }
         return msgDTO;
     }
 
@@ -41,8 +46,13 @@ public class DistrictInfoController {
     @RequestMapping(value = "info", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDistrictInfo(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(districtInfoService.getDistrictInfo(id));
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        msgDTO.setData(districtInfoService.getDistrictInfo(id));
+	    } catch (Exception e) {
+	    	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+	    	msgDTO.setMessage(e.getMessage());
+	    }
         return msgDTO;
     }
     
@@ -55,12 +65,17 @@ public class DistrictInfoController {
     @RequestMapping(value = "save_map", method = {RequestMethod.POST})
     public @ResponseBody MsgDTO saveDistrictGroupMapById(@Param("id") Long id, @RequestBody List<DistrictGroupMap> maps) {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        if (id != null) {
-            districtInfoService.saveDistrictGroupMap(id, maps);
-        } else {
-            districtInfoService.saveDistrictGroupMap(maps);
-        }
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        if (id != null) {
+	            districtInfoService.saveDistrictGroupMap(id, maps);
+	        } else {
+	            districtInfoService.saveDistrictGroupMap(maps);
+	        }
+	    } catch (Exception e) {
+	    	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+	    	msgDTO.setMessage(e.getMessage());
+	    }
         return msgDTO;
     }
 
@@ -72,8 +87,13 @@ public class DistrictInfoController {
     @RequestMapping(value = "vendor_map", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDistrictGroupMap(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
-        msgDTO.setStatus(MsgDTO.STATUS_OK);
-        msgDTO.setData(districtInfoService.getDistrictGroupMap(id));
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        msgDTO.setData(districtInfoService.getDistrictGroupMap(id));
+	    } catch (Exception e) {
+	    	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+	    	msgDTO.setMessage(e.getMessage());
+	    }
         return msgDTO;
     }
 }
