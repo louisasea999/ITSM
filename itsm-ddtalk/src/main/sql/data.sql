@@ -1,4 +1,4 @@
-SET search_path TO "itsm2";
+﻿SET search_path TO "itsm2";
 
 --插入区域数据
 truncate table District_Info;
