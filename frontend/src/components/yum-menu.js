@@ -12,38 +12,67 @@ ko.components.register('yum-menu', {
           </div>
         </form>
         <ul class="sidebar-menu">
-          <li class="header">MAIN NAVIGATION</li>
-          <li class="active treeview">
+          <li class="header">MAIN NAVIGATION</li>          
+          <!-- ko foreach: menus -->
+          <li class="treeview" data-bind="css: {active: item.active}">
             <a href="#">
-              <i class="fa fa-dashboard"></i> <span>工单</span>
+              <i class="fa fa-edit"></i> <span data-bind="text: item.title"></span>
               <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
             </a>
             <ul class="treeview-menu">
-              <li class="active"><a href="#"><i class="fa fa-circle-o"></i> 未处理</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>已接单</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>正在处理</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i>已结案</a></li>
+              <!-- ko foreach: item.subItems -->
+              <li><a href="#" data-bind="attr: {href: link}"><i class="fa fa-circle-o"></i> <!-- ko text:title --><!-- /ko --></a></li>
+              <!-- /ko -->
             </ul>
           </li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-edit"></i> <span>配置关联</span>
-              <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-            </a>
-            <ul class="treeview-menu">
-              <li><a href="#"><i class="fa fa-circle-o"></i> 区域与服务商</a></li>
-              <li><a href="#"><i class="fa fa-circle-o"></i> 区域与服务站</a></li>
-            </ul>
-          </li>
+          <!-- /ko -->
         </ul>
       </section>
     </aside>
     `,
-    viewModel: function () {
-
+    viewModel: function (params) {
+      this.menus = [
+        {
+          item: {
+            title: '订单相关',
+            style: [],
+            active: true,
+            subItems: [
+              {
+                title: '创建事件',
+                link: '#?page=createIssue',
+              },
+              {
+                title: '已创建事件',
+                link: '#?page=issues&status=prepare',
+              },
+              {
+                title: '已结案',
+                link: '#?page=issues&status=done',
+              }
+            ]
+          }
+        },
+        {
+          item: {
+            title: '列表',
+            style: [],
+            active: false,
+            subItems: [
+              {
+                title: '服务商',
+                link: '#?page=vendors',
+              },
+              {
+                title: '区域及门店',
+                link: '#?page=area',
+              }
+            ]
+          }
+        },
+        
+      ]
     }
 });
