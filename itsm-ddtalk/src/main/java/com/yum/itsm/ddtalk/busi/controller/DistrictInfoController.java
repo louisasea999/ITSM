@@ -39,7 +39,7 @@ public class DistrictInfoController {
     }
 
     /**
-     * 从ITSM数据库取指定区域ID的区域数据(包含服务商，服务站，门店)
+     * 从ITSM数据库取指定区域数据(包含服务商，服务站，门店)
      * @param id
      * @return
      */
@@ -80,7 +80,7 @@ public class DistrictInfoController {
     }
 
     /**
-     * 取得全部或指定区域与服务商的关系
+     * 从ITSM数据库取全部或指定区域与服务商的关系
      * @param id
      * @return
      */

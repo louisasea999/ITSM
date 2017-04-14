@@ -81,7 +81,7 @@ public class StoreInfoController {
     }
 
     /**
-     * 取得全部或指定门店与服务站的关系
+     * 从ITSM数据库取全部或指定门店与服务站的关系
      * @param id
      * @return
      */
