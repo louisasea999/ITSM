@@ -15,7 +15,7 @@ router.get('/v1/issues', function(req, res, next) {
 			res.json(issues);
 		}
 	}).catch(function(err) {
-		res.statusCode(err.statusCode).json(err);
+		res.status(err.statusCode).json(err);
 		output(err);
 	})
 })
@@ -28,7 +28,7 @@ router.get('/v1/issues/:issueId', function(req, res, next) {
 			res.json(issue);
 		}
 	}).catch(function(err) {
-		res.statusCode(err.statusCode).json(err);
+		res.status(err.statusCode).json(err);
 		output(err);
 	})
 })
@@ -39,7 +39,18 @@ router.post('/v1/issue', function(req, res, next) {
 	ctrl.createIssue(issue).then(function(newIssue) {
 		res.json(newIssue);
 	}).catch(function(err) {
-		res.statusCode(err.statusCode).json(err);
+		res.status(err.statusCode).json(err);
+		output(err);
+	})
+})
+
+router.post('/v1/issue/:issueId', function(req, res, next) {
+	var issue = req.body;
+
+	ctrl.updateIssue(req.params.issueId, issue).then(function(data) {
+		res.json({status: 'ok'});
+	}).catch(function(err) {
+		res.status(err.statusCode).json(err);
 		output(err);
 	})
 })
