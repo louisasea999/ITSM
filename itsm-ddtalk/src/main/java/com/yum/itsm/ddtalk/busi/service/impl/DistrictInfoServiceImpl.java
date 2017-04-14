@@ -38,10 +38,15 @@ public class DistrictInfoServiceImpl implements DistrictInfoService {
 	}
 
 	@Override
-	public List<DistrictInfo> getDistrictInfo(Long id) {
+	public DistrictInfo getDistrictInfo(Long id) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("districtId", id);
-		return districtInfoMapper.getDistrictDetails(params);
+		List<DistrictInfo> districts = districtInfoMapper.getDistrictDetails(params);
+		if (districts!= null && districts.size() > 0) {
+			return districts.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -115,5 +120,14 @@ public class DistrictInfoServiceImpl implements DistrictInfoService {
 			}
 		}
 		procDistrictGroupMap(updMaps, oldMaps, newMaps);
+	}
+
+	@Override
+	public List<DistrictGroupMap> getDistrictGroupMap(Long id) {
+		DistrictGroupMapExample mapExam = new DistrictGroupMapExample();
+		if (id != null) {
+			mapExam.createCriteria().andDistrictIdEqualTo(id);
+		}
+		return districtGroupMapMapper.selectByExample(mapExam);
 	}
 }

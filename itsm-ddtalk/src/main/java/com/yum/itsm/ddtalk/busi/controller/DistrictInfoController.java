@@ -21,6 +21,10 @@ public class DistrictInfoController {
 	@Autowired
 	private DistrictInfoService districtInfoService;
 
+	/**
+	 * 从ITSM数据库取全部区域数据(包含服务商，服务站，门店)
+	 * @return
+	 */
     @RequestMapping(value = "list", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDistrictList() {
         MsgDTO msgDTO = new MsgDTO();
@@ -29,6 +33,11 @@ public class DistrictInfoController {
         return msgDTO;
     }
 
+    /**
+     * 从ITSM数据库取指定区域ID的区域数据(包含服务商，服务站，门店)
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "info", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDistrictInfo(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
@@ -37,19 +46,34 @@ public class DistrictInfoController {
         return msgDTO;
     }
     
-    @RequestMapping(value = "save_map_by_id", method = {RequestMethod.POST})
+    /**
+     * 更新全部或指定区域与服务商的关系
+     * @param id
+     * @param maps
+     * @return
+     */
+    @RequestMapping(value = "save_map", method = {RequestMethod.POST})
     public @ResponseBody MsgDTO saveDistrictGroupMapById(@Param("id") Long id, @RequestBody List<DistrictGroupMap> maps) {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
-        districtInfoService.saveDistrictGroupMap(id, maps);
+        if (id != null) {
+            districtInfoService.saveDistrictGroupMap(id, maps);
+        } else {
+            districtInfoService.saveDistrictGroupMap(maps);
+        }
         return msgDTO;
     }
-    
-    @RequestMapping(value = "save_map", method = {RequestMethod.POST})
-    public @ResponseBody MsgDTO saveDistrictGroupMap(@RequestBody List<DistrictGroupMap> maps) {
+
+    /**
+     * 取得全部或指定区域与服务商的关系
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "vendor_map", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO getDistrictGroupMap(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
-        districtInfoService.saveDistrictGroupMap(maps);
+        msgDTO.setData(districtInfoService.getDistrictGroupMap(id));
         return msgDTO;
     }
 }

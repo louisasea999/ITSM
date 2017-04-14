@@ -28,6 +28,10 @@ public class VendorInfoController {
     @Autowired
     private VendorInfoService vendorInfoService;
 
+    /**
+     * 从钉钉取全部服务商组织结构数据(包含服务站和工程师)
+     * @return
+     */
     @RequestMapping(value = "depts_ddtalk", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptsFromDDTalk() {
         MsgDTO msgDTO = new MsgDTO();
@@ -36,6 +40,10 @@ public class VendorInfoController {
         return msgDTO;
     }
     
+    /**
+     * 从ITSM数据库取全部服务商组织结构数据(包含服务站和工程师)
+     * @return
+     */
     @RequestMapping(value = "depts_db", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO getDeptsFromDB() {
         MsgDTO msgDTO = new MsgDTO();
@@ -44,6 +52,11 @@ public class VendorInfoController {
         return msgDTO;
     }
 
+    /**
+     * 从钉钉上把全部服务商组织结构数据(包含服务站和工程师)更新到ITSM数据库
+     * 批处理
+     * @return
+     */
     @RequestMapping(value = "depts_ddtalk_update", method = {RequestMethod.GET})
     public @ResponseBody MsgDTO ddTalkDeptUpdater() {
         MsgDTO msgDTO = new MsgDTO();
@@ -53,8 +66,12 @@ public class VendorInfoController {
     }
     
     // TODO
+    /**
+     * 从钉钉取指定服务商ID的组织结构数据(包含服务站和工程师)
+     * @return
+     */
     @RequestMapping(value = "dept_ddtalk", method = {RequestMethod.GET})
-    public @ResponseBody MsgDTO getDeptFromDDTalk() {
+    public @ResponseBody MsgDTO getDeptFromDDTalk(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
         msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());
@@ -62,8 +79,13 @@ public class VendorInfoController {
     }
     
     // TODO
+    /**
+     * 从ITSM数据库取指定服务商ID的组织结构数据(包含服务站和工程师)
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "dept_db", method = {RequestMethod.GET})
-    public @ResponseBody MsgDTO getDeptFromDB() {
+    public @ResponseBody MsgDTO getDeptFromDB(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
         msgDTO.setStatus(MsgDTO.STATUS_OK);
         msgDTO.setData(vendorInfoService.getDeptsFromDDTalk());

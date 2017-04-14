@@ -8,9 +8,11 @@ import com.yum.itsm.ddtalk.busi.entity.DistrictInfo;
 public interface DistrictInfoService {
 	List<DistrictInfo> getDistrictList();
 	
-	List<DistrictInfo> getDistrictInfo(Long id);
+	DistrictInfo getDistrictInfo(Long id);
 	
 	void saveDistrictGroupMap(Long id, List<DistrictGroupMap> maps);
 
 	void saveDistrictGroupMap(List<DistrictGroupMap> newMaps);
+	
+	List<DistrictGroupMap> getDistrictGroupMap(Long id);
 }
