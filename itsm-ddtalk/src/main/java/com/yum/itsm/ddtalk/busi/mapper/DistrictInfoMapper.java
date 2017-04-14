@@ -3,6 +3,8 @@ package com.yum.itsm.ddtalk.busi.mapper;
 import com.yum.itsm.ddtalk.busi.entity.DistrictInfo;
 import com.yum.itsm.ddtalk.busi.entity.DistrictInfoExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface DistrictInfoMapper {
@@ -27,4 +29,6 @@ public interface DistrictInfoMapper {
     int updateByPrimaryKeySelective(DistrictInfo record);
 
     int updateByPrimaryKey(DistrictInfo record);
+    
+    List<DistrictInfo> getDistrictDetails(Map<String, Object> params);
 }

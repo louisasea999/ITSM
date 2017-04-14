@@ -161,4 +161,59 @@
     set district_name = #{districtName,jdbcType=VARCHAR}
     where district_id = #{districtId,jdbcType=BIGINT}
   </update>
+  
+  
+  
+  <resultMap id="DistrictInfo" type="com.yum.itsm.ddtalk.busi.entity.DistrictInfo" extends="BaseResultMap">
+    <collection ofType="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup" property="supProjectGroups" resultMap="SupProjectGroup" />
+    <collection ofType="com.yum.itsm.ddtalk.busi.entity.DiningRoom" property="diningRomes" resultMap="DiningRoom" />
+  </resultMap>
+  <resultMap id="SupProjectGroup" type="com.yum.itsm.ddtalk.busi.entity.SupProjectGroup">
+    <id column="sup_project_group_id" property="supProjectGroupId" jdbcType="BIGINT" />
+    <result column="sup_project_group_name" property="supProjectGroupName" jdbcType="VARCHAR" />
+    <result column="sup_project_group_remark" property="remark" jdbcType="VARCHAR" />
+    <collection ofType="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" property="serviceDesks" resultMap="ServiceDesk" />
+  </resultMap>
+  <resultMap id="ServiceDesk" type="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
+    <id column="service_desk_id" property="serviceDeskId" jdbcType="BIGINT" />
+    <result column="service_desk_name" property="serviceDeskName" jdbcType="VARCHAR" />
+    <result column="sup_project_group_id" property="supProjectGroupId" jdbcType="BIGINT" />
+    <result column="service_desk_remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="DiningRoom" type="com.yum.itsm.ddtalk.busi.entity.DiningRoom" >
+    <id column="dining_room_id" property="diningRoomId" jdbcType="BIGINT" />
+    <result column="dining_room_name" property="diningRoomName" jdbcType="VARCHAR" />
+    <result column="district_id" property="districtId" jdbcType="BIGINT" />
+  </resultMap>
+  <select id="getDistrictDetails" resultMap="DistrictInfo" parameterType="Map">
+	select
+		district.district_id,
+		district.district_name,
+		sup.sup_project_group_id,
+		sup.sup_project_group_name,
+		sup.remark as sup_project_group_remark,
+		desk.service_desk_id,
+		desk.service_desk_name,
+		desk.remark as service_desk_remark,
+		dining.dining_room_id,
+		dining.dining_room_name
+	from 
+		itsm2.district_info as district
+		left join itsm2.district_group_map sup_map on
+			district.district_id = sup_map.district_id
+		left join itsm2.sup_project_group as sup on
+			sup_map.sup_project_group_id = sup.sup_project_group_id
+		left join itsm2.service_desk as desk on
+			sup.sup_project_group_id = desk.sup_project_group_id
+		left join itsm2.dining_room as dining on
+			district.district_id = dining.district_id
+  	where 1=1 
+  		<if test="districtId != null">
+			and district.district_id = #{districtId}
+		</if>
+  </select>
+  
+  <select id="selectIdSeq" resultType="java.lang.Long" >
+		select nextval('itsm2.district_group_map_district_group_id_seq')
+  </select>
 </mapper>

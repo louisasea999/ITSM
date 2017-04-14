@@ -27,4 +27,6 @@ public interface DistrictGroupMapMapper {
     int updateByPrimaryKeySelective(DistrictGroupMap record);
 
     int updateByPrimaryKey(DistrictGroupMap record);
+
+    long selectIdSeq();
 }
