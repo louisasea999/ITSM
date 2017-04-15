@@ -12,7 +12,7 @@ exports.getIssueById = function(issueId) {
 };
 
 exports.createIssue = function(issue) {
-    return rq.postRequest(config.v2.createIssue);
+    return rq.postRequest(config.v2.createIssue, issue);
 }
 
 exports.updateIssue = function(issueId, issue) {

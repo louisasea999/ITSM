@@ -44,7 +44,7 @@ router.post('/v1/issue', function(req, res, next) {
 	})
 })
 
-router.post('/v1/issue/:issueId', function(req, res, next) {
+router.put('/v1/issue/:issueId', function(req, res, next) {
 	var issue = req.body;
 
 	ctrl.updateIssue(req.params.issueId, issue).then(function(data) {

@@ -21,8 +21,8 @@ var config = {
 					"id": "10001"
 				},
 				"priority": {
-					"self": "http://localhost:8088/rest/api/2/priority/2",
-					"iconUrl": "http://localhost:8088/images/icons/priorities/high.svg",
+					"self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/rest/api/2/priority/2",
+					"iconUrl": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/images/icons/priorities/high.svg",
 					"name": "High",
 					"id": "2"
 				},
@@ -35,6 +35,34 @@ var config = {
 					"remainingEstimate": "5"
 				},
 				"description": "your description",
+				"duedate": "2017-04-11"
+			}
+		},
+		customIssue: {		
+			"fields": {
+				"project": {
+					"id": "10000"
+				},
+				"summary": "测试创建issue包含自定义字段",
+				"issuetype": {
+					"id": "10000"
+				},
+				"priority": {
+					"self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/rest/api/2/priority/2",
+					"iconUrl": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/images/icons/priorities/high.svg",
+					"name": "High",
+					"id": "2"
+				},
+				"labels": [
+					"bugfix",
+					"blitz_test"
+				],
+				"timetracking": {
+					"originalEstimate": "10",
+					"remainingEstimate": "5"
+				},
+				"customfield_10003": "光谷软件园",
+				"description": "description",
 				"duedate": "2017-04-11"
 			}
 		},
@@ -78,6 +106,35 @@ var config = {
 				"cause": { "id": "myevent", "type": "mysystem-event" },
 				"extraData": { "keyvalue": "extra data", "goes": "here" }
 			}, "properties": [{ "key": "key1", "value": "" }]
+		},
+		customFields: [
+			{
+				"name": "餐厅区域",
+				"description": "餐厅区域",
+				"type": "com.atlassian.jira.plugin.system.customfieldtypes:textfield"
+			},
+			{
+				"name": "餐厅门店编号",
+				"description": "餐厅门店编号",
+				"type": "com.atlassian.jira.plugin.system.customfieldtypes:textfield"
+			}
+		],
+		user: {
+			"reporter": {
+				"self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/user?username=NHDAdmin",
+				"name": "NHDAdmin",
+				"key": "nhdadmin",
+				"emailAddress": "louisasea16@hotmail.com",
+				"avatarUrls": {
+					"48x48": "http://itsmpoc6341.cloudapp.net:90/secure/useravatar?avatarId=10336",
+					"24x24": "http://itsmpoc6341.cloudapp.net:90/secure/useravatar?size=small&avatarId=10336",
+					"16x16": "http://itsmpoc6341.cloudapp.net:90/secure/useravatar?size=xsmall&avatarId=10336",
+					"32x32": "http://itsmpoc6341.cloudapp.net:90/secure/useravatar?size=medium&avatarId=10336"
+				},
+				"displayName": "NHDAdmin",
+				"active": true,
+				"timeZone": "UTC"
+			}
 		}
 	}
 };

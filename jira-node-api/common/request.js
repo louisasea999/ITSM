@@ -13,7 +13,9 @@ exports.postRequest = function(url, body) {
 	var options = {
 		method: 'POST',
 		uri: config.baseUrl + url,
-		headers: config.headers
+		headers: config.headers,
+		body: body,
+		json: true
 	}
 	return rp(options);
 }
@@ -22,7 +24,10 @@ exports.putRequest = function(url, body) {
 	var options = {
 		method: 'PUT',
 		uri: config.baseUrl + url,
-		headers: config.headers
+		headers: config.headers,
+		body: body,
+		json: true
 	}
+	console.log(options);
 	return rp(options);
 }
