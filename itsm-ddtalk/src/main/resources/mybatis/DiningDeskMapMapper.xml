@@ -193,4 +193,10 @@
       remark = #{remark,jdbcType=VARCHAR}
     where dining_desk_id = #{diningDeskId,jdbcType=BIGINT}
   </update>
+  
+  
+  
+  <select id="selectIdSeq" resultType="java.lang.Long" >
+		select nextval('itsm2.dining_desk_map_dining_desk_id_seq')
+  </select>
 </mapper>

@@ -77,25 +77,6 @@ public class DistrictInfoServiceImpl implements DistrictInfoService {
 		}
 		procDistrictGroupMap(updMaps, oldMaps, newMaps);
 	}
-	
-	private void procDistrictGroupMap(List<DistrictGroupMap> updMaps, 
-			List<DistrictGroupMap> delMaps, List<DistrictGroupMap> addMaps) {
-		// 删除
-		for (DistrictGroupMap map : delMaps) {
-			DistrictGroupMapExample mapExam = new DistrictGroupMapExample();
-			mapExam.createCriteria().andDistrictGroupIdEqualTo(map.getDistrictGroupId());
-			districtGroupMapMapper.deleteByExample(mapExam);
-		}
-		// 追加
-		for (DistrictGroupMap map : addMaps) {
-			map.setDistrictGroupId(districtGroupMapMapper.selectIdSeq());
-			districtGroupMapMapper.insert(map);
-		}
-		// 更新
-		for (DistrictGroupMap map : updMaps) {
-			districtGroupMapMapper.updateByPrimaryKey(map);
-		}
-	}
 
 	@Override
 	public void saveDistrictGroupMap(List<DistrictGroupMap> newMaps) {
@@ -120,6 +101,25 @@ public class DistrictInfoServiceImpl implements DistrictInfoService {
 			}
 		}
 		procDistrictGroupMap(updMaps, oldMaps, newMaps);
+	}
+	
+	private void procDistrictGroupMap(List<DistrictGroupMap> updMaps, 
+			List<DistrictGroupMap> delMaps, List<DistrictGroupMap> addMaps) {
+		// 删除
+		for (DistrictGroupMap map : delMaps) {
+			DistrictGroupMapExample mapExam = new DistrictGroupMapExample();
+			mapExam.createCriteria().andDistrictGroupIdEqualTo(map.getDistrictGroupId());
+			districtGroupMapMapper.deleteByExample(mapExam);
+		}
+		// 追加
+		for (DistrictGroupMap map : addMaps) {
+			map.setDistrictGroupId(districtGroupMapMapper.selectIdSeq());
+			districtGroupMapMapper.insert(map);
+		}
+		// 更新
+		for (DistrictGroupMap map : updMaps) {
+			districtGroupMapMapper.updateByPrimaryKey(map);
+		}
 	}
 
 	@Override

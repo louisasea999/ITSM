@@ -3,7 +3,7 @@ var rp = require('request-promise');
 
 exports.getRequest = function (url) {
 	var options = {
-		uri: url,
+		uri: config.baseUrl + url,
 		headers: config.headers
 	};
 	return rp(options);
@@ -12,7 +12,16 @@ exports.getRequest = function (url) {
 exports.postRequest = function(url, body) {
 	var options = {
 		method: 'POST',
-		uri: url,
+		uri: config.baseUrl + url,
+		headers: config.headers
+	}
+	return rp(options);
+}
+
+exports.putRequest = function(url, body) {	
+	var options = {
+		method: 'PUT',
+		uri: config.baseUrl + url,
 		headers: config.headers
 	}
 	return rp(options);

@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yum.itsm.ddtalk.busi.dto.MsgDTO;
-import com.yum.itsm.ddtalk.busi.entity.DistrictGroupMap;
-import com.yum.itsm.ddtalk.busi.service.DistrictInfoService;
+import com.yum.itsm.ddtalk.busi.entity.DiningDeskMap;
+import com.yum.itsm.ddtalk.busi.service.StoreInfoService;
 
 @Controller
-@RequestMapping("api/district")
-public class DistrictInfoController {
+@RequestMapping("api/store")
+public class StoreInfoController {
 	
 	@Autowired
-	private DistrictInfoService districtInfoService;
+	private StoreInfoService storeInfoService;
 
 	/**
-	 * 从ITSM数据库取全部区域数据(包含服务商，服务站，门店)
+	 * 从ITSM数据库取全部门店数据(包含服务站)
 	 * @return
 	 */
     @RequestMapping(value = "list", method = {RequestMethod.GET})
-    public @ResponseBody MsgDTO getDistrictList() {
+    public @ResponseBody MsgDTO getDiningRoomList() {
         MsgDTO msgDTO = new MsgDTO();
         try {
 	        msgDTO.setStatus(MsgDTO.STATUS_OK);
-	        msgDTO.setData(districtInfoService.getDistrictList());
+	        msgDTO.setData(storeInfoService.getDiningRoomList());
         } catch (Exception e) {
         	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
         	msgDTO.setMessage(e.getMessage());
@@ -39,16 +39,16 @@ public class DistrictInfoController {
     }
 
     /**
-     * 从ITSM数据库取指定区域数据(包含服务商，服务站，门店)
+     * 从ITSM数据库取指定门店的门店(包含服务站)
      * @param id
      * @return
      */
     @RequestMapping(value = "info", method = {RequestMethod.GET})
-    public @ResponseBody MsgDTO getDistrictInfo(@Param("id") Long id) {
+    public @ResponseBody MsgDTO getDiningRoomInfo(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
         try {
 	        msgDTO.setStatus(MsgDTO.STATUS_OK);
-	        msgDTO.setData(districtInfoService.getDistrictInfo(id));
+	        msgDTO.setData(storeInfoService.getDiningRoomInfo(id));
 	    } catch (Exception e) {
 	    	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
 	    	msgDTO.setMessage(e.getMessage());
@@ -57,20 +57,21 @@ public class DistrictInfoController {
     }
     
     /**
-     * 更新全部或指定区域与服务商的关系
+     * 更新全部或指定门店与服务站的关系
      * @param id
      * @param maps
      * @return
      */
     @RequestMapping(value = "save_map", method = {RequestMethod.POST})
-    public @ResponseBody MsgDTO saveDistrictGroupMapById(@Param("id") Long id, @RequestBody List<DistrictGroupMap> maps) {
+    public @ResponseBody MsgDTO saveDiningDeskMapById(@Param("id") Long id, 
+    		@RequestBody List<DiningDeskMap> maps) {
         MsgDTO msgDTO = new MsgDTO();
         try {
 	        msgDTO.setStatus(MsgDTO.STATUS_OK);
 	        if (id != null) {
-	            districtInfoService.saveDistrictGroupMap(id, maps);
+	        	storeInfoService.saveDiningDeskMap(id, maps);
 	        } else {
-	            districtInfoService.saveDistrictGroupMap(maps);
+	        	storeInfoService.saveDiningDeskMap(maps);
 	        }
 	    } catch (Exception e) {
 	    	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
@@ -80,20 +81,21 @@ public class DistrictInfoController {
     }
 
     /**
-     * 从ITSM数据库取全部或指定区域与服务商的关系
+     * 从ITSM数据库取全部或指定门店与服务站的关系
      * @param id
      * @return
      */
-    @RequestMapping(value = "vendor_map", method = {RequestMethod.GET})
-    public @ResponseBody MsgDTO getDistrictGroupMap(@Param("id") Long id) {
+    @RequestMapping(value = "desk_map", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO getDiningDeskMap(@Param("id") Long id) {
         MsgDTO msgDTO = new MsgDTO();
         try {
 	        msgDTO.setStatus(MsgDTO.STATUS_OK);
-	        msgDTO.setData(districtInfoService.getDistrictGroupMap(id));
+	        msgDTO.setData(storeInfoService.getDiningDeskMap(id));
 	    } catch (Exception e) {
 	    	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
 	    	msgDTO.setMessage(e.getMessage());
 	    }
         return msgDTO;
     }
+
 }

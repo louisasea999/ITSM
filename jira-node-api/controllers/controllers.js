@@ -4,17 +4,18 @@ var rq = require('../common/request');
 var qs = require('querystring');
 
 exports.getIssueList = function() {  
-    return rq.getRequest(config.baseUrl + config.v2.getIssues);
+    return rq.getRequest(config.v2.getIssues);
 };
 
 exports.getIssueById = function(issueId) {
-    return rq.getRequest(config.baseUrl + config.v2.getIssueById + issueId)
+    return rq.getRequest(config.v2.getIssueById + issueId)
 };
 
 exports.createIssue = function(issue) {
-    return rq.postRequest(config.baseUrl + config.v2.createIssue);
+    return rq.postRequest(config.v2.createIssue);
 }
 
-
-
+exports.updateIssue = function(issueId, issue) {
+    return rq.putRequest(config.v2.getIssueById + issueId, issue);
+}
 

@@ -178,4 +178,34 @@
       district_id = #{districtId,jdbcType=BIGINT}
     where dining_room_id = #{diningRoomId,jdbcType=BIGINT}
   </update>
+  
+  <resultMap id="DiningRoom" type="com.yum.itsm.ddtalk.busi.entity.DiningRoom" extends="BaseResultMap" >
+      <collection ofType="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" property="serviceDesks" resultMap="ServiceDesk" />
+  </resultMap>
+  <resultMap id="ServiceDesk" type="com.yum.itsm.ddtalk.busi.entity.ServiceDesk" >
+    <id column="service_desk_id" property="serviceDeskId" jdbcType="BIGINT" />
+    <result column="service_desk_name" property="serviceDeskName" jdbcType="VARCHAR" />
+    <result column="sup_project_group_id" property="supProjectGroupId" jdbcType="BIGINT" />
+    <result column="service_desk_remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="getDiningRoomDetails" resultMap="DiningRoom" parameterType="Map">
+	select
+		dining.dining_room_id,
+		dining.dining_room_name,
+		dining.district_id,
+		desk.service_desk_id,
+		desk.service_desk_name,
+		desk.sup_project_group_id,
+		desk.remark as service_desk_remark
+	from 
+		itsm2.dining_room as dining
+		left join itsm2.dining_desk_map desk_map on
+			dining.dining_room_id = desk_map.dining_room_id
+		left join itsm2.service_desk as desk on
+			desk_map.service_desk_id = desk.service_desk_id
+  	where 1=1 
+  		<if test="districtId != null">
+			and dining.dining_room_id = #{diningRoomId}
+		</if>
+  </select>
 </mapper>
