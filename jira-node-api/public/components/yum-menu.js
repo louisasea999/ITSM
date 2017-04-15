@@ -42,7 +42,7 @@ ko.components.register('yum-menu', {
             subItems: [
               {
                 title: '创建事件',
-                link: './pages/createIssue.html?page=createIssue',
+                link: '/pages/createIssue.html?page=createIssue',
               },
               {
                 title: '已创建事件',
@@ -50,7 +50,7 @@ ko.components.register('yum-menu', {
               },
               {
                 title: '已结案',
-                link: './pages/completedIssue.html?page=completedIssue',
+                link: '/pages/completedIssue.html?page=completedIssue',
               }
             ]
           }
@@ -71,7 +71,7 @@ ko.components.register('yum-menu', {
               },
               {
                 title: '服务商组织结构',
-                link: './pages/vendorOrganization.html?page=vendorOrganization'
+                link: '/pages/vendorOrganization.html?page=vendorOrganization'
               }
             ]
           }
