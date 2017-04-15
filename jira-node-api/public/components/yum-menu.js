@@ -68,6 +68,10 @@ ko.components.register('yum-menu', {
               {
                 title: '区域及门店',
                 link: '#?page=area',
+              },
+              {
+                title: '服务商组织结构',
+                link: './pages/vendorOrganization.html?page=vendorOrganization'
               }
             ]
           }

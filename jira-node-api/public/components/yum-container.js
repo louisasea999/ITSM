@@ -26,6 +26,9 @@ ko.components.register('yum-container', {
           <yum-create-issue></yum-create-issue>
           <!-- /ko -->
 
+          <!-- ko if: page() === "vendorOrganization" -->
+          <yum-vendor-organization></yum-vendor-organization>
+          <!-- /ko -->
         </section>
     </div>
     `,
