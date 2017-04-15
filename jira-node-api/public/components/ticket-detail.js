@@ -12,7 +12,7 @@ ko.components.register('yum-ticket-detail', {
           <section class="col-lg-12 connectedSortable">
             <div class="box box-primary">
               <div class="box-header">
-                
+                <button type="button" class="btn btn-default pull-right" data-bind="click: back"> 返回</button>
               </div>
               <div class="box-body">
                 <!-- ko with: issue -->

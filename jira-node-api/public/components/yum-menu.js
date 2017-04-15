@@ -46,7 +46,7 @@ ko.components.register('yum-menu', {
               },
               {
                 title: '已创建事件',
-                link: './index.html',
+                link: '/index.html',
               },
               {
                 title: '已结案',

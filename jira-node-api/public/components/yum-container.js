@@ -22,6 +22,10 @@ ko.components.register('yum-container', {
           <yum-ticket-detail></yum-ticket-detail>
           <!-- /ko -->
 
+          <!-- ko if: page() === "createIssue" -->
+          <yum-create-issue></yum-create-issue>
+          <!-- /ko -->
+
         </section>
     </div>
     `,
