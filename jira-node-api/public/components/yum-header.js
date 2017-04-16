@@ -1,6 +1,6 @@
 ko.components.register('yum-header', {
     viewModel: function (params) {
-
+        this.userName = window.localStorage.getItem("account");
     },
     template: `<header class="main-header">
       <a href="#" class="logo">
@@ -36,7 +36,7 @@ ko.components.register('yum-header', {
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                <span class="hidden-xs">Administrator</span>
+                <span class="hidden-xs" data-bind="text: userName"></span>
               </a>
               <ul class="dropdown-menu">
                 <li class="user-header">
