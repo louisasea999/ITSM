@@ -1,20 +1,23 @@
+// NHDAdmin "Authorization": "Basic TkhEQWRtaW46cGFzc3dvcmRAMTIzNDU=",
+// StoreUser "Authorization": "Basic U3RvcmVVc2VyOnBhc3N3b3JkQDEyMzQ1",
 var config = {
-	debug: true,
-	baseUrl: 'http://itsmpoc6341.cloudapp.net:90/rest/api/2',
-	headers: {
-		'Authorization': 'Basic TkhEQWRtaW46cGFzc3dvcmRAMTIzNDU=',
-		'Content-Type': 'application/json'
+	"debug": true,
+	"baseUrl": "http://itsmpoc6341.cloudapp.net:90/rest/api/2",
+	"headers": {
+		"Authorization": "Basic TkhEQWRtaW46cGFzc3dvcmRAMTIzNDU",
+		"Content-Type": "application/json"
 	},
-	v2: {
-		getIssues: '/issue/picker',
-		getIssueById: '/issue/',
-		createIssue: '/issue',
+	"v2": {
+		"projectId": "10001",
+		"getIssues": "/issue/picker",
+		"getIssueById": "/issue/",
+		"createIssue": "/issue"
 	},
-	sample: {
-		createIssue: {
+	"sample": {
+		"createIssue": {
 			"fields": {
 				"project": {
-					"id": "10000"
+					"id": "10001"
 				},
 				"summary": "your summary here.",
 				"issuetype": {
@@ -38,7 +41,7 @@ var config = {
 				"duedate": "2017-04-11"
 			}
 		},
-		customIssue: {		
+		"customIssue": {
 			"fields": {
 				"project": {
 					"id": "10000"
@@ -66,12 +69,13 @@ var config = {
 				"duedate": "2017-04-11"
 			}
 		},
-		updateIssue: {
-			"update":
-			{
-				"summary": [{
-					"set": "Bug in business logic"
-				}],
+		"updateIssue": {
+			"update": {
+				"summary": [
+					{
+						"set": "Bug in business logic"
+					}
+				],
 				"timetracking": [
 					{
 						"edit": {
@@ -81,12 +85,15 @@ var config = {
 					}
 				],
 				"labels": [
-					{ "add": "triaged" },
-					{ "remove": "blocker" }
+					{
+						"add": "triaged"
+					},
+					{
+						"remove": "blocker"
+					}
 				]
 			},
-			"historyMetadata":
-			{
+			"historyMetadata": {
 				"type": "myplugin:type",
 				"description": "text description",
 				"descriptionKey": "plugin.changereason.i18.key",
@@ -103,11 +110,23 @@ var config = {
 					"id": "mysystem-1",
 					"type": "mysystem-application"
 				},
-				"cause": { "id": "myevent", "type": "mysystem-event" },
-				"extraData": { "keyvalue": "extra data", "goes": "here" }
-			}, "properties": [{ "key": "key1", "value": "" }]
+				"cause": {
+					"id": "myevent",
+					"type": "mysystem-event"
+				},
+				"extraData": {
+					"keyvalue": "extra data",
+					"goes": "here"
+				}
+			},
+			"properties": [
+				{
+					"key": "key1",
+					"value": ""
+				}
+			]
 		},
-		customFields: [
+		"customFields": [
 			{
 				"name": "餐厅区域",
 				"description": "餐厅区域",
@@ -119,7 +138,7 @@ var config = {
 				"type": "com.atlassian.jira.plugin.system.customfieldtypes:textfield"
 			}
 		],
-		user: {
+		"user": {
 			"reporter": {
 				"self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/user?username=NHDAdmin",
 				"name": "NHDAdmin",

@@ -4,12 +4,12 @@ var rq = require('../common/request');
 var qs = require('querystring');
 
 exports.getIssueList = function() {  
-    return rq.getRequest(config.v2.getIssues);
-};
+    return rq.getRequest(config.v2.getIssues + "?currentProjectId=" + config.v2.projectId);
+}
 
 exports.getIssueById = function(issueId) {
-    return rq.getRequest(config.v2.getIssueById + issueId)
-};
+    return rq.getRequest(config.v2.getIssueById + issueId);
+}
 
 exports.createIssue = function(issue) {
     return rq.postRequest(config.v2.createIssue, issue);
