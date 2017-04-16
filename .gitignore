@@ -213,3 +213,7 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
+jira-node-api/logs/cheese.log.1
+jira-node-api/logs/cheese.log.2
+jira-node-api/logs/cheese.log.3
+*.1

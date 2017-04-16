@@ -24,14 +24,14 @@ ko.components.register('yum-ticket-list', {
                       <td data-bind="text: summary"></td>
                       <td data-bind="text: summaryText"></td>
                       <td>
-                        <a data-bind="attr:{href: './pages/issueDetail.html?page=issueDetail&issueId=' + key}"><i class="fa fa-edit"></i></a>
+                        <a data-bind="attr:{href: '/pages/issueDetail.html?page=issueDetail&issueId=' + key}"><i class="fa fa-edit"></i></a>
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
               <div class="box-footer clearfix no-border">
-                <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> 创建事件</button>
+                <a type="button" class="btn btn-default pull-right" href="/pages/createIssue.html?page=createIssue"><i class="fa fa-plus"></i> 创建事件</button>
               </div>
             </div>
           </section>

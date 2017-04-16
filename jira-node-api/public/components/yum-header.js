@@ -65,7 +65,7 @@ ko.components.register('yum-header', {
                     <a href="#" class="btn btn-default btn-flat">Profile</a>
                   </div>
                   <div class="pull-right">
-                    <a href="./pages/examples/login.html" class="btn btn-default btn-flat">Sign out</a>
+                    <a href="/login.html" class="btn btn-default btn-flat">Sign out</a>
                   </div>
                 </li>
               </ul>
