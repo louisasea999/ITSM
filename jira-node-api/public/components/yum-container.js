@@ -1,8 +1,9 @@
 var utils = {
     getUrlParam: function(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); 
-        var r = window.location.search.substr(1).match(reg); 
-        if (r != null) return unescape(r[2]); return null;
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
     }
 }
 
@@ -28,6 +29,18 @@ ko.components.register('yum-container', {
 
           <!-- ko if: page() === "vendorOrganization" -->
           <yum-vendor-organization></yum-vendor-organization>
+          <!-- /ko -->
+
+          <!-- ko if: page() === "ticket-list-are" -->
+          <yum-area-list></yum-area-list>
+          <!-- /ko -->
+
+          <!-- ko if: page() === "ticket-list-diningRoom" -->
+          <yum-diningRoomsAndDesks-list></yum-diningRoomsAndDesks-list>
+          <!-- /ko -->
+
+          <!-- ko if: page() === "ticket-list-diningRoomList" -->
+          <yum-diningRooms-list></yum-diningRooms-list>
           <!-- /ko -->
         </section>
     </div>

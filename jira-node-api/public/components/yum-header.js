@@ -1,6 +1,14 @@
+if (window.sessionStorage.getItem("account") == null || window.sessionStorage.getItem("account") == undefined) {
+    window.location.href = "/login.html";
+}
+
 ko.components.register('yum-header', {
-    viewModel: function (params) {
-        this.userName = window.localStorage.getItem("account");
+    viewModel: function(params) {
+        this.userName = window.sessionStorage.getItem("account");
+        this.signOut = function() {
+            window.sessionStorage.removeItem("account");
+            window.location.href = "/login.html";
+        }
     },
     template: `<header class="main-header">
       <a href="#" class="logo">
@@ -38,6 +46,7 @@ ko.components.register('yum-header', {
                 <img src="../../dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
                 <span class="hidden-xs" data-bind="text: userName"></span>
               </a>
+              <!--
               <ul class="dropdown-menu">
                 <li class="user-header">
                   <img src="../../dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
@@ -69,8 +78,14 @@ ko.components.register('yum-header', {
                   </div>
                 </li>
               </ul>
+              -->
+             
+            </li>
+            <li>
+              <a href="#" data-bind="click: signOut" titile="Sing out" class="fa fa-sign-out"></a>
             </li>
           </ul>
+         
         </div>
       </nav>
     </header>`

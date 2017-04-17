@@ -32,51 +32,127 @@ ko.components.register('yum-menu', {
       </section>
     </aside>
     `,
-    viewModel: function (params) {
-      this.menus = [
-        {
-          item: {
-            title: '订单相关',
-            style: [],
-            active: true,
-            subItems: [
-              {
-                title: '创建事件',
-                link: '/pages/createIssue.html?page=createIssue',
-              },
-              {
-                title: '已创建事件',
-                link: '/index.html',
-              },
-              {
-                title: '已结案',
-                link: '/pages/completedIssue.html?page=completedIssue',
-              }
-            ]
-          }
-        },
-        {
-          item: {
-            title: '列表',
-            style: [],
-            active: false,
-            subItems: [
-              {
-                title: '服务商',
-                link: '#?page=vendors',
-              },
-              {
-                title: '区域及门店',
-                link: '#?page=area',
-              },
-              {
-                title: '服务商组织结构',
-                link: '/pages/vendorOrganization.html?page=vendorOrganization'
-              }
-            ]
-          }
-        },
-        
-      ]
+    viewModel: function(params) {
+        var self = this;
+        self.roleMenus = [{
+                role: "admin",
+                menus: [{
+                    item: {
+                        title: "事件相关",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
+                            { title: "已创建事件", link: "/index.html" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                        ]
+                    }
+                }, {
+                    item: {
+                        title: "列表",
+                        style: [],
+                        active: false,
+                        subItems: [
+                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList" },
+                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom" },
+                            { title: "区域及服务商", link: "/pages/ticket-list-area.html?page=ticket-list-area" },
+                            { title: "服务商组织结构", link: "/pages/vendorOrganization.html?page=vendorOrganization" }
+                        ]
+                    }
+                }]
+
+            },
+            {
+                role: "storeuser",
+                menus: [{
+                    item: {
+                        title: "事件相关",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
+                            { title: "已创建事件", link: "/index.html" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                        ]
+                    }
+                }]
+
+            },
+            {
+                role: "nhdadmin",
+                menus: [{
+                    item: {
+                        title: "列表",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "区域及服务商", link: "/pages/ticket-list-area.html?page=ticket-list-area" },
+                            { title: "服务商组织结构", link: "/pages/vendorOrganization.html?page=vendorOrganization" }
+                        ]
+                    }
+                }]
+
+            },
+            {
+                role: "regionit",
+                menus: [{
+                    item: {
+                        title: "事件相关",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
+                            { title: "已创建事件", link: "/index.html" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                        ]
+                    }
+                }, {
+                    item: {
+                        title: "列表",
+                        style: [],
+                        active: false,
+                        subItems: [
+                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList" },
+                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom" }
+                        ]
+                    }
+                }]
+
+            },
+            {
+                role: "regionaait",
+                menus: [{
+                    item: {
+                        title: "事件相关",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
+                            { title: "已创建事件", link: "/index.html" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                        ]
+                    }
+                }, {
+                    item: {
+                        title: "列表",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList" },
+                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom" }
+                        ]
+                    }
+                }]
+
+            }
+        ];
+
+        var role = window.sessionStorage["account"];
+        $.each(self.roleMenus, function(index) {
+            if (self.roleMenus[index].role.toLowerCase() == role.toLowerCase()) {
+                self.menus = self.roleMenus[index].menus;
+                return false;
+            }
+        });
     }
 });
