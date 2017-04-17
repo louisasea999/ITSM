@@ -36,7 +36,7 @@ ko.components.register('yum-container', {
           <!-- /ko -->
 
           <!-- ko if: page() === "ticket-list-diningRoom" -->
-          <yum-diningRoomsAndDesks-list></yum-diningRoomsAndDesks-list>
+          <yum-diningroomdesks-list></yum-diningroomdesks-list>
           <!-- /ko -->
 
           <!-- ko if: page() === "ticket-list-diningRoomList" -->
