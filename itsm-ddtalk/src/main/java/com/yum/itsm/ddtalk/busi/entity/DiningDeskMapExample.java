@@ -284,6 +284,66 @@ public class DiningDeskMapExample {
             return (Criteria) this;
         }
 
+        public Criteria andZoneLevelIsNull() {
+            addCriterion("zone_level is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelIsNotNull() {
+            addCriterion("zone_level is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelEqualTo(Integer value) {
+            addCriterion("zone_level =", value, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelNotEqualTo(Integer value) {
+            addCriterion("zone_level <>", value, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelGreaterThan(Integer value) {
+            addCriterion("zone_level >", value, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelGreaterThanOrEqualTo(Integer value) {
+            addCriterion("zone_level >=", value, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelLessThan(Integer value) {
+            addCriterion("zone_level <", value, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelLessThanOrEqualTo(Integer value) {
+            addCriterion("zone_level <=", value, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelIn(List<Integer> values) {
+            addCriterion("zone_level in", values, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelNotIn(List<Integer> values) {
+            addCriterion("zone_level not in", values, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelBetween(Integer value1, Integer value2) {
+            addCriterion("zone_level between", value1, value2, "zoneLevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andZoneLevelNotBetween(Integer value1, Integer value2) {
+            addCriterion("zone_level not between", value1, value2, "zoneLevel");
+            return (Criteria) this;
+        }
+
         public Criteria andRemarkIsNull() {
             addCriterion("remark is null");
             return (Criteria) this;

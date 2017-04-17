@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -113,13 +114,25 @@ public class StoreInfoServiceImpl implements StoreInfoService {
 		}
 		// 追加
 		for (DiningDeskMap map : addMaps) {
+			// TODO 随机添加zone数据
+			map.setZoneLevel(calcZone());
 			map.setDiningDeskId(diningDeskMapMapper.selectIdSeq());
 			diningDeskMapMapper.insert(map);
 		}
 		// 更新
 		for (DiningDeskMap map : updMaps) {
+			// TODO 随机添加zone数据
+			map.setZoneLevel(calcZone());
 			diningDeskMapMapper.updateByPrimaryKey(map);
 		}
+	}
+	
+	private Integer calcZone() {
+        int max=4;
+        int min=1;
+        Random random = new Random();
+
+        return new Integer(random.nextInt(max)%(max-min+1) + min);
 	}
 
 	@Override

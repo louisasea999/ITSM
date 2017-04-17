@@ -7,6 +7,8 @@ public class DiningDeskMap {
 
     private Long serviceDeskId;
 
+    private Integer zoneLevel;
+
     private String remark;
 
     public Long getDiningDeskId() {
@@ -31,6 +33,14 @@ public class DiningDeskMap {
 
     public void setServiceDeskId(Long serviceDeskId) {
         this.serviceDeskId = serviceDeskId;
+    }
+
+    public Integer getZoneLevel() {
+        return zoneLevel;
+    }
+
+    public void setZoneLevel(Integer zoneLevel) {
+        this.zoneLevel = zoneLevel;
     }
 
     public String getRemark() {

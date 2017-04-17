@@ -5,6 +5,7 @@
     <id column="dining_desk_id" property="diningDeskId" jdbcType="BIGINT" />
     <result column="dining_room_id" property="diningRoomId" jdbcType="BIGINT" />
     <result column="service_desk_id" property="serviceDeskId" jdbcType="BIGINT" />
+    <result column="zone_level" property="zoneLevel" jdbcType="INTEGER" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    dining_desk_id, dining_room_id, service_desk_id, remark
+    dining_desk_id, dining_room_id, service_desk_id, zone_level, remark
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningDeskMapExample" >
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningDeskMap" >
     insert into itsm2.dining_desk_map (dining_desk_id, dining_room_id, service_desk_id, 
-      remark)
+      zone_level, remark)
     values (#{diningDeskId,jdbcType=BIGINT}, #{diningRoomId,jdbcType=BIGINT}, #{serviceDeskId,jdbcType=BIGINT}, 
-      #{remark,jdbcType=VARCHAR})
+      #{zoneLevel,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yum.itsm.ddtalk.busi.entity.DiningDeskMap" >
     insert into itsm2.dining_desk_map
@@ -115,6 +116,9 @@
       </if>
       <if test="serviceDeskId != null" >
         service_desk_id,
+      </if>
+      <if test="zoneLevel != null" >
+        zone_level,
       </if>
       <if test="remark != null" >
         remark,
@@ -129,6 +133,9 @@
       </if>
       <if test="serviceDeskId != null" >
         #{serviceDeskId,jdbcType=BIGINT},
+      </if>
+      <if test="zoneLevel != null" >
+        #{zoneLevel,jdbcType=INTEGER},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -153,6 +160,9 @@
       <if test="record.serviceDeskId != null" >
         service_desk_id = #{record.serviceDeskId,jdbcType=BIGINT},
       </if>
+      <if test="record.zoneLevel != null" >
+        zone_level = #{record.zoneLevel,jdbcType=INTEGER},
+      </if>
       <if test="record.remark != null" >
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
@@ -166,6 +176,7 @@
     set dining_desk_id = #{record.diningDeskId,jdbcType=BIGINT},
       dining_room_id = #{record.diningRoomId,jdbcType=BIGINT},
       service_desk_id = #{record.serviceDeskId,jdbcType=BIGINT},
+      zone_level = #{record.zoneLevel,jdbcType=INTEGER},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -180,6 +191,9 @@
       <if test="serviceDeskId != null" >
         service_desk_id = #{serviceDeskId,jdbcType=BIGINT},
       </if>
+      <if test="zoneLevel != null" >
+        zone_level = #{zoneLevel,jdbcType=INTEGER},
+      </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
       </if>
@@ -190,6 +204,7 @@
     update itsm2.dining_desk_map
     set dining_room_id = #{diningRoomId,jdbcType=BIGINT},
       service_desk_id = #{serviceDeskId,jdbcType=BIGINT},
+      zone_level = #{zoneLevel,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
     where dining_desk_id = #{diningDeskId,jdbcType=BIGINT}
   </update>
