@@ -1,4 +1,7 @@
-exports.getServeHours = function(startDateString, endDateString, watchers, startWorkHour, endWorkHour) {
+var config = require('../config');
+var db = require('./db');
+
+exports.getServeHours = function (startDateString, endDateString, watchers, startWorkHour, endWorkHour) {
     var startDate = new Date(startDateString);
     var endDate = new Date(endDateString);
 
@@ -8,12 +11,52 @@ exports.getServeHours = function(startDateString, endDateString, watchers, start
     var serveHours = 0.0;
 
     for (var i = 0; i < watchers.length; i += 2) {
-        console.log(watchers[i], watchers[i + 1], getGapHours(new Date(watchers[i]), new Date(watchers[i + 1]), startWorkHour, endWorkHour));
+        // console.log(watchers[i], watchers[i + 1], getGapHours(new Date(watchers[i]), new Date(watchers[i + 1]), startWorkHour, endWorkHour));
         serveHours += getGapHours(new Date(watchers[i]), new Date(watchers[i + 1]), startWorkHour, endWorkHour);
     }
     // console.log(serveHours)
     serveHours = getGapHours(startDate, endDate, startWorkHour, endWorkHour) - serveHours;
     return format(serveHours);
+}
+
+exports.getSLAHours = function (serveHours, standardHours, timeoutCount) {
+    return (serveHours - standardHours) / standardHours + timeoutCount;
+}
+
+exports.getStandardHours = function (zone, priority) {
+    var standardHours = 0;
+    var mappings = db.mappings;
+    for (var k = 0; k < mappings.length; k++) {
+        var std = mappings[k];
+        if (std.zone === zone && priority === ('P' + std.priority)) {
+            standardHours = std.sla;
+            break;
+        }
+    }
+    return standardHours;
+}
+
+exports.getWatchers = function (histories) {
+    var watchers = [];
+    histories.forEach(function (his, i) {
+        his.items.forEach(function (item, j) {
+            if (item.field === '停表时间' && item.fieldtype === 'custom') {
+                watchers.push(item.to);
+            }
+            if (item.field === '开表时间' && item.fieldtype === 'custom') {
+                watchers.push(item.to);
+            }
+        })
+    })
+
+    if (watchers.length % 2 !== 0) {
+        return -1
+    }
+
+    watchers.sort(function (a, b) {
+        return a > b;
+    })
+    return watchers;
 }
 
 function format(n) {
@@ -36,26 +79,26 @@ function getGapHours(start, end, startWorkHour, endWorkHour) {
     if (!startWorkHour && !endWorkHour) {
         return dh
     }
-    var dd =  end.getDate() - start.getDate(); // gap days
+    var dd = end.getDate() - start.getDate(); // gap days
 
     var d1s = new Date(start.toISOString().split('T')[0] + startWorkHour)
     var d1e = new Date(start.toISOString().split('T')[0] + endWorkHour)
     var d2s = new Date(end.toISOString().split('T')[0] + startWorkHour);
     var d2e = new Date(end.toISOString().split('T')[0] + endWorkHour);
     var gap = 0.0;
-    
+
     var front = 0.0;
-    if(start <= d1s) {
+    if (start <= d1s) {
         gap += (23 - 7);
-    } else if(start >= d1e) {
+    } else if (start >= d1e) {
         // do nothing
     } else {
         gap += getHours(start, d1e);
     }
     // console.log(gap)
-    if(end >= d2e) {
+    if (end >= d2e) {
         gap += (23 - 7);
-    } else if(end <= d2s) {
+    } else if (end <= d2s) {
         // do nothing
     } else {
         gap += getHours(d2s, end);

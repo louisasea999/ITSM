@@ -48,47 +48,38 @@ router.get('/v1/issue/changelog/:issueId', function(req, res, next) {
 })
 
 router.get('/v1/issue/sla/:issueId', function(req, res, next) {
-	// ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function(issue) {
-	// 	var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
-		var myIssue = config.sample.changelog;
+	ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function(issue) {
+		var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
+		// var myIssue = config.sample.changelog;
 		var histories = myIssue.changelog.histories;
-		var watchers = [];
+		var watchers = slaHelper.getWatchers(histories);
 
-		histories.forEach(function(his, i) {
-			his.items.forEach(function(item, j) {
-				if(item.field === '停表时间' && item.fieldtype === 'custom') {
-					watchers.push(item.to);
-				}
-				if(item.field === '开表时间' && item.fieldtype === 'custom') {
-					watchers.push(item.to);
-				}
-			})
-		})
-
-		if(watchers.length % 2 !== 0) {
-			console.log('stop watch and start watch are not match.');
+		if(watchers === -1) {
+			res.status(400).json({error: 'Please check the issue status.'});
 		}
 
-		watchers.sort(function(a, b) {
-			return a > b;
-		})
-
-		var endDate = '2017-04-17T09:34:11.748+0000';
-		var startDate = '2017-04-12T09:34:11.748+0000';
+		var endDate = '2017-04-17T09:34:11.748+0000'; // todo
+		var startDate = '2017-04-12T09:34:11.748+0000'; // todo
 		var startWorkHour = 'T00:00:00.000Z'
 		var endWorkHour = 'T00:00:00.000Z'
 
-		console.log(startDate, endDate, watchers, startWorkHour, endWorkHour);
-
 		var serveHours = slaHelper.getServeHours(startDate, endDate, watchers, startWorkHour, endWorkHour);
 
-		console.log(serveHours);
+		var sla = 0;
+		var zone = 1; // todo
+		var standardHours = 0; // todo
+		var timeoutCount = 1; //todo
+		var priority = myIssue.fields.priority.name;
 
+		standardHours = slaHelper.getStandardHours(zone, priority);
+		slaHours = slaHelper.getSLAHours(serveHours, standardHours, timeoutCount);
+		var expression = `(${serveHours} - ${standardHours}) / ${standardHours} + ${timeoutCount} = ${slaHours}`
 
-	// }).catch(function(err) {
-	// 	res.status(err.statusCode).json(err);
-	// 	output(err);
-	// })
+		res.json({sla: slaHours, expression: expression, issue: myIssue});
+	}).catch(function(err) {
+		res.status(err.statusCode).json(err);
+		output(err);
+	})
 })
 
 router.post('/v1/issue', function(req, res, next) {
