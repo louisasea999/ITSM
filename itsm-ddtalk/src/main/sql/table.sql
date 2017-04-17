@@ -22,6 +22,10 @@ drop table Service_Desk;
 
 drop table Sup_Project_Group;
 
+drop table sla_config;
+
+drop table sys_params;
+
 /*==============================================================*/
 /* Table: Dining_Desk_Map                                       */
 /*==============================================================*/
@@ -29,6 +33,7 @@ create table Dining_Desk_Map (
    Dining_Desk_ID       BIGSERIAL            not null,
    Dining_Room_ID       INT8                 null,
    Service_Desk_ID      INT8                 null,
+   zone_level           INT4                 null,
    Remark               VARCHAR(512)         null,
    constraint PK_DINING_DESK_MAP primary key (Dining_Desk_ID)
 );
@@ -44,6 +49,9 @@ comment on column Dining_Desk_Map.Dining_Room_ID is
 
 comment on column Dining_Desk_Map.Service_Desk_ID is
 '服务站ID';
+
+comment on column Dining_Desk_Map.zone_level is
+'距离等级';
 
 comment on column Dining_Desk_Map.Remark is
 '备注';
@@ -346,4 +354,56 @@ comment on column Sup_Project_Group.Sup_Project_Group_Name is
 '服务商项目组名称';
 
 comment on column Sup_Project_Group.Remark is
+'备注';
+
+/*==============================================================*/
+/* Table: sla_config                                            */
+/*==============================================================*/
+create table sla_config (
+   priority_Level       INT4                 not null,
+   zone_level           INT4                 not null,
+   distance             INT4                 null,
+   service_time         VARCHAR(64)          null,
+   remark               VARCHAR(100)         null,
+   constraint PK_SLA_CONFIG primary key (priority_Level, zone_level)
+);
+
+comment on table sla_config is
+'SLA配置';
+
+comment on column sla_config.priority_Level is
+'优先级';
+
+comment on column sla_config.zone_level is
+'距离等级';
+
+comment on column sla_config.distance is
+'距离(km)';
+
+comment on column sla_config.service_time is
+'服务时间';
+
+comment on column sla_config.remark is
+'备注';
+
+/*==============================================================*/
+/* Table: sys_params                                            */
+/*==============================================================*/
+create table sys_params (
+   key                  VARCHAR(64)          not null,
+   value                VARCHAR(100)         null,
+   remark               VARCHAR(256)         null,
+   constraint PK_SYS_PARAMS primary key (key)
+);
+
+comment on table sys_params is
+'系统参数表';
+
+comment on column sys_params.key is
+'主键';
+
+comment on column sys_params.value is
+'值';
+
+comment on column sys_params.remark is
 '备注';

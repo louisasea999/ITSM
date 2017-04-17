@@ -45,6 +45,27 @@ insert into Dining_Room values(2,'肯德基陆家嘴店',2);
 
 --插入餐厅与服务站数据
 truncate table Dining_Desk_Map;
-insert into Dining_Desk_Map values(1,1,1,''); --星巴克世纪公园-服务站A
-insert into Dining_Desk_Map values(2,2,3,''); --肯德基陆家嘴店-服务站C
+insert into Dining_Desk_Map values(1,1,1,1,''); --星巴克世纪公园-服务站A
+insert into Dining_Desk_Map values(2,2,3,2,''); --肯德基陆家嘴店-服务站C
 select setval('dining_desk_map_dining_desk_id_seq', 10);
+
+truncate table sys_params;
+insert into sys_params values('response','40','响应时间(单位分钟)');
+
+truncate table sla_config;
+insert into sla_config values(0,1,4,'7*16(7:00~23:00)','');
+insert into sla_config values(0,2,8,'7*16(7:00~23:00)','');
+insert into sla_config values(0,3,12,'7*16(7:00~23:00)','');
+insert into sla_config values(0,4,24,'7*16(7:00~23:00)','');
+insert into sla_config values(1,1,8,'7*16(7:00~23:00)','');
+insert into sla_config values(1,2,12,'7*16(7:00~23:00)','');
+insert into sla_config values(1,3,18,'7*16(7:00~23:00)','');
+insert into sla_config values(1,4,32,'7*16(7:00~23:00)','');
+insert into sla_config values(2,1,22,'7*16(7:00~23:00)','');
+insert into sla_config values(2,2,24,'7*16(7:00~23:00)','');
+insert into sla_config values(2,3,36,'7*16(7:00~23:00)','');
+insert into sla_config values(2,4,48,'7*16(7:00~23:00)','');
+insert into sla_config values(3,1,480,'不去除非工作时间','');
+insert into sla_config values(3,2,480,'不去除非工作时间','');
+insert into sla_config values(3,3,480,'不去除非工作时间','');
+insert into sla_config values(3,4,480,'不去除非工作时间','');
