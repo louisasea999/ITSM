@@ -42,21 +42,21 @@ ko.components.register('yum-menu', {
                         style: [],
                         active: true,
                         subItems: [
-                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
-                            { title: "已创建事件", link: "/index.html" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
+                            { title: "已创建事件", link: "/index.html?menu=0" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
                         ]
                     }
                 }, {
                     item: {
-                        title: "列表",
+                        title: "配置列表",
                         style: [],
                         active: false,
                         subItems: [
-                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList" },
-                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom" },
-                            { title: "区域及服务商", link: "/pages/ticket-list-area.html?page=ticket-list-area" },
-                            { title: "服务商组织结构", link: "/pages/vendorOrganization.html?page=vendorOrganization" }
+                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList&menu=1" },
+                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom&menu=1" },
+                            { title: "区域及服务商", link: "/pages/ticket-list-area.html?page=ticket-list-area&menu=1" },
+                            { title: "服务商组织结构", link: "/pages/vendorOrganization.html?page=vendorOrganization&menu=1" }
                         ]
                     }
                 }]
@@ -70,9 +70,9 @@ ko.components.register('yum-menu', {
                         style: [],
                         active: true,
                         subItems: [
-                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
-                            { title: "已创建事件", link: "/index.html" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
+                            { title: "已创建事件", link: "/index.html&&menu=0" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
                         ]
                     }
                 }]
@@ -82,12 +82,12 @@ ko.components.register('yum-menu', {
                 role: "nhdadmin",
                 menus: [{
                     item: {
-                        title: "列表",
+                        title: "配置列表",
                         style: [],
                         active: true,
                         subItems: [
-                            { title: "区域及服务商", link: "/pages/ticket-list-area.html?page=ticket-list-area" },
-                            { title: "服务商组织结构", link: "/pages/vendorOrganization.html?page=vendorOrganization" }
+                            { title: "区域及服务商", link: "/pages/ticket-list-area.html?page=ticket-list-area&menu=1" },
+                            { title: "服务商组织结构", link: "/pages/vendorOrganization.html?page=vendorOrganization&menu=1" }
                         ]
                     }
                 }]
@@ -101,19 +101,19 @@ ko.components.register('yum-menu', {
                         style: [],
                         active: true,
                         subItems: [
-                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
-                            { title: "已创建事件", link: "/index.html" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
+                            { title: "已创建事件", link: "/index.html?menu=0" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
                         ]
                     }
                 }, {
                     item: {
-                        title: "列表",
+                        title: "配置列表",
                         style: [],
                         active: false,
                         subItems: [
-                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList" },
-                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom" }
+                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList&menu=1" },
+                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom&menu=1" }
                         ]
                     }
                 }]
@@ -127,19 +127,19 @@ ko.components.register('yum-menu', {
                         style: [],
                         active: true,
                         subItems: [
-                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue" },
-                            { title: "已创建事件", link: "/index.html" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue" }
+                            { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
+                            { title: "已创建事件", link: "/index.html?menu=0" },
+                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
                         ]
                     }
                 }, {
                     item: {
-                        title: "列表",
+                        title: "配置列表",
                         style: [],
                         active: true,
                         subItems: [
-                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList" },
-                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom" }
+                            { title: "餐厅列表", link: "/pages/ticket-list-diningRoomList.html?page=ticket-list-diningRoomList&menu=1" },
+                            { title: "餐厅及服务站", link: "/pages/ticket-list-diningRoom.html?page=ticket-list-diningRoom&menu=1" }
                         ]
                     }
                 }]
@@ -151,8 +151,20 @@ ko.components.register('yum-menu', {
         $.each(self.roleMenus, function(index) {
             if (self.roleMenus[index].role.toLowerCase() == role.toLowerCase()) {
                 self.menus = self.roleMenus[index].menus;
+                var currentActiveMenuIndex = parseInt(utils.getUrlParam('menu'));
+                // console.log(currentActiveMenuIndex);
+                if (currentActiveMenuIndex != NaN && currentActiveMenuIndex < self.menus.length) {
+                    $.each(self.menus, function(i) {
+                        if (i == currentActiveMenuIndex) {
+                            self.menus[i].item.active = true;
+                        } else {
+                            self.menus[i].item.active = false;
+                        }
+                    });
+                }
                 return false;
             }
         });
+        //console.log(self.menus);
     }
 });

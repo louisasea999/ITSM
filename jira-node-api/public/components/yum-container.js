@@ -31,7 +31,7 @@ ko.components.register('yum-container', {
           <yum-vendor-organization></yum-vendor-organization>
           <!-- /ko -->
 
-          <!-- ko if: page() === "ticket-list-are" -->
+          <!-- ko if: page() === "ticket-list-area" -->
           <yum-area-list></yum-area-list>
           <!-- /ko -->
 
@@ -40,7 +40,7 @@ ko.components.register('yum-container', {
           <!-- /ko -->
 
           <!-- ko if: page() === "ticket-list-diningRoomList" -->
-          <yum-diningRooms-list></yum-diningRooms-list>
+          <yum-diningrooms-list></yum-diningrooms-list>
           <!-- /ko -->
         </section>
     </div>
