@@ -1,5 +1,5 @@
 var config = require('../config');
-var db = require('./db');
+var dbHelper = require('./dbHelper');
 
 exports.getServeHours = function (startDateString, endDateString, watchers, startWorkHour, endWorkHour) {
     var startDate = new Date(startDateString);
@@ -23,17 +23,22 @@ exports.getSLAHours = function (serveHours, standardHours, timeoutCount) {
     return (serveHours - standardHours) / standardHours + timeoutCount;
 }
 
-exports.getStandardHours = function (zone, priority) {
+exports.getStandardHours = function (zone, priority, done) {
     var standardHours = 0;
-    var mappings = db.mappings;
-    for (var k = 0; k < mappings.length; k++) {
-        var std = mappings[k];
-        if (std.zone === zone && priority === ('P' + std.priority)) {
-            standardHours = std.sla;
-            break;
+    getMappings(function (err, mappings) {
+        if(err) {
+            return done(err, 1);
         }
-    }
-    return standardHours;
+        for (var k = 0; k < mappings.length; k++) {
+            var std = mappings[k];
+            // std.zone_level is number and zone is string
+            if (std.zone_level == zone && priority === ('P' + std.priority_level)) {
+                standardHours = std.distance;
+                break;
+            }
+        }
+        done(null, standardHours);
+    });
 }
 
 exports.getWatchers = function (histories) {
@@ -107,6 +112,19 @@ function getGapHours(start, end, startWorkHour, endWorkHour) {
     gap += (dd - 1) * (23 - 7);
     // console.log(gap)
     return gap;
+}
+
+function getMappings(done) {
+    dbHelper.queryTable(config.db.table.sla_config, function (err, result) {
+        if (err) {
+            done(err, []);
+        }
+        if (Array.isArray(result.rows) === true) {
+            done(null, result.rows)
+        } else {
+            done(null, []);
+        }
+    });
 }
 
 /*

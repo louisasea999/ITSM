@@ -9,7 +9,10 @@ var config = require('./config'),
     errorhandler = require('errorhandler'),
     favicon = require('serve-favicon'),
   	bodyParser = require('body-parser'),
+    initEnv = require('./common/initEnv'),
   	path = require('path');
+
+initEnv.init();
 
 var app = express();
 

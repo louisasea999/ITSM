@@ -4,7 +4,7 @@ var ctrl = require('./controllers/controllers');
 var express = require('express');
 var util = require('util');
 var multer = require('multer');
-var slaHelper = require('./common/SLA');
+var slaHelper = require('./common/slaHelper');
 
 var router = express.Router();
 
@@ -56,26 +56,32 @@ router.get('/v1/issue/sla/:issueId', function(req, res, next) {
 
 		if(watchers === -1) {
 			res.status(400).json({error: 'Please check the issue status.'});
+			return;
 		}
 
-		var endDate = '2017-04-17T09:34:11.748+0000'; // todo
-		var startDate = '2017-04-12T09:34:11.748+0000'; // todo
-		var startWorkHour = 'T00:00:00.000Z'
-		var endWorkHour = 'T00:00:00.000Z'
+		var endDate = myIssue.fields[global.customFields.endIssueDate.id] || Date.now().toISOString(); //'2017-04-19T09:34:11.748+0000'; // todo
+		var startDate = myIssue.fields.created;//'2017-04-12T09:34:11.748+0000'; // todo		
 
-		var serveHours = slaHelper.getServeHours(startDate, endDate, watchers, startWorkHour, endWorkHour);
+		var serveHours = slaHelper.getServeHours(startDate, endDate, watchers, global.standard.workHours[0], global.standard.workHours[1]);
 
 		var sla = 0;
-		var zone = 1; // todo
+		var zone = myIssue.fields[global.customFields.zone.id]; // todo
 		var standardHours = 0; // todo
 		var timeoutCount = 1; //todo
 		var priority = myIssue.fields.priority.name;
 
-		standardHours = slaHelper.getStandardHours(zone, priority);
-		slaHours = slaHelper.getSLAHours(serveHours, standardHours, timeoutCount);
-		var expression = `(${serveHours} - ${standardHours}) / ${standardHours} + ${timeoutCount} = ${slaHours}`
+		slaHelper.getStandardHours(zone, priority, function(err, hour) {
+			if(err) {
+				res.status(400).json(err);
+			}
+			standardHours = hour;
 
-		res.json({sla: slaHours, expression: expression, issue: myIssue});
+			slaHours = slaHelper.getSLAHours(serveHours, standardHours, timeoutCount);
+			var expression = `(${serveHours} - ${standardHours}) / ${standardHours} + ${timeoutCount} = ${slaHours}`
+
+			res.json({sla: slaHours, expression: expression, issue: myIssue});
+		});
+		
 	}).catch(function(err) {
 		res.status(err.statusCode).json(err);
 		output(err);

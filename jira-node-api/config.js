@@ -4,6 +4,21 @@
 var config = {
 	"debug": true,
 	"baseUrl": "http://itsmpoc6341.cloudapp.net:90/rest/api/2",
+	"db": {
+		user: 'postgres',
+		database: 'itsm',
+		schema: 'itsm2',
+		table: {
+			sla_config: 'sla_config',
+			sys_params: 'sys_params',
+			dining_desk_map: 'dining_desk_map'
+		},
+		password: 'password@12345',
+		host: 'itsmpoc6341.cloudapp.net',
+		port: 5432, 
+		max: 10, 
+		idleTimeoutMillis: 30000, 
+	},
 	"headers": {
 		"Authorization": "Basic U3RvcmVVc2VyOnBhc3N3b3JkQDEyMzQ1",
 		"Content-Type": "application/json"
@@ -12,7 +27,8 @@ var config = {
 		"projectId": "10000",
 		"getIssues": "/issue/picker",
 		"getIssueById": "/issue/",
-		"createIssue": "/issue"
+		"createIssue": "/issue",
+		"field": '/field'
 	},
 	"sample": {
 		"createIssue": {

@@ -1,3 +1,6 @@
+var pg = require('pg');
+var config = require('../config');
+
 exports.mappings = [
     {
         "priority": 0,
@@ -96,3 +99,27 @@ exports.mappings = [
         "remark": "不去除非工作时间"
     }
 ]
+
+const dbConfig = {
+  user: config.db.user,
+  database: config.db.database,
+  password: config.db.password,
+  host: config.db.host,
+  port: config.db.port, 
+  max: config.db.max, 
+  idleTimeoutMillis: config.db.idleTimeoutMillis 
+};
+
+const pool = new pg.Pool(dbConfig);
+
+pool.on('error', function (err, client) {
+  console.error('idle client error', err.message, err.stack);
+});
+
+exports.query = function (text, values, callback) {
+  return pool.query(text, values, callback);
+};
+
+exports.connect = function (callback) {
+  return pool.connect(callback);
+};

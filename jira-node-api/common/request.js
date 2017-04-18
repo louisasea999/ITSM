@@ -28,6 +28,5 @@ exports.putRequest = function(url, body) {
 		body: body,
 		json: true
 	}
-	console.log(options);
 	return rp(options);
 }

@@ -103,7 +103,7 @@ ko.components.register('yum-ticket-detail', {
 
         self.issueId = utils.getUrlParam('issueId');
 
-        $.get(window.env.baseUrl + "/v1/issues/" + self.issueId, function(data) {
+        $.get(window.env.baseUrl + "/v1/issue/sla/" + self.issueId, function(data) {
           console.log(data);
           self.issue(data);
         });
