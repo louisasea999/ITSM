@@ -77,7 +77,12 @@
                 var pwd = $.trim($("#password").val());
                 if (account.toLowerCase() == "admin" || account.toLowerCase() == "storeuser" || account.toLowerCase() == "nhdadmin" || account.toLowerCase() == "regionit" || account.toLowerCase() == "regionaait") {
                     window.sessionStorage.setItem("account", account);
-                    window.location.href = "/index.html";
+                    if (account.toLowerCase() == "admin" || account.toLowerCase() == "storeuser" || account.toLowerCase() == "regionit" || account.toLowerCase() == "regionaait") {
+                        window.location.href = "/index.html";
+                    }
+                    if (account.toLowerCase() == "nhdadmin") {
+                        window.location.href = "/pages/ticket-list-area.html?page=ticket-list-area&menu=1"
+                    }
                 } else {
                     alert("Invalid user.");
                 }
