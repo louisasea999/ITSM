@@ -14,4 +14,6 @@ public interface VendorInfoService {
 	SupProjectGroup getDeptFromDB(Long id);
 	
 	void updateSupProjectGroupInfo();
+	
+	void sendMsgByRobot(String issueKey, String deskName, String title, String text);
 }

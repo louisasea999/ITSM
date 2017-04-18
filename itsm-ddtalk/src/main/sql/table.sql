@@ -1,5 +1,7 @@
 ﻿set search_path to "itsm2";
 
+drop table Desk_Robot_Map;
+
 drop table Dining_Desk_Map;
 
 drop table Dining_Room;
@@ -25,6 +27,36 @@ drop table Sup_Project_Group;
 drop table sla_config;
 
 drop table sys_params;
+
+/*==============================================================*/
+/* Table: Desk_Robot_Map                                        */
+/*==============================================================*/
+create table Desk_Robot_Map (
+   Desk_Robot_Id        INT4                 not null,
+   Service_Desk_Name    VARCHAR(100)         not null,
+   Custom_Robot_Token   VARCHAR(100)         null,
+   Jira_Robot_Token     VARCHAR(100)         null,
+   Remark               VARCHAR(512)         null,
+   constraint PK_DESK_ROBOT_MAP primary key (Desk_Robot_Id)
+);
+
+comment on table Desk_Robot_Map is
+'服务站与机器人关系';
+
+comment on column Desk_Robot_Map.Desk_Robot_Id is
+'服务站机器人关系ID';
+
+comment on column Desk_Robot_Map.Service_Desk_Name is
+'服务站名';
+
+comment on column Desk_Robot_Map.Custom_Robot_Token is
+'自定义机器人Token';
+
+comment on column Desk_Robot_Map.Jira_Robot_Token is
+'JIRA机器人Token';
+
+comment on column Desk_Robot_Map.Remark is
+'备注';
 
 /*==============================================================*/
 /* Table: Dining_Desk_Map                                       */
@@ -378,7 +410,7 @@ comment on column sla_config.zone_level is
 '距离等级';
 
 comment on column sla_config.distance is
-'距离(km)';
+'距离(hour)';
 
 comment on column sla_config.service_time is
 '服务时间';
@@ -407,3 +439,4 @@ comment on column sys_params.value is
 
 comment on column sys_params.remark is
 '备注';
+

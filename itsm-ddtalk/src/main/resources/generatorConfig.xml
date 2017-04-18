@@ -60,8 +60,11 @@
 		<table schema="itsm2" tableName="district_group_map" domainObjectName="DistrictGroupMap">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
-		 -->
 		<table schema="itsm2" tableName="dining_desk_map" domainObjectName="DiningDeskMap">
+			<property name="useActualColumnNames" value="false"/>
+		</table>
+		 -->
+		<table schema="itsm2" tableName="desk_robot_map" domainObjectName="DeskRobotMap">
 			<property name="useActualColumnNames" value="false"/>
 		</table>
 	</context>

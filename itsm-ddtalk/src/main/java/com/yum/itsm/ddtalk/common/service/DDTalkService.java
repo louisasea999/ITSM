@@ -11,4 +11,6 @@ public interface DDTalkService {
 	List<DDTalkDepartment> getDepartmentList();
 	
 	List<DDTalkUser> getUserList(Long departmentId);
+	
+	void sendMsgByRobot(String robotToken, String msg);
 }

@@ -8,4 +8,10 @@ public interface HttpClientService {
                              String user,
                              String pass,
                              Map<String, String> params);
+    
+    String postRemoteResponse(String url,
+    						  String user,
+    						  String pass,
+    						  Map<String, String> params,
+    						  String requestStr);
 }

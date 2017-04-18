@@ -30,6 +30,7 @@ public class DDTalkServiceImpl implements DDTalkService {
 	private static final String GET_TOKEN_URL = "https://oapi.dingtalk.com/gettoken";
 	private static final String GET_DEPARTMENT_LIST_URL = "https://oapi.dingtalk.com/department/list";
 	private static final String GET_USER_LIST_URL = "https://oapi.dingtalk.com/user/list";
+	private static final String POST_ROBOT_SEND = "https://oapi.dingtalk.com/robot/send";
 	
 	private String corpId;
 	private String corpSecret;
@@ -128,5 +129,19 @@ public class DDTalkServiceImpl implements DDTalkService {
 		}
 		
 		return userList.getUserlist();
+	}
+	@Override
+	public void sendMsgByRobot(String robotToken, String msg) {
+		Map<String, String> paras = new HashMap<>();
+		paras.put("access_token", robotToken);
+		String resString = httpClientService.postRemoteResponse(
+				POST_ROBOT_SEND, null, null, paras, msg);
+		
+        Gson gson = new Gson();
+        DDTalkMsgDTO ret = gson.fromJson(resString, 
+        		new TypeToken<UserListDDTalkMsgDTO>() {}.getType());
+		if (!ret.getErrCode().equals(DDTalkMsgDTO.CODE_OK)) {
+        	throw new ApplicationException(ret.getErrMsg());
+		}
 	}
 }

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yum.itsm.ddtalk.busi.mapper.DeskRobotMapMapper" >
+  <resultMap id="BaseResultMap" type="com.yum.itsm.ddtalk.busi.entity.DeskRobotMap" >
+    <id column="desk_robot_id" property="deskRobotId" jdbcType="INTEGER" />
+    <result column="service_desk_name" property="serviceDeskName" jdbcType="VARCHAR" />
+    <result column="custom_robot_token" property="customRobotToken" jdbcType="VARCHAR" />
+    <result column="jira_robot_token" property="jiraRobotToken" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    desk_robot_id, service_desk_name, custom_robot_token, jira_robot_token, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yum.itsm.ddtalk.busi.entity.DeskRobotMapExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from itsm2.desk_robot_map
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from itsm2.desk_robot_map
+    where desk_robot_id = #{deskRobotId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from itsm2.desk_robot_map
+    where desk_robot_id = #{deskRobotId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.DeskRobotMapExample" >
+    delete from itsm2.desk_robot_map
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yum.itsm.ddtalk.busi.entity.DeskRobotMap" >
+    insert into itsm2.desk_robot_map (desk_robot_id, service_desk_name, custom_robot_token, 
+      jira_robot_token, remark)
+    values (#{deskRobotId,jdbcType=INTEGER}, #{serviceDeskName,jdbcType=VARCHAR}, #{customRobotToken,jdbcType=VARCHAR}, 
+      #{jiraRobotToken,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yum.itsm.ddtalk.busi.entity.DeskRobotMap" >
+    insert into itsm2.desk_robot_map
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deskRobotId != null" >
+        desk_robot_id,
+      </if>
+      <if test="serviceDeskName != null" >
+        service_desk_name,
+      </if>
+      <if test="customRobotToken != null" >
+        custom_robot_token,
+      </if>
+      <if test="jiraRobotToken != null" >
+        jira_robot_token,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deskRobotId != null" >
+        #{deskRobotId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceDeskName != null" >
+        #{serviceDeskName,jdbcType=VARCHAR},
+      </if>
+      <if test="customRobotToken != null" >
+        #{customRobotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="jiraRobotToken != null" >
+        #{jiraRobotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yum.itsm.ddtalk.busi.entity.DeskRobotMapExample" resultType="java.lang.Integer" >
+    select count(*) from itsm2.desk_robot_map
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update itsm2.desk_robot_map
+    <set >
+      <if test="record.deskRobotId != null" >
+        desk_robot_id = #{record.deskRobotId,jdbcType=INTEGER},
+      </if>
+      <if test="record.serviceDeskName != null" >
+        service_desk_name = #{record.serviceDeskName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customRobotToken != null" >
+        custom_robot_token = #{record.customRobotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jiraRobotToken != null" >
+        jira_robot_token = #{record.jiraRobotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update itsm2.desk_robot_map
+    set desk_robot_id = #{record.deskRobotId,jdbcType=INTEGER},
+      service_desk_name = #{record.serviceDeskName,jdbcType=VARCHAR},
+      custom_robot_token = #{record.customRobotToken,jdbcType=VARCHAR},
+      jira_robot_token = #{record.jiraRobotToken,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yum.itsm.ddtalk.busi.entity.DeskRobotMap" >
+    update itsm2.desk_robot_map
+    <set >
+      <if test="serviceDeskName != null" >
+        service_desk_name = #{serviceDeskName,jdbcType=VARCHAR},
+      </if>
+      <if test="customRobotToken != null" >
+        custom_robot_token = #{customRobotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="jiraRobotToken != null" >
+        jira_robot_token = #{jiraRobotToken,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where desk_robot_id = #{deskRobotId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yum.itsm.ddtalk.busi.entity.DeskRobotMap" >
+    update itsm2.desk_robot_map
+    set service_desk_name = #{serviceDeskName,jdbcType=VARCHAR},
+      custom_robot_token = #{customRobotToken,jdbcType=VARCHAR},
+      jira_robot_token = #{jiraRobotToken,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where desk_robot_id = #{deskRobotId,jdbcType=INTEGER}
+  </update>
+</mapper>
