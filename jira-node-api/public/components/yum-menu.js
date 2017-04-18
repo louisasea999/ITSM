@@ -43,8 +43,8 @@ ko.components.register('yum-menu', {
                         active: true,
                         subItems: [
                             { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
-                            { title: "已创建事件", link: "/index.html?menu=0" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
+                            { title: "事件列表", link: "/index.html?menu=0" },
+                            { title: "工单列表", link: "/pages/taskList.html?page=taskList&menu=0" }
                         ]
                     }
                 }, {
@@ -71,8 +71,8 @@ ko.components.register('yum-menu', {
                         active: true,
                         subItems: [
                             { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
-                            { title: "已创建事件", link: "/index.html&&menu=0" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
+                            { title: "事件列表", link: "/index.html?menu=0" },
+                            { title: "工单列表", link: "/pages/taskList.html?page=taskList&menu=0" }
                         ]
                     }
                 }]
@@ -102,8 +102,8 @@ ko.components.register('yum-menu', {
                         active: true,
                         subItems: [
                             { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
-                            { title: "已创建事件", link: "/index.html?menu=0" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
+                            { title: "事件列表", link: "/index.html?menu=0" },
+                            { title: "工单列表", link: "/pages/taskList.html?page=taskList&menu=0" }
                         ]
                     }
                 }, {
@@ -128,8 +128,8 @@ ko.components.register('yum-menu', {
                         active: true,
                         subItems: [
                             { title: "创建事件", link: "/pages/createIssue.html?page=createIssue&menu=0" },
-                            { title: "已创建事件", link: "/index.html?menu=0" },
-                            { title: "已结案", link: "/pages/completedIssue.html?page=completedIssue&menu=0" }
+                            { title: "事件列表", link: "/index.html?menu=0" },
+                            { title: "工单列表", link: "/pages/taskList.html?page=taskList&menu=0" }
                         ]
                     }
                 }, {

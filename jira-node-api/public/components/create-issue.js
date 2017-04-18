@@ -30,7 +30,7 @@ ko.components.register('yum-create-issue', {
                   <label for="key" class="col-sm-2 control-label">餐厅门店编号</label>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" data-bind="value: customfield_10002" />
+                    <input type="text" class="form-control" data-bind="value: customfield_10007" />
                   </div>
                 </div>
 
@@ -38,12 +38,12 @@ ko.components.register('yum-create-issue', {
                   <label for="key" class="col-sm-2 control-label">餐厅区域</label>
 
                   <div class="col-sm-6">
-                    <input type="text" class="form-control" data-bind="value: customfield_10003" />
+                    <input type="text" class="form-control" data-bind="value: customfield_10006" />
                   </div>
                 </div>       
 
                 <div class="form-group col-sm-12">
-                  <label for="key" class="col-sm-2 control-label">汇总</label>
+                  <label for="key" class="col-sm-2 control-label">事件概述</label>
 
                   <div class="col-sm-6">
                     <input type="text" class="form-control" data-bind="value: summary" />
@@ -90,100 +90,99 @@ ko.components.register('yum-create-issue', {
 
         self.sbmitBtnTxt = ko.observable(' 确认');
 
-        self.priorities = [
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/1",
-            "statusColor": "#d04437",
-            "description": "This problem will block progress.",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/highest.svg",
-            "name": "P0",
-            "id": "1"
-          },
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/2",
-            "statusColor": "#f15C75",
-            "description": "Serious problem that could block progress.",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/high.svg",
-            "name": "P1",
-            "id": "2"
-          },
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/3",
-            "statusColor": "#f79232",
-            "description": "Has the potential to affect progress.",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/medium.svg",
-            "name": "P2",
-            "id": "3"
-          },
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/4",
-            "statusColor": "#707070",
-            "description": "Minor problem or easily worked around.",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/low.svg",
-            "name": "P3",
-            "id": "4"
-          }
+        self.priorities = [{
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/1",
+                "statusColor": "#d04437",
+                "description": "This problem will block progress.",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/highest.svg",
+                "name": "P0",
+                "id": "1"
+            },
+            {
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/2",
+                "statusColor": "#f15C75",
+                "description": "Serious problem that could block progress.",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/high.svg",
+                "name": "P1",
+                "id": "2"
+            },
+            {
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/3",
+                "statusColor": "#f79232",
+                "description": "Has the potential to affect progress.",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/medium.svg",
+                "name": "P2",
+                "id": "3"
+            },
+            {
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/priority/4",
+                "statusColor": "#707070",
+                "description": "Minor problem or easily worked around.",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/images/icons/priorities/low.svg",
+                "name": "P3",
+                "id": "4"
+            }
         ];
 
-        self.issueTypes = [
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10000",
-            "id": "10000",
-            "description": "需要完成的任务。",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
-            "name": "任务",
-            "subtask": false,
-            "avatarId": 10318
-          },
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10001",
-            "id": "10001",
-            "description": "问题的子任务",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10316&avatarType=issuetype",
-            "name": "子任务",
-            "subtask": true,
-            "avatarId": 10316
-          },
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10002",
-            "id": "10002",
-            "description": "餐厅门店报修事件",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10300&avatarType=issuetype",
-            "name": "StoreSupportCase",
-            "subtask": false,
-            "avatarId": 10300
-          },
-          {
-            "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10003",
-            "id": "10003",
-            "description": "服务商工单",
-            "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10316&avatarType=issuetype",
-            "name": "VendorSupportCase",
-            "subtask": true,
-            "avatarId": 10316
-          }
+        self.issueTypes = [{
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10000",
+                "id": "10000",
+                "description": "需要完成的任务。",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype",
+                "name": "任务",
+                "subtask": false,
+                "avatarId": 10318
+            },
+            {
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10001",
+                "id": "10001",
+                "description": "问题的子任务",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10316&avatarType=issuetype",
+                "name": "子任务",
+                "subtask": true,
+                "avatarId": 10316
+            },
+            {
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10002",
+                "id": "10002",
+                "description": "餐厅门店报修事件",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10300&avatarType=issuetype",
+                "name": "StoreSupportCase",
+                "subtask": false,
+                "avatarId": 10300
+            },
+            {
+                "self": "http://itsmpoc6341.cloudapp.net:90/rest/api/2/issuetype/10003",
+                "id": "10003",
+                "description": "服务商工单",
+                "iconUrl": "http://itsmpoc6341.cloudapp.net:90/secure/viewavatar?size=xsmall&avatarId=10316&avatarType=issuetype",
+                "name": "VendorSupportCase",
+                "subtask": true,
+                "avatarId": 10316
+            }
         ];
 
         self.issue = {
             "fields": {
-              "project": {
-                "id": "10001"
-              },
-              "summary": ko.observable(''),
-              "issuetype": {
-                "id": ko.observable('')
-              },
-              "priority": {
-                "id": ko.observable(1)
-              },
-              "customfield_10002": ko.observable(''),
-              "customfield_10003": ko.observable(''),
-              "description": ko.observable('')
-          }             
+                "project": {
+                    "id": "10001"
+                },
+                "summary": ko.observable(''),
+                "issuetype": {
+                    "id": ko.observable('')
+                },
+                "priority": {
+                    "id": ko.observable(1)
+                },
+                "customfield_10007": ko.observable(''),
+                "customfield_10006": ko.observable(''),
+                "description": ko.observable('')
+            }
         };
 
         self.create = function() {
             var temp = ko.toJS(self.issue);
+            console.log(temp);
             var choosenPriority = self.priorities[parseInt(temp.fields.priority.id, 10) - 1];
 
             temp.fields.priority = choosenPriority;
@@ -195,10 +194,10 @@ ko.components.register('yum-create-issue', {
                 data: JSON.stringify(temp),
                 timeout: 30000,
                 headers: {
-                    "Content-Type":"application/json; charset=utf-8"
+                    "Content-Type": "application/json; charset=utf-8"
                 },
                 success: function(data) {
-                    if(typeof data === "object" && data.hasOwnProperty('key')) {
+                    if (typeof data === "object" && data.hasOwnProperty('key')) {
                         alert('创建成功');
                         window.location.href = '/index.html'
                     } else {
@@ -208,7 +207,7 @@ ko.components.register('yum-create-issue', {
                 },
                 error: function(request, status, err) {
                     self.sbmitBtnTxt(' 确认');
-                    if(status == "timeout") {
+                    if (status == "timeout") {
                         alert('Error: Timeout');
                     } else {
                         alert('Error');
@@ -218,8 +217,7 @@ ko.components.register('yum-create-issue', {
         }
 
         self.back = function() {
-          window.history.go(-1);
+            window.history.go(-1);
         }
     }
 });
-
