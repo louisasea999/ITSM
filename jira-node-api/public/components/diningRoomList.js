@@ -1,4 +1,4 @@
-unique = function(arr) {
+unique = function (arr) {
     var res = [];
     for (var i = 0; i <= arr.length - 2; i++) {
         for (var j = i + 1; j <= arr.length - 1; j++) {
@@ -18,11 +18,11 @@ function createViewModel() {
     var self = this;
     self.details = ko.observableArray();
 
-    $.getJSON(window.env.ddApiBaseUrl + "/itsm-ddtalk/api/district/list", function(data) {
+    $.getJSON(window.env.ddApiBaseUrl + "/itsm-ddtalk/api/district/list", function (data) {
         if (data.status == "ok") {
             var diningRooms = [];
-            $.each(data.data, function(i, d) {
-                $.each(d.diningRomes, function(j, dr) {
+            $.each(data.data, function (i, d) {
+                $.each(d.diningRomes, function (j, dr) {
                     diningRooms.push({
                         diningRoomId: dr.diningRoomId,
                         diningRoomName: dr.diningRoomName,
@@ -32,12 +32,30 @@ function createViewModel() {
                     });
                 });
             });
-            var serviceDesks = [];
-            $.each(diningRooms, function(i, d) {
-                $.each(d.supProjectGroups, function(j, p) {
-                    $.each(p.serviceDesks, function(k, sd) {
 
-                        serviceDesks.push({ serviceDeskId: sd.serviceDeskId, serviceDeskName: sd.serviceDeskName });
+            // 得到被选中服务站的id
+            var serDeskIDs = [];
+            $.ajaxSettings.async = false;
+            $.getJSON(window.env.ddApiBaseUrl+'/itsm-ddtalk/api/store/desk_map', function (data1) {
+                if (data1.status = "ok") {
+                    $.each(data1.data, function (index, elem) {
+                        serDeskIDs.push({
+                            deskId: elem.serviceDeskId,
+                            diningRoomId:elem.diningRoomId
+                        });
+                    });
+                }
+            });
+
+            var serviceDesks = [];
+            $.each(diningRooms, function (i, d) {
+                $.each(d.supProjectGroups, function (j, p) {
+                    $.each(p.serviceDesks, function (k, sd) {
+                        $.each(serDeskIDs, function (index, ele) {
+                            if (ele.deskId == sd.serviceDeskId & d.diningRoomId==ele.diningRoomId) {
+                                serviceDesks.push({ serviceDeskId: sd.serviceDeskId, serviceDeskName: sd.serviceDeskName });
+                            }
+                        });
                     })
                 });
                 d.serviceDesks = serviceDesks;
