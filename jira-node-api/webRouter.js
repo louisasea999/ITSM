@@ -9,7 +9,20 @@ var slaHelper = require('./common/slaHelper');
 var router = express.Router();
 
 router.get('/v1/issues', function(req, res, next) {
-	ctrl.getIssueList().then(function(issues) {		
+	ctrl.getIssueList('Task').then(function(issues) {		
+		if(typeof issues === "string") {
+			res.json(JSON.parse(issues));
+		} else {
+			res.json(issues);
+		}
+	}).catch(function(err) {
+		res.status(err.statusCode).json(err);
+		output(err);
+	})
+})
+
+router.get('/v1/subtasks', function(req, res, next) {
+	ctrl.getIssueList('Sub-task').then(function(issues) {		
 		if(typeof issues === "string") {
 			res.json(JSON.parse(issues));
 		} else {
@@ -50,37 +63,41 @@ router.get('/v1/issue/changelog/:issueId', function(req, res, next) {
 router.get('/v1/issue/sla/:issueId', function(req, res, next) {
 	ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function(issue) {
 		var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
-		// var myIssue = config.sample.changelog;
-		var histories = myIssue.changelog.histories;
-		var watchers = slaHelper.getWatchers(histories);
+		// var myIssue = config.sample.changelog;		
 
-		if(watchers === -1) {
-			res.status(400).json({error: 'Please check the issue status.'});
-			return;
-		}
+		if(!myIssue.fields[global.customFields.endIssueDate.id]) {
+			res.json({sla: 0, expression: null, issue: myIssue});
+		} else {
+			var histories = myIssue.changelog.histories;
+			var watchers = slaHelper.getWatchers(histories);
 
-		var endDate = myIssue.fields[global.customFields.endIssueDate.id] || Date.now().toISOString(); //'2017-04-19T09:34:11.748+0000'; // todo
-		var startDate = myIssue.fields.created;//'2017-04-12T09:34:11.748+0000'; // todo		
-
-		var serveHours = slaHelper.getServeHours(startDate, endDate, watchers, global.standard.workHours[0], global.standard.workHours[1]);
-
-		var sla = 0;
-		var zone = myIssue.fields[global.customFields.zone.id]; // todo
-		var standardHours = 0; // todo
-		var timeoutCount = 1; //todo
-		var priority = myIssue.fields.priority.name;
-
-		slaHelper.getStandardHours(zone, priority, function(err, hour) {
-			if(err) {
-				res.status(400).json(err);
+			if(watchers === -1) {
+				res.status(400).json({error: 'Please check the issue status.'});
+				return;
 			}
-			standardHours = hour;
+			var endDate = myIssue.fields[global.customFields.endIssueDate.id]; //'2017-04-19T09:34:11.748+0000'; // todo
+			var startDate = myIssue.fields.created;//'2017-04-12T09:34:11.748+0000'; // todo		
 
-			slaHours = slaHelper.getSLAHours(serveHours, standardHours, timeoutCount);
-			var expression = `(${serveHours} - ${standardHours}) / ${standardHours} + ${timeoutCount} = ${slaHours}`
+			var serveHours = slaHelper.getServeHours(startDate, endDate, watchers, global.standard.workHours[0], global.standard.workHours[1]);
 
-			res.json({sla: slaHours, expression: expression, issue: myIssue});
-		});
+			var sla = 0;
+			var zone = myIssue.fields[global.customFields.zone.id]; // todo
+			var standardHours = 0; // todo
+			var timeoutCount = 1; //todo
+			var priority = myIssue.fields.priority.name;
+
+			slaHelper.getStandardHours(zone, priority, function(err, hour) {
+				if(err) {
+					res.status(400).json(err);
+				}
+				standardHours = hour;
+
+				slaHours = slaHelper.getSLAHours(serveHours, standardHours, timeoutCount);
+				var expression = `(${serveHours} - ${standardHours}) / ${standardHours} + ${timeoutCount} = ${slaHours}`
+
+				res.json({sla: slaHours, expression: expression, issue: myIssue});
+			});
+		}
 		
 	}).catch(function(err) {
 		res.status(err.statusCode).json(err);

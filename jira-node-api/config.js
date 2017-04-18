@@ -24,7 +24,7 @@ var config = {
 		"Content-Type": "application/json"
 	},
 	"v2": {
-		"projectId": "10000",
+		"projectId": "10001",
 		"getIssues": "/issue/picker",
 		"getIssueById": "/issue/",
 		"createIssue": "/issue",
