@@ -3,7 +3,6 @@
 // localAccount "Authorization":"Basic emhpanVuLnpob3UxOTkyOnp6ajE5OTJqaXJh"
 // Admin "Authorization":"{"Authorization":"Basic QWRtaW46cGFzc3dvcmRAMTIzNDU="}"
 var config = {
-<<<<<<< HEAD
 	"debug": true,
 	"baseUrl": "http://itsmpoc6341.cloudapp.net:90/rest/api/2",
 	"ddRobot": "http://itsmpoc6341.cloudapp.net/itsm-ddtalk/api/vendor/robot/send",
