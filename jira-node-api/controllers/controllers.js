@@ -35,10 +35,9 @@ exports.extService = function(url) {
 }
 
 exports.updateAssignee = function(issueId, name) {
-    return rq.putRequest(`/issue/${issueId}/assignee`, {name: name});
+    return rq.putRequest(`/issue/${issueId}/assignee`, { name: name });
 }
 
 exports.getUser = function(username) {
-    return rq.getRequest(config.v2.getUser + username);
+    return rq.getRequest(config.v2.getUser + "?expand=groups&username=" + username);
 }
-
