@@ -3,6 +3,8 @@ package com.yum.itsm.ddtalk.busi.mapper;
 import com.yum.itsm.ddtalk.busi.entity.ServiceDesk;
 import com.yum.itsm.ddtalk.busi.entity.ServiceDeskExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ServiceDeskMapper {
@@ -27,4 +29,6 @@ public interface ServiceDeskMapper {
     int updateByPrimaryKeySelective(ServiceDesk record);
 
     int updateByPrimaryKey(ServiceDesk record);
+    
+    List<ServiceDesk> getServiceDesk(Map<String, Object> params);
 }

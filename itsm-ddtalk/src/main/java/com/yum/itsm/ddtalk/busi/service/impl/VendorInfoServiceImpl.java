@@ -300,4 +300,20 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 			throw new ApplicationException("服务站:" + deskName + "不存在");
 		}
 	}
+
+	@Override
+	public ServiceDesk getServiceDesk(String districtname, String diningname, 
+			String vendorname) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("districtName", districtname);
+		params.put("diningName", diningname);
+		params.put("vendorName", vendorname);
+		List<ServiceDesk> desks = serviceDeskMapper.getServiceDesk(params);
+		
+		if (Utils.listNotNull(desks)) {
+			return desks.get(0);
+		} else {
+			return null;
+		}
+	}
 }

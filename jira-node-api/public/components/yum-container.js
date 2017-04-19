@@ -31,6 +31,10 @@ ko.components.register('yum-container', {
           <yum-task-list></yum-task-list>
           <!-- /ko -->
 
+                    <!-- ko if: page() === "taskDetail" -->
+          <yum-task-detail></yum-task-detail>
+          <!-- /ko -->
+
           <!-- ko if: page() === "vendorOrganization" -->
           <yum-vendor-organization></yum-vendor-organization>
           <!-- /ko -->

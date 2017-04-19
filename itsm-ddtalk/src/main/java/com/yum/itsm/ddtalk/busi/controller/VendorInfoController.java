@@ -143,4 +143,22 @@ public class VendorInfoController {
 	    }
         return msgDTO;
     }
+    
+    @RequestMapping(value = "desk", method = {RequestMethod.GET})
+    public @ResponseBody MsgDTO getDeskName(
+    			@Param("districtname") String districtname,
+    			@Param("diningname") String diningname, 
+    			@Param("vendorname") String vendorname) {
+        MsgDTO msgDTO = new MsgDTO();
+        try {
+	        msgDTO.setStatus(MsgDTO.STATUS_OK);
+	        msgDTO.setData(vendorInfoService.getServiceDesk(
+	        		districtname, diningname, vendorname));
+	    } catch (Exception e) {
+	    	msgDTO.setStatus(MsgDTO.STATUS_FAIL);
+	    	msgDTO.setMessage(e.getMessage());
+	    }
+        return msgDTO;
+    }
+    
 }

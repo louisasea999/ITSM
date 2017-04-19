@@ -20,7 +20,7 @@ ko.components.register('yum-ticket-list', {
                           <tbody data-bind="foreach: issues">
                               <tr>
                                   <td data-bind="text: $index() + 1"></td>
-                                  <td data-bind="text: key"></td>
+                                  <td data-bind="text: key"></td>                                  
                                   <td data-bind="text: summary"></td>
                                   <td data-bind="text: description"></td>
                                   <td>

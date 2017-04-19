@@ -1,72 +1,80 @@
 <!doctype html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
     <title>ITSM</title>
-    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="http://webapi.amap.com/maps?v=1.3&key=6e9fe027ea192195fade5a8c3270e22b"></script>
     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
 </head>
+
 <body>
-<div id="message"></div>
-<div id="container" style="width:300px;height:400px;margin-top:50px;">
+    <div><input type="file" accept="image/*" capture="camera" />
+    </div>
+    <div><input type="file" accept="video/*;capture=camcorder"></div>
+    <div id="message"></div>
+    <div id="container" style="width:300px;height:400px;margin-top:50px;">
 
-</div>
-<!--<div id="reader" style="width:300px;height:250px;border:1px solid red;margin-top:450px;">
+    </div>
+
+    <!--<div id="reader" style="width:300px;height:250px;border:1px solid red;margin-top:450px;">
  </div>-->
-<script>
-    var map = new AMap.Map('container', {
-        resizeEnable: true,
-        zoom:16,
-        center: [116.397428, 39.90923]
-    });
+    <script>
+        var map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 16,
+            center: [116.397428, 39.90923]
+        });
+    </script>
 
-</script>
+    <script src="../../plugins/JQuery/jquery-2.2.3.min.js"></script>
+    <!--<script src="html5-qrcode.js"></script>-->
+    <script type="text/javascript">
+        $(function() {
+            geo();
 
-<script src="../../plugins/JQuery/jquery-2.2.3.min.js"></script>
-<!--<script src="html5-qrcode.js"></script>-->
-  <script type="text/javascript">
-    $(function(){
-        geo();
+            //      $('#reader').html5_qrcode(function(data){
+            // 	 // do something when code is read
+            // },
+            // function(error){
+            // 	//show read errors 
+            // }, function(videoError){
+            // 	//the video stream could be opened
+            // }
+            //);
+        });
 
-    //      $('#reader').html5_qrcode(function(data){
- 	// 	 // do something when code is read
- 	// },
- 	// function(error){
-	// 	//show read errors 
-	// }, function(videoError){
-	// 	//the video stream could be opened
-	// }
-//);
-    });
-    function geo() {
-        var output = $("#message");
+        function geo() {
+            var output = $("#message");
 
-        if (!navigator.geolocation){
-            output.html("<p>Geolocation is not supported by your browser</p>");
-            return;
+            if (!navigator.geolocation) {
+                output.html("<p>Geolocation is not supported by your browser</p>");
+                return;
+            }
+
+            function success(position) {
+                var longitude = position.coords.longitude;
+                var latitude = position.coords.latitude;
+
+                output.html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');
+
+                map.setCenter([longitude, latitude]);
+            }
+
+            function error() {
+                output.html("Unable to retrieve your location");
+            }
+
+            output.html("<p>Locating…</p>");
+
+            //navigator.geolocation.getCurrentPosition(success, error);
+            navigator.geolocation.watchPosition(success, error);
         }
-        function success(position) {
-            var longitude = position.coords.longitude;
-            var latitude  = position.coords.latitude;
-
-            output.html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');            
-            
-            map.setCenter([longitude, latitude]);
-        }
-
-        function error() {
-            output.html("Unable to retrieve your location");
-        }
-
-        output.html("<p>Locating…</p>");
-
-        //navigator.geolocation.getCurrentPosition(success, error);
-        navigator.geolocation.watchPosition(success, error);
-}
-  </script>
+    </script>
 </body>
+
 </html>
