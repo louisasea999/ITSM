@@ -20,18 +20,32 @@ unique = function(arr) {
 function createViewModel() {
     var self = this;
     self.diningRoomAndDesk = ko.observableArray();
+    var region = window.sessionStorage.getItem("region");
+
     $.getJSON(window.env.ddApiBaseUrl + '/itsm-ddtalk/api/district/list', function(data) {
         if (data.status == "ok") {
             var diningRooms = [];
             $.each(data.data, function(i, d) {
                 $.each(d.diningRomes, function(j, dr) {
-                    diningRooms.push({
-                        diningRoomId: dr.diningRoomId,
-                        diningRoomName: dr.diningRoomName,
-                        districtId: d.districtId,
-                        districtName: d.districtName,
-                        supProjectGroups: d.supProjectGroups
-                    });
+                    if (region != null) {
+                        if (region.toUpperCase() == d.districtName.toUpperCase()) {
+                            diningRooms.push({
+                                diningRoomId: dr.diningRoomId,
+                                diningRoomName: dr.diningRoomName,
+                                districtId: d.districtId,
+                                districtName: d.districtName,
+                                supProjectGroups: d.supProjectGroups
+                            });
+                        }
+                    } else {
+                        diningRooms.push({
+                            diningRoomId: dr.diningRoomId,
+                            diningRoomName: dr.diningRoomName,
+                            districtId: d.districtId,
+                            districtName: d.districtName,
+                            supProjectGroups: d.supProjectGroups
+                        });
+                    }
                 });
             });
             var serviceDesks = [];

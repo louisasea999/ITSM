@@ -42,15 +42,24 @@ ko.components.register('yum-ticket-list', {
 
         self.issues = ko.observableArray([]);
 
+        var region = window.sessionStorage.getItem("region");
+
         $.get(window.env.baseUrl + "/v1/issues", function(data) {
             //console.log(data);
             var issueList = [];
             $.each(data.issues, function(i, d) {
+                //console.log(d);
                 if (d.fields.issuetype.name == "StoreSupportCase") {
-                    issueList.push({ key: d.key, summary: d.fields.summary, description: d.fields.description });
+                    if (region != null) {
+                        if (d.fields.customfield_10006 != null && d.fields.customfield_10006.toUpperCase() == region.toUpperCase()) {
+                            issueList.push({ key: d.key, summary: d.fields.summary, description: d.fields.description });
+                        }
+                    } else {
+                        issueList.push({ key: d.key, summary: d.fields.summary, description: d.fields.description });
+                    }
                 }
             });
-            //console.log(issueList);
+            console.log(issueList.length);
             self.issues(issueList);
         });
     }

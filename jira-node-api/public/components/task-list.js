@@ -41,26 +41,45 @@ ko.components.register('yum-task-list', {
 
         self.tasks = ko.observableArray([]);
 
+        var region = window.sessionStorage.getItem("region");
+
         $.get(window.env.baseUrl + "/v1/issues", function(data) {
             //console.log(data);
             var taskList = [];
             $.each(data.issues, function(i, d) {
                 if (d.fields.subtasks != null && d.fields.subtasks.length > 0) {
-                    $.each(d.fields.subtasks, function(j, subtask) {
-                        //console.log(subtask);
-                        if (subtask.fields.issuetype.name == "VendorSupportCase") {
-                            taskList.push({
-                                parentKey: d.key,
-                                key: subtask.key,
-                                summary: subtask.fields.summary,
-                                priority: subtask.fields.priority.name,
-                                status: subtask.fields.status.name
+                    if (region != null) {
+                        if (d.fields.customfield_10006 != null && d.fields.customfield_10006.toUpperCase() == region.toUpperCase()) {
+                            $.each(d.fields.subtasks, function(j, subtask) {
+                                //console.log(d.fields);
+                                if (subtask.fields.issuetype.name == "VendorSupportCase") {
+                                    taskList.push({
+                                        parentKey: d.key,
+                                        key: subtask.key,
+                                        summary: subtask.fields.summary,
+                                        priority: subtask.fields.priority.name,
+                                        status: subtask.fields.status.name
+                                    });
+                                }
                             });
                         }
-                    });
+                    } else {
+                        $.each(d.fields.subtasks, function(j, subtask) {
+                            //console.log(d.fields);
+                            if (subtask.fields.issuetype.name == "VendorSupportCase") {
+                                taskList.push({
+                                    parentKey: d.key,
+                                    key: subtask.key,
+                                    summary: subtask.fields.summary,
+                                    priority: subtask.fields.priority.name,
+                                    status: subtask.fields.status.name
+                                });
+                            }
+                        });
+                    }
                 }
             });
-            //console.log(taskList);
+            console.log(taskList.length);
             self.tasks(taskList);
         });
     }

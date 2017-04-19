@@ -1,4 +1,4 @@
-unique = function (arr) {
+unique = function(arr) {
     var res = [];
     for (var i = 0; i <= arr.length - 2; i++) {
         for (var j = i + 1; j <= arr.length - 1; j++) {
@@ -17,42 +17,55 @@ unique = function (arr) {
 function createViewModel() {
     var self = this;
     self.details = ko.observableArray();
+    var region = window.sessionStorage.getItem("region");
 
-    $.getJSON(window.env.ddApiBaseUrl + "/itsm-ddtalk/api/district/list", function (data) {
+    $.getJSON(window.env.ddApiBaseUrl + "/itsm-ddtalk/api/district/list", function(data) {
         if (data.status == "ok") {
             var diningRooms = [];
-            $.each(data.data, function (i, d) {
-                $.each(d.diningRomes, function (j, dr) {
-                    diningRooms.push({
-                        diningRoomId: dr.diningRoomId,
-                        diningRoomName: dr.diningRoomName,
-                        districtId: d.districtId,
-                        districtName: d.districtName,
-                        supProjectGroups: d.supProjectGroups
-                    });
+            $.each(data.data, function(i, d) {
+                $.each(d.diningRomes, function(j, dr) {
+                    if (region != null) {
+                        if (region.toUpperCase() == d.districtName) {
+                            diningRooms.push({
+                                diningRoomId: dr.diningRoomId,
+                                diningRoomName: dr.diningRoomName,
+                                districtId: d.districtId,
+                                districtName: d.districtName,
+                                supProjectGroups: d.supProjectGroups
+                            });
+                        }
+                    } else {
+                        diningRooms.push({
+                            diningRoomId: dr.diningRoomId,
+                            diningRoomName: dr.diningRoomName,
+                            districtId: d.districtId,
+                            districtName: d.districtName,
+                            supProjectGroups: d.supProjectGroups
+                        });
+                    }
                 });
             });
 
             // 得到被选中服务站的id
             var serDeskIDs = [];
             $.ajaxSettings.async = false;
-            $.getJSON(window.env.ddApiBaseUrl+'/itsm-ddtalk/api/store/desk_map', function (data1) {
+            $.getJSON(window.env.ddApiBaseUrl + '/itsm-ddtalk/api/store/desk_map', function(data1) {
                 if (data1.status = "ok") {
-                    $.each(data1.data, function (index, elem) {
+                    $.each(data1.data, function(index, elem) {
                         serDeskIDs.push({
                             deskId: elem.serviceDeskId,
-                            diningRoomId:elem.diningRoomId
+                            diningRoomId: elem.diningRoomId
                         });
                     });
                 }
             });
 
             var serviceDesks = [];
-            $.each(diningRooms, function (i, d) {
-                $.each(d.supProjectGroups, function (j, p) {
-                    $.each(p.serviceDesks, function (k, sd) {
-                        $.each(serDeskIDs, function (index, ele) {
-                            if (ele.deskId == sd.serviceDeskId & d.diningRoomId==ele.diningRoomId) {
+            $.each(diningRooms, function(i, d) {
+                $.each(d.supProjectGroups, function(j, p) {
+                    $.each(p.serviceDesks, function(k, sd) {
+                        $.each(serDeskIDs, function(index, ele) {
+                            if (ele.deskId == sd.serviceDeskId & d.diningRoomId == ele.diningRoomId) {
                                 serviceDesks.push({ serviceDeskId: sd.serviceDeskId, serviceDeskName: sd.serviceDeskName });
                             }
                         });
