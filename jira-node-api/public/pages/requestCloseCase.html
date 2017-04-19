@@ -165,6 +165,9 @@
                 $("#btn-request").attr("disabled","disabled");
                 if (taskKey != null) {
                     var address = $("#address").text();
+                    if(address.indexOf('定位失败') > 0){
+                        address = '';
+                    }
                     var data = {
                         "update": {
                             "comment": [{
@@ -172,14 +175,12 @@
                                     "body": "Comment added when resolving issue"
                                 }
                             }],
-                            // "customfield_10024": [{
-                            //     "add": {
-                            //         "body": "湖北省武汉市洪山区珞南街道南湖"
-                            //     }
-                            // }]
+                            "customfield_10024": [{
+                                "set": address
+                            }]
                         },
                         "transition": {
-                            "id": "171" //transition id, not task id
+                            "id": "51" //transition id, not task id
                         }
                     }
 
