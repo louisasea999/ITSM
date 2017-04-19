@@ -26,3 +26,7 @@ exports.updateIssue = function(issueId, issue) {
     return rq.putRequest(config.v2.getIssueById + issueId, issue);
 }
 
+exports.endIssue = function(issueId, body) {
+    return rq.endIssueRequest(`/issue/${issueId}/transitions?expand=transitions.fields`, body);
+}
+

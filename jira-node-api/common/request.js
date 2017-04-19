@@ -30,3 +30,14 @@ exports.putRequest = function(url, body) {
 	}
 	return rp(options);
 }
+
+exports.endIssueRequest = function(url, body) {
+	var options = {
+		method: 'POST',
+		uri: config.baseUrl + url,
+		headers: config.adminHeaders,
+		body: body,
+		json: true
+	}
+	return rp(options);
+}
