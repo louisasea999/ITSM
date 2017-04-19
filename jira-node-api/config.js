@@ -15,12 +15,16 @@ var config = {
 		},
 		password: 'password@12345',
 		host: 'itsmpoc6341.cloudapp.net',
-		port: 5432, 
-		max: 10, 
-		idleTimeoutMillis: 30000, 
+		port: 5432,
+		max: 10,
+		idleTimeoutMillis: 30000,
 	},
 	"headers": {
 		"Authorization": "Basic U3RvcmVVc2VyOnBhc3N3b3JkQDEyMzQ1",
+		"Content-Type": "application/json"
+	},
+	"adminHeaders": {
+		"Authorization": "Basic TkhEQWRtaW46cGFzc3dvcmRAMTIzNDU",
 		"Content-Type": "application/json"
 	},
 	"v2": {
@@ -56,6 +60,20 @@ var config = {
 				},
 				"description": "your description",
 				"duedate": "2017-04-11"
+			}
+		},
+		"endissue": {
+			"update": {
+				"comment": [
+					{
+						"add": {
+							"body": "Comment added when resolving issue"
+						}
+					}
+				]
+			},
+			"transition": {
+				"id": "171"
 			}
 		},
 		"customIssue": {

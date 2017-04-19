@@ -1,4 +1,4 @@
-ko.components.register('yum-ticket-list', {
+ko.components.register('yum-task-list', {
     template: `
         <div class="row">
           <section class="col-lg-12 connectedSortable">
@@ -13,25 +13,20 @@ ko.components.register('yum-ticket-list', {
                                   <th>No.</th>
                                   <th>Key</th>
                                   <th>Summary</th>
-                                  <th>Description</th>
-                                  <th>View/Edit</th>
+                                  <th>Priority</th>
+                                  <th>Status</th>                               
                               </tr>
                           </thead>
-                          <tbody data-bind="foreach: issues">
+                          <tbody data-bind="foreach: tasks">
                               <tr>
                                   <td data-bind="text: $index() + 1"></td>
                                   <td data-bind="text: key"></td>
                                   <td data-bind="text: summary"></td>
-                                  <td data-bind="text: description"></td>
-                                  <td>
-                                      <a data-bind="attr:{href: '/pages/issueDetail.html?page=issueDetail&issueId=' + key}"><i class="fa fa-edit"></i></a>
-                                  </td>
+                                  <td data-bind="text: priority"></td>
+                                  <td data-bind="text: status"></td>
                               </tr>
                           </tbody>
                       </table>
-                  </div>
-                  <div class="box-footer clearfix no-border">
-                      <a class="btn btn-default pull-right" href="/pages/createIssue.html?page=createIssue"><i class="fa fa-plus"></i> 创建事件</a>
                   </div>
               </div>
           </section>
@@ -40,18 +35,29 @@ ko.components.register('yum-ticket-list', {
     viewModel: function() {
         var self = this;
 
-        self.issues = ko.observableArray([]);
+        self.tasks = ko.observableArray([]);
 
         $.get(window.env.baseUrl + "/v1/issues", function(data) {
             //console.log(data);
-            var issueList = [];
+            var taskList = [];
             $.each(data.issues, function(i, d) {
-                if (d.fields.issuetype.name == "StoreSupportCase") {
-                    issueList.push({ key: d.key, summary: d.fields.summary, description: d.fields.description });
+                if (d.fields.subtasks != null && d.fields.subtasks.length > 0) {
+                    //console.log(d.fields.subtasks);
+                    $.each(d.fields.subtasks, function(j, subtask) {
+                        if (subtask.fields.issuetype.name == "VendorSupportCase") {
+                            taskList.push({
+                                parentKey: d.key,
+                                key: subtask.key,
+                                summary: subtask.fields.summary,
+                                priority: subtask.fields.priority.name,
+                                status: subtask.fields.status.name
+                            });
+                        }
+                    });
                 }
             });
-            //console.log(issueList);
-            self.issues(issueList);
+            //console.log(taskList);
+            self.tasks(taskList);
         });
     }
 });

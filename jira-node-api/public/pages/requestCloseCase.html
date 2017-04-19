@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <script src="../../plugins/JQuery/jquery-2.2.3.min.js"></script>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" />
+    <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
+    <script src="http://webapi.amap.com/maps?v=1.3&key=6e9fe027ea192195fade5a8c3270e22b&plugin=AMap.Geocoder"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <title>ITSM</title>
+
+    </script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0
+        }
+        
+        #header {
+            width: 100%;
+        }
+        
+        .logo {
+            width: 100%;
+            height: 50px;
+            font-size: 20px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            text-align: center;
+            line-height: 50px;
+            background-color: #367fa9;
+            color: #fff;
+        }
+        
+        .locating {
+            width: 100%;
+            font-size: 11px;
+        }
+        
+        .case-detail {
+            margin-top: 170px;
+            border-top: 1px dashed #666;
+            border-bottom: 1px dashed #666;
+        }
+        
+        .btn-request {
+            background-color: #3c8dbc;
+            color: #fff;
+            border-radius: 3px;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div class="logo">ITSM Portal</div>
+    </div>
+    <div id="content">
+        <div class="locating">
+            <div style="height:23px;line-height:23px;"><label>当前位置：</label><label id="address">定位中...</label></div>
+            <div id="container" style="width:100%;height:150px;margin-top:73px;">
+
+            </div>
+        </div>
+        <div class="case-detail">
+            <div><label>Case ID: </label></div>
+            <div><label>Case Summay: </label></div>
+            <div><label>Case Priority: </label></div>
+            <div><label>Case Status: </label></div>
+        </div>
+        <div style="text-align:center;">
+            <button type="button" class="btn-request" data-bind="click: requestCloseCase">申请结案</button>
+        </div>
+    </div>
+    <div id="footer">
+    </div>
+
+    <script>
+        // var map = new AMap.Map('container', {
+        //     resizeEnable: true,
+        //     zoom: 17,
+        //     center: [116.397428, 39.90923]
+        // });
+        var map, geolocation;
+        //加载地图，调用浏览器定位服务
+        map = new AMap.Map('container', {
+            resizeEnable: true,
+            zoom: 17
+        });
+        map.plugin('AMap.Geolocation', function() {
+            geolocation = new AMap.Geolocation({
+                enableHighAccuracy: true, //是否使用高精度定位，默认:true
+                timeout: 10000, //超过10秒后停止定位，默认：无穷大
+                buttonOffset: new AMap.Pixel(10, 20), //定位按钮与设置的停靠位置的偏移量，默认：Pixel(10, 20)
+                zoomToAccuracy: true, //定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+                buttonPosition: 'LB'
+            });
+            map.addControl(geolocation);
+            geolocation.getCurrentPosition();
+            AMap.event.addListener(geolocation, 'complete', onComplete); //返回定位信息
+            AMap.event.addListener(geolocation, 'error', onError); //返回定位出错信息
+        });
+        //解析定位结果
+        function onComplete(data) {
+            setAddress([data.position.getLng(), data.position.getLat()]);
+        }
+        //解析定位错误信息
+        function onError(data) {
+            $("#address").text("定位失败, 请扫描餐厅二维码获取位置。");
+        }
+
+        function setAddress(location) {
+            var geocoder = new AMap.Geocoder({
+                city: "010", //城市，默认：“全国”
+                radius: 500 //范围，默认：500
+            });
+            geocoder.getAddress(location, function(status, result) {
+                //console.log(result);
+                $("#address").text(result.regeocode.formattedAddress);
+            });
+        }
+    </script>
+
+    <!--<script src="html5-qrcode.js"></script>-->
+    <script type="text/javascript">
+        // $(function() {
+        //     geo();
+        // });
+
+        // function geo() {
+        //     var output = $("#address");
+
+        //     if (!navigator.geolocation) {
+        //         output.text("浏览器不支持定位功能.");
+        //         return;
+        //     }
+
+        //     function success(position) {
+        //         var longitude = position.coords.longitude;
+        //         var latitude = position.coords.latitude;
+
+        //         //output.html('<p>Latitude is ' + latitude + '° <br>Longitude is ' + longitude + '°</p>');
+        //         map.setCenter([longitude, latitude]);
+        //         setAddress([longitude, latitude]);
+        //     }
+
+        //     function error() {
+        //         output.text("定位失败.");
+        //     }
+
+        //     output.text("定位中...");
+
+        //     navigator.geolocation.getCurrentPosition(success, error);
+        //     //navigator.geolocation.watchPosition(success, error);
+        // }
+    </script>
+</body>

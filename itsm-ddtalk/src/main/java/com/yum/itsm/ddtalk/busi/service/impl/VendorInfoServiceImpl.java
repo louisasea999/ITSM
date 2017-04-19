@@ -11,12 +11,18 @@ import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.google.gson.Gson;
+import com.yum.itsm.ddtalk.busi.entity.DeskRobotMap;
+import com.yum.itsm.ddtalk.busi.entity.DeskRobotMapExample;
 import com.yum.itsm.ddtalk.busi.entity.EmpleeInfo;
 import com.yum.itsm.ddtalk.busi.entity.EmpleeInfoExample;
 import com.yum.itsm.ddtalk.busi.entity.ServiceDesk;
 import com.yum.itsm.ddtalk.busi.entity.ServiceDeskExample;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroup;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroupExample;
+import com.yum.itsm.ddtalk.busi.entity.robot.LinkContent;
+import com.yum.itsm.ddtalk.busi.entity.robot.LinkMsg;
+import com.yum.itsm.ddtalk.busi.mapper.DeskRobotMapMapper;
 import com.yum.itsm.ddtalk.busi.mapper.EmpleeInfoMapper;
 import com.yum.itsm.ddtalk.busi.mapper.ServiceDeskMapper;
 import com.yum.itsm.ddtalk.busi.mapper.SupProjectGroupMapper;
@@ -26,6 +32,7 @@ import com.yum.itsm.ddtalk.common.entity.DDTalkDepartment;
 import com.yum.itsm.ddtalk.common.entity.DDTalkUser;
 import com.yum.itsm.ddtalk.common.exception.ApplicationException;
 import com.yum.itsm.ddtalk.common.service.DDTalkService;
+import com.yum.itsm.ddtalk.common.utils.Utils;
 
 @Service("vendorInfoService")
 public class VendorInfoServiceImpl implements VendorInfoService {
@@ -42,6 +49,11 @@ public class VendorInfoServiceImpl implements VendorInfoService {
     @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     ServiceDeskMapper serviceDeskMapper;
+    
+    // 服务站机器人
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Autowired
+    DeskRobotMapMapper deskRobotMapMapper;
     
     // 工程师
     @SuppressWarnings("SpringJavaAutowiringInspection")
@@ -266,5 +278,26 @@ public class VendorInfoServiceImpl implements VendorInfoService {
 		}
 		
 		return ret;
+	}
+
+	@Override
+	public void sendMsgByRobot(String issueKey, String deskName, String title, String text) {
+		LinkMsg link = new LinkMsg();
+		link.setLink(new LinkContent());
+		link.getLink().setTitle(title);
+		link.getLink().setText(text);
+		link.getLink().setMessageUrl("http://itsmpoc6341.cloudapp.net:90/browse/" + issueKey);
+
+		DeskRobotMapExample robotExam = new DeskRobotMapExample();
+		robotExam.createCriteria().andServiceDeskNameEqualTo(deskName);
+		List<DeskRobotMap> maps = deskRobotMapMapper.selectByExample(robotExam);
+		
+		if (Utils.listNotNull(maps)) {
+			DeskRobotMap map = maps.get(0);
+			Gson gson = new Gson();
+			ddTalkService.sendMsgByRobot(map.getCustomRobotToken(), gson.toJson(link));
+		} else {
+			throw new ApplicationException("服务站:" + deskName + "不存在");
+		}
 	}
 }

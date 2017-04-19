@@ -116,6 +116,18 @@ router.post('/v1/issue', function(req, res, next) {
 	})
 })
 
+router.post('/v1/issue/end/:issueId', function(req, res, next) {
+	var issueId = req.params.issueId;
+	var body = req.body;
+
+	ctrl.endIssue(issueId, body).then(function(result) {
+		res.json(result);
+	}).catch(function(err) {
+		res.status(err.statusCode).json(err);
+		output(err);
+	})
+})
+
 router.put('/v1/issue/:issueId', function(req, res, next) {
 	var issue = req.body;
 
