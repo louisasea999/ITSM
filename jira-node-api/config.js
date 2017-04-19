@@ -506,7 +506,7 @@ var config = {
         "getIssueById": "/issue/",
         "createIssue": "/issue",
         "field": '/field',
-        "getUser": '/user/search?username='
+        "getUser": '/user'
     },
     "sample": {
         "createIssue": {

@@ -7,6 +7,9 @@ ko.components.register('yum-header', {
         this.userName = window.sessionStorage.getItem("account");
         this.signOut = function() {
             window.sessionStorage.removeItem("account");
+            window.sessionStorage.removeItem("role");
+            window.sessionStorage.removeItem("region");
+            window.sessionStorage.removeItem("vendor");
             window.location.href = "/login.html";
         }
     },

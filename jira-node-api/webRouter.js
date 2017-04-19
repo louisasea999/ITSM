@@ -117,44 +117,44 @@ router.post('/v1/issue', function(req, res, next) {
 })
 
 router.post('/v1/issue/plugin/update/:issueId', function(req, res, next) {
-	ctrl.getIssueById(req.params.issueId).then(function(issue) {
-		var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
-		var eventType = myIssue.fields[global.customFields.eventType.id];
-		var storeArea = myIssue.fields[global.customFields.storeArea.id];
-		var storeNo = myIssue.fields[global.customFields.storeNo.id];
-		
-		if(eventType) {
-			var requestUrl = config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + eventType.value;
+    ctrl.getIssueById(req.params.issueId).then(function(issue) {
+        var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
+        var eventType = myIssue.fields[global.customFields.eventType.id];
+        var storeArea = myIssue.fields[global.customFields.storeArea.id];
+        var storeNo = myIssue.fields[global.customFields.storeNo.id];
 
-			ctrl.extService(encodeURI(requestUrl)).then(function(result) {	
-				var result = typeof result === "string" ? JSON.parse(result) : result;
-				if(result && result.data && result.data.serviceDeskName) {
-					// call jira robot
-					ctrl.extService(encodeURI(config.ddRobot + "?issuekey=" + req.params.issueId + "&deskname=" + result.data.serviceDeskName));
-					
-					var serveStationId = global.customFields.serveStation.id;
-					var serveStation = result.data.serviceDeskName;
+        if (eventType) {
+            var requestUrl = config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + eventType.value;
 
-					var body = config.sample.updateVendor;
-					body[serveStationId] = serveStation;
+            ctrl.extService(encodeURI(requestUrl)).then(function(result) {
+                var result = typeof result === "string" ? JSON.parse(result) : result;
+                if (result && result.data && result.data.serviceDeskName) {
+                    // call jira robot
+                    ctrl.extService(encodeURI(config.ddRobot + "?issuekey=" + req.params.issueId + "&deskname=" + result.data.serviceDeskName));
 
-					// update serve station
-					ctrl.updateIssue(req.params.issueId, body);
+                    var serveStationId = global.customFields.serveStation.id;
+                    var serveStation = result.data.serviceDeskName;
 
-					var vendor = eventType.value.indexOf("乙") !== -1 ? "Vendor2" : "Vendor1";
-					// update assignee
-					ctrl.updateAssignee(req.params.issueId, vendor);
-				}
-			}).catch(function(err) {
-				output(err);
-			});
-		}
-		// comment this line in prod environment
-		// res.json({});
-	}).catch(function(err) {
-		res.json(err);
-		output(err);
-	})
+                    var body = config.sample.updateVendor;
+                    body[serveStationId] = serveStation;
+
+                    // update serve station
+                    ctrl.updateIssue(req.params.issueId, body);
+
+                    var vendor = eventType.value.indexOf("乙") !== -1 ? "Vendor2" : "Vendor1";
+                    // update assignee
+                    ctrl.updateAssignee(req.params.issueId, vendor);
+                }
+            }).catch(function(err) {
+                output(err);
+            });
+        }
+        // comment this line in prod environment
+        // res.json({});
+    }).catch(function(err) {
+        res.json(err);
+        output(err);
+    })
     ctrl.getIssueById(req.params.issueId).then(function(issue) {
         var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
         var eventType = myIssue.fields[global.customFields.eventType.id];
@@ -198,8 +198,7 @@ router.put('/v1/issue/:issueId', function(req, res, next) {
     })
 })
 
-router.get('/v1/user/search/:username', function(req, res, next) {
-    console.log(req.params.username);
+router.get('/v1/user/:username', function(req, res, next) {
     ctrl.getUser(req.params.username).then(function(user) {
         if (typeof user === "string") {
             res.json(JSON.parse(user));

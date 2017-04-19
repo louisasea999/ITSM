@@ -35,7 +35,7 @@ ko.components.register('yum-menu', {
     viewModel: function(params) {
         var self = this;
         self.roleMenus = [{
-                role: "admin",
+                role: "superadmin",
                 menus: [{
                     item: {
                         title: "事件相关",
@@ -120,7 +120,7 @@ ko.components.register('yum-menu', {
 
             },
             {
-                role: "regionaait",
+                role: "regionxxit",
                 menus: [{
                     item: {
                         title: "事件相关",
@@ -144,10 +144,33 @@ ko.components.register('yum-menu', {
                     }
                 }]
 
+            },
+            {
+                role: "vendor",
+                menus: [{
+                    item: {
+                        title: "事件相关",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "工单列表", link: "/pages/taskList.html?page=taskList&menu=0" }
+                        ]
+                    }
+                }, {
+                    item: {
+                        title: "配置列表",
+                        style: [],
+                        active: true,
+                        subItems: [
+                            { title: "服务商组织结构", link: "/pages/vendorOrganization.html?page=vendorOrganization&menu=1" }
+                        ]
+                    }
+                }]
+
             }
         ];
 
-        var role = window.sessionStorage["account"];
+        var role = window.sessionStorage["role"];
         $.each(self.roleMenus, function(index) {
             if (self.roleMenus[index].role.toLowerCase() == role.toLowerCase()) {
                 self.menus = self.roleMenus[index].menus;
