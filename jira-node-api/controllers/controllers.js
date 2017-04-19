@@ -34,12 +34,11 @@ exports.extService = function(url) {
     return rq.callExtService(url);
 }
 
-<<<<<<< HEAD
 exports.updateAssignee = function(issueId, name) {
     return rq.putRequest(`/issue/${issueId}/assignee`, {name: name});
 }
-=======
+
 exports.getUser = function(username) {
     return rq.getRequest(config.v2.getUser + username);
 }
->>>>>>> cb23e575c8cb08973ff39987c2ba609b7564273d
+

@@ -492,8 +492,7 @@ var config = {
 				]
 			}
 		}
-	}
-=======
+	},
     "debug": true,
     "baseUrl": "http://itsmpoc6341.cloudapp.net:90/rest/api/2",
     "ddRobot": "http://itsmpoc6341.cloudapp.net/itsm-ddtalk/api/vendor/robot/send",
@@ -955,7 +954,6 @@ var config = {
             }
         }
     }
->>>>>>> cb23e575c8cb08973ff39987c2ba609b7564273d
 };
 
 module.exports = config;

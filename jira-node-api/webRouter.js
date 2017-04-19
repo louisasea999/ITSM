@@ -117,7 +117,6 @@ router.post('/v1/issue', function(req, res, next) {
 })
 
 router.post('/v1/issue/plugin/update/:issueId', function(req, res, next) {
-<<<<<<< HEAD
 	ctrl.getIssueById(req.params.issueId).then(function(issue) {
 		var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
 		var eventType = myIssue.fields[global.customFields.eventType.id];
@@ -156,7 +155,6 @@ router.post('/v1/issue/plugin/update/:issueId', function(req, res, next) {
 		res.json(err);
 		output(err);
 	})
-=======
     ctrl.getIssueById(req.params.issueId).then(function(issue) {
         var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
         var eventType = myIssue.fields[global.customFields.eventType.id];
@@ -175,7 +173,6 @@ router.post('/v1/issue/plugin/update/:issueId', function(req, res, next) {
     }).catch(function(err) {
         output(err);
     })
->>>>>>> cb23e575c8cb08973ff39987c2ba609b7564273d
 })
 
 router.post('/v1/issue/end/:issueId', function(req, res, next) {
