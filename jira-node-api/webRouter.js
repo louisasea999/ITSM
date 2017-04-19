@@ -124,15 +124,35 @@ router.post('/v1/issue/plugin/update/:issueId', function(req, res, next) {
 		var storeNo = myIssue.fields[global.customFields.storeNo.id];
 		
 		if(eventType) {
-			ctrl.extService(config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + eventType.value).then(function(result) {	
+			var requestUrl = config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + eventType.value;
+
+			ctrl.extService(encodeURI(requestUrl)).then(function(result) {	
+				var result = typeof result === "string" ? JSON.parse(result) : result;
 				if(result && result.data && result.data.serviceDeskName) {
-					ctrl.extService(config.ddRobot + "?issuekey=" + req.params.issueId + "&deskname=" + result.data.serviceDeskName);
+					// call jira robot
+					ctrl.extService(encodeURI(config.ddRobot + "?issuekey=" + req.params.issueId + "&deskname=" + result.data.serviceDeskName));
+					
+					var serveStationId = global.customFields.serveStation.id;
+					var serveStation = result.data.serviceDeskName;
+
+					var body = config.sample.updateVendor;
+					body[serveStationId] = serveStation;
+
+					// update serve station
+					ctrl.updateIssue(req.params.issueId, body);
+
+					var vendor = eventType.value.indexOf("乙") !== -1 ? "Vendor2" : "Vendor1";
+					// update assignee
+					ctrl.updateAssignee(req.params.issueId, vendor);
 				}
 			}).catch(function(err) {
 				output(err);
 			});
-		}	
+		}
+		// comment this line in prod environment
+		// res.json({});
 	}).catch(function(err) {
+		res.json(err);
 		output(err);
 	})
 })

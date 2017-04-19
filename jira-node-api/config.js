@@ -120,6 +120,17 @@ var config = {
 			},
 			"customfield_10024": [{ "set": "湖北省武汉市" }]
 		},
+		"updateVendor": {
+			"update": {
+				"comment": [
+					{
+						"add": {
+							"body": "update assignee and vendor"
+						}
+					}
+				]
+			}
+		},
 		"customFields": [
 			{
 				"name": "餐厅区域",

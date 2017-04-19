@@ -33,3 +33,7 @@ exports.endIssue = function(issueId, body) {
 exports.extService = function(url) {
     return rq.callExtService(url);
 }
+
+exports.updateAssignee = function(issueId, name) {
+    return rq.putRequest(`/issue/${issueId}/assignee`, {name: name});
+}
