@@ -41,3 +41,7 @@ exports.endIssueRequest = function(url, body) {
 	}
 	return rp(options);
 }
+
+exports.callExtService = function(url) {	
+	return rp(url);
+}

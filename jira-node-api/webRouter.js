@@ -116,6 +116,27 @@ router.post('/v1/issue', function(req, res, next) {
 	})
 })
 
+router.post('/v1/issue/plugin/update/:issueId', function(req, res, next) {
+	ctrl.getIssueById(req.params.issueId).then(function(issue) {
+		var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
+		var eventType = myIssue.fields[global.customFields.eventType.id];
+		var storeArea = myIssue.fields[global.customFields.storeArea.id];
+		var storeNo = myIssue.fields[global.customFields.storeNo.id];
+		
+		if(eventType) {
+			ctrl.extService(config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + eventType.value).then(function(result) {	
+				if(result && result.data && result.data.serviceDeskName) {
+					ctrl.extService(config.ddRobot + "?issuekey=" + req.params.issueId + "&deskname=" + result.data.serviceDeskName);
+				}
+			}).catch(function(err) {
+				output(err);
+			});
+		}	
+	}).catch(function(err) {
+		output(err);
+	})
+})
+
 router.post('/v1/issue/end/:issueId', function(req, res, next) {
 	var issueId = req.params.issueId;
 	var body = req.body;

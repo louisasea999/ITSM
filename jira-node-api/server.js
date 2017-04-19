@@ -12,8 +12,6 @@ var config = require('./config'),
     initEnv = require('./common/initEnv'),
   	path = require('path');
 
-initEnv.init();
-
 var app = express();
 
 app.set('port', process.env.PORT || 8080);  

@@ -1,9 +1,12 @@
 // NHDAdmin "Authorization": "Basic TkhEQWRtaW46cGFzc3dvcmRAMTIzNDU=",
 // StoreUser "Authorization": "Basic U3RvcmVVc2VyOnBhc3N3b3JkQDEyMzQ1",
 // localAccount "Authorization":"Basic emhpanVuLnpob3UxOTkyOnp6ajE5OTJqaXJh"
+// Admin "Authorization":"{"Authorization":"Basic QWRtaW46cGFzc3dvcmRAMTIzNDU="}"
 var config = {
 	"debug": true,
 	"baseUrl": "http://itsmpoc6341.cloudapp.net:90/rest/api/2",
+	"ddRobot": "http://itsmpoc6341.cloudapp.net/itsm-ddtalk/api/vendor/robot/send",
+	"ddtalk": "http://itsmpoc6341.cloudapp.net/itsm-ddtalk/api/vendor/desk",
 	"db": {
 		user: 'postgres',
 		database: 'itsm',
@@ -20,11 +23,11 @@ var config = {
 		idleTimeoutMillis: 30000,
 	},
 	"headers": {
-		"Authorization": "Basic U3RvcmVVc2VyOnBhc3N3b3JkQDEyMzQ1",
+		"Authorization": "Basic QWRtaW46cGFzc3dvcmRAMTIzNDU",
 		"Content-Type": "application/json"
 	},
 	"adminHeaders": {
-		"Authorization": "Basic TkhEQWRtaW46cGFzc3dvcmRAMTIzNDU",
+		"Authorization": "Basic QWRtaW46cGFzc3dvcmRAMTIzNDU",
 		"Content-Type": "application/json"
 	},
 	"v2": {
@@ -72,6 +75,7 @@ var config = {
 					}
 				]
 			},
+			"customfield_10024": [{ "set": "湖北省武汉市" }],
 			"transition": {
 				"id": "171"
 			}
@@ -106,60 +110,15 @@ var config = {
 		},
 		"updateIssue": {
 			"update": {
-				"summary": [
+				"comment": [
 					{
-						"set": "Bug in business logic"
-					}
-				],
-				"timetracking": [
-					{
-						"edit": {
-							"originalEstimate": "1w 1d",
-							"remainingEstimate": "4d"
+						"add": {
+							"body": "Comment added when resolving issue"
 						}
-					}
-				],
-				"labels": [
-					{
-						"add": "triaged"
-					},
-					{
-						"remove": "blocker"
 					}
 				]
 			},
-			"historyMetadata": {
-				"type": "myplugin:type",
-				"description": "text description",
-				"descriptionKey": "plugin.changereason.i18.key",
-				"activityDescription": "text description",
-				"activityDescriptionKey": "plugin.activity.i18.key",
-				"actor": {
-					"id": "tony",
-					"displayName": "Tony",
-					"type": "mysystem-user",
-					"avatarUrl": "http://mysystem/avatar/tony.jpg",
-					"url": "http://mysystem/users/tony"
-				},
-				"generator": {
-					"id": "mysystem-1",
-					"type": "mysystem-application"
-				},
-				"cause": {
-					"id": "myevent",
-					"type": "mysystem-event"
-				},
-				"extraData": {
-					"keyvalue": "extra data",
-					"goes": "here"
-				}
-			},
-			"properties": [
-				{
-					"key": "key1",
-					"value": ""
-				}
-			]
+			"customfield_10024": [{ "set": "湖北省武汉市" }]
 		},
 		"customFields": [
 			{
