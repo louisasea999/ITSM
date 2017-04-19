@@ -3,15 +3,15 @@ var util = require('../common/util');
 var rq = require('../common/request');
 var qs = require('querystring');
 
-exports.getIssueList = function(type) {  
+exports.getIssueList = function(type) {
     var jql = 'project=' + config.v2.projectId;
 
-    if(type === 'Task') {
+    if (type === 'Task') {
         jql += ' AND type in (StoreSupportCase)';
     } else {
-        jql  += ' AND type in (VendorSupportCase)';
+        jql += ' AND type in (VendorSupportCase)';
     }
-    return rq.getRequest("/search?jql="  + jql);
+    return rq.getRequest("/search?jql=" + jql);
 }
 
 exports.getIssueById = function(issueId) {
@@ -32,4 +32,8 @@ exports.endIssue = function(issueId, body) {
 
 exports.extService = function(url) {
     return rq.callExtService(url);
+}
+
+exports.getUser = function(username) {
+    return rq.getRequest(config.v2.getUser + username);
 }

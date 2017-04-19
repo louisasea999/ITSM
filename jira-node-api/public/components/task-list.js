@@ -14,7 +14,8 @@ ko.components.register('yum-task-list', {
                                   <th>Key</th>
                                   <th>Summary</th>
                                   <th>Priority</th>
-                                  <th>Status</th>                               
+                                  <th>Status</th> 
+                                  <th>View</th>                              
                               </tr>
                           </thead>
                           <tbody data-bind="foreach: tasks">
@@ -24,6 +25,9 @@ ko.components.register('yum-task-list', {
                                   <td data-bind="text: summary"></td>
                                   <td data-bind="text: priority"></td>
                                   <td data-bind="text: status"></td>
+                                  <td>
+                                      <a data-bind="attr:{href: '/pages/taskDetail.html?page=taskDetail&taskId=' + key}"><i class="fa fa-edit"></i></a>
+                                  </td>
                               </tr>
                           </tbody>
                       </table>
@@ -42,8 +46,8 @@ ko.components.register('yum-task-list', {
             var taskList = [];
             $.each(data.issues, function(i, d) {
                 if (d.fields.subtasks != null && d.fields.subtasks.length > 0) {
-                    //console.log(d.fields.subtasks);
                     $.each(d.fields.subtasks, function(j, subtask) {
+                        //console.log(subtask);
                         if (subtask.fields.issuetype.name == "VendorSupportCase") {
                             taskList.push({
                                 parentKey: d.key,

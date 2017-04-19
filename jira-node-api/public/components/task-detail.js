@@ -7,7 +7,7 @@ var utils = {
     }
 }
 
-ko.components.register('yum-ticket-detail', {
+ko.components.register('yum-task-detail', {
     template: `
         <div class="row">
           <section class="col-lg-12 connectedSortable">
@@ -16,10 +16,9 @@ ko.components.register('yum-ticket-detail', {
                 <button type="button" class="btn btn-default pull-right" data-bind="click: back"> 返回</button>
               </div>
               <div class="box-body">
-                <!-- ko with: issue -->
+                <!-- ko with: task -->
                 <div class="form-group col-sm-12">
                   <label for="id" class="col-sm-2 control-label">ID</label>
-
                   <div class="col-sm-10">
                     <span data-bind="text: id"></span>
                   </div>
@@ -27,45 +26,55 @@ ko.components.register('yum-ticket-detail', {
 
                 <div class="form-group col-sm-12">
                   <label for="key" class="col-sm-2 control-label">Key</label>
-
                   <div class="col-sm-10">
                     <span data-bind="text: key"></span>
                   </div>
                 </div>
-                 <div class="form-group col-sm-12">
-                  <label for="key" class="col-sm-2 control-label">事件类型</label>
 
-                  <div class="col-sm-10">
-                    <span data-bind="text: issueType"></span>
-                  </div>
-                </div>
                 <div class="form-group col-sm-12">
-                  <label for="key" class="col-sm-2 control-label">创建人</label>
-
-                  <div class="col-sm-10">
-                    <span data-bind="text:creator.displayName"></span>
-                    [<span data-bind="text:creator.emailAddress"></span>]
-                  </div>
-                </div>
-                <div class="form-group col-sm-12">
-                  <label for="key" class="col-sm-2 control-label">事件概要</label>
-
+                 <label for="key" class="col-sm-2 control-label">工单概要</label>
                   <div class="col-sm-10">
                     <span data-bind="text: summary"></span>
                   </div>
                 </div>
 
-                <div class="form-group col-sm-12">
-                  <label for="key" class="col-sm-2 control-label">事件区域</label>
+                  <div class="form-group col-sm-12">
+                   <label for="key" class="col-sm-2 control-label">SLA</label>
+                <div class="col-sm-10">
+                    <span data-bind="text: SLA"></span>
+                  </div>
+                </div>
 
+                   <div class="form-group col-sm-12">
+                  <label for="key" class="col-sm-2 control-label">优先级</label>
+                  <div class="col-sm-10">
+                    <span data-bind="text: priority"></span>
+                  </div>
+                </div>   
+
+                <div class="form-group col-sm-12">
+                  <label for="key" class="col-sm-2 control-label">状态</label>
+                  <div class="col-sm-10">
+                    <span data-bind="text: status"></span>
+                  </div>
+                </div> 
+
+                <div class="form-group col-sm-12">
+                  <label for="key" class="col-sm-2 control-label">服务商</label>
+                  <div class="col-sm-10">
+                    <span data-bind="text: vendor"></span>
+                  </div>
+                </div>
+
+                <div class="form-group col-sm-12">
+                  <label for="key" class="col-sm-2 control-label">工单区域</label>
                   <div class="col-sm-10">
                     <span data-bind="text: area"></span>
                   </div>
                 </div>
 
                 <div class="form-group col-sm-12">
-                  <label for="key" class="col-sm-2 control-label">餐厅门店编号</label>
-
+                  <label for="key" class="col-sm-2 control-label">工单门店编号</label>
                   <div class="col-sm-10">
                     <span data-bind="text: diningRoomNo"></span>
                   </div>
@@ -73,17 +82,16 @@ ko.components.register('yum-ticket-detail', {
 
                 <div class="form-group col-sm-12">
                   <label for="key" class="col-sm-2 control-label">创建时间</label>
-
                   <div class="col-sm-10">
                     <span data-bind="text: createTime"></span>
                   </div>
                 </div>
 
                 <div class="form-group col-sm-12">
-                  <label for="key" class="col-sm-2 control-label">事件描述</label>
-
+                  <label for="key" class="col-sm-2 control-label">创建人</label>
                   <div class="col-sm-10">
-                    <span data-bind="text: description"></span>
+                    <span data-bind="text:creator.displayName"></span>
+                    [<span data-bind="text:creator.emailAddress"></span>]
                   </div>
                 </div>
                 <!-- /ko -->
@@ -98,26 +106,35 @@ ko.components.register('yum-ticket-detail', {
     viewModel: function() {
         var self = this;
 
-        self.issue = ko.observable();
+        self.task = ko.observable();
 
-        self.issueId = utils.getUrlParam('issueId');
+        self.issueId = utils.getUrlParam('taskId');
 
         $.get(window.env.baseUrl + "/v1/issue/sla/" + self.issueId, function(data) {
             //console.log(data);
-            var issueObj = {
+            var taskObj = {
                 id: data.issue.id,
                 key: data.issue.key,
-                issueType: data.issue.fields.issuetype.name,
-                creator: data.issue.fields.creator,
+                SLA: data.sla,
+                //issueType: data.issue.fields.issuetype.name,
+                priority: data.issue.fields.priority.name,
+                status: data.issue.fields.status.name,
                 diningRoomNo: data.issue.fields.customfield_10007,
                 area: data.issue.fields.customfield_10006,
+                vendor: data.issue.fields.customfield_10017 != null ? data.issue.fields.customfield_10017.value : "",
                 summary: data.issue.fields.summary,
-                description: data.issue.fields.description
+                //description: data.issue.fields.description,
+                creator: data.issue.fields.creator
             }
             var date = new Date(data.issue.fields.created);
-            issueObj.createTime = date.toLocaleDateString() + " " + date.toLocaleTimeString();
-            //console.log(issueObj);
-            self.issue(issueObj);
+            taskObj.createTime = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+            if (data.sla != null) {
+                taskObj.SLA = data.sla + " 小时"
+            } else {
+                taskObj.SLA = 0;
+            }
+            //console.log(taskObj);
+            self.task(taskObj);
         });
 
         self.back = function() {
