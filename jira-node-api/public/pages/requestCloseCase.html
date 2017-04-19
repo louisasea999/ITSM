@@ -10,6 +10,7 @@
     <script src="http://cache.amap.com/lbs/static/es5.min.js"></script>
     <script src="http://webapi.amap.com/maps?v=1.3&key=6e9fe027ea192195fade5a8c3270e22b&plugin=AMap.Geocoder"></script>
     <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script src="../utils/utils.js"></script>
     <title>ITSM</title>
 
     </script>
@@ -46,7 +47,7 @@
             border-bottom: 1px dashed #666;
         }
         
-        .btn-request {
+        #btn-request {
             background-color: #3c8dbc;
             color: #fff;
             border-radius: 3px;
@@ -54,6 +55,12 @@
             padding: 6px 12px;
             font-size: 16px;
             margin-top: 20px;
+            display: none;
+        }
+        
+        .case-detail div {
+            padding: 3px 30px;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -70,13 +77,13 @@
             </div>
         </div>
         <div class="case-detail">
-            <div><label>Case ID: </label></div>
-            <div><label>Case Summay: </label></div>
-            <div><label>Case Priority: </label></div>
-            <div><label>Case Status: </label></div>
+            <div><label>Case ID: </label><label id="key"></labe></div>
+            <div><label>Case Summay: </label><label id="summary"></labe></div>
+            <div><label>Case Priority: </label><label id="priority"></labe></div>
+            <div><label>Case Status: </label><label id="status"></labe></div>
         </div>
         <div style="text-align:center;">
-            <button type="button" class="btn-request" data-bind="click: requestCloseCase">申请结案</button>
+            <button type="button" id="btn-request" data-bind="click: requestCloseCase">申请结案</button>
         </div>
     </div>
     <div id="footer">
@@ -110,10 +117,12 @@
         //解析定位结果
         function onComplete(data) {
             setAddress([data.position.getLng(), data.position.getLat()]);
+            $("#btn-request").show();
         }
         //解析定位错误信息
         function onError(data) {
             $("#address").text("定位失败, 请扫描餐厅二维码获取位置。");
+            $("#btn-request").show();
         }
 
         function setAddress(location) {
@@ -130,9 +139,83 @@
 
     <!--<script src="html5-qrcode.js"></script>-->
     <script type="text/javascript">
-        // $(function() {
-        //     geo();
-        // });
+        $(function() {
+            var taskKey = getUrlParam("key");
+
+            $.get(window.env.baseUrl + "/v1/issue/sla/" + taskKey, function(data) {
+                //console.log(data);
+                var taskObj = {
+                    id: data.issue.id,
+                    key: data.issue.key,
+                    summary: data.issue.fields.summary,
+                    priority: data.issue.fields.priority.name,
+                    status: data.issue.fields.status.name
+                }
+                var date = new Date(data.issue.fields.created);
+                taskObj.createTime = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+                //console.log(taskObj);
+                $("#key").text(taskObj.key);
+                $("#summary").text(taskObj.summary);
+                $("#priority").text(taskObj.priority);
+                $("#status").text(taskObj.status);
+            });
+            
+            //console.log(taskKey);
+            $("#btn-request").click(function() {
+                $("#btn-request").attr("disabled","disabled");
+                if (taskKey != null) {
+                    var address = $("#address").text();
+                    var data = {
+                        "update": {
+                            "comment": [{
+                                "add": {
+                                    "body": "Comment added when resolving issue"
+                                }
+                            }],
+                            // "customfield_10024": [{
+                            //     "add": {
+                            //         "body": "湖北省武汉市洪山区珞南街道南湖"
+                            //     }
+                            // }]
+                        },
+                        "transition": {
+                            "id": "171" //transition id, not task id
+                        }
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: window.env.baseUrl + "/v1/issue/end/" + taskKey,
+                        data: JSON.stringify(data),
+                        timeout: 30000,
+                        headers: {
+                            "Content-Type": "application/json; charset=utf-8"
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            alert("结案申请发送成功");
+                        },
+                        error: function(request, status, err) {
+                            $("#btn-request").removeAttr("disabled");
+                            if (status == "timeout") {
+                                alert('Error: Timeout');
+                            } else {
+                                alert('Error');
+                            }
+                        }
+                    });
+                }
+            });
+
+            //geo();
+        });
+
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
 
         // function geo() {
         //     var output = $("#address");
