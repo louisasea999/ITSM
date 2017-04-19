@@ -193,4 +193,37 @@
       remark = #{remark,jdbcType=VARCHAR}
     where service_desk_id = #{serviceDeskId,jdbcType=BIGINT}
   </update>
+  
+  
+  
+  <select id="getServiceDesk" resultMap="BaseResultMap" parameterType="Map">
+	select
+		desk.service_desk_id,
+		desk.service_desk_name,
+		desk.sup_project_group_id,
+		desk.remark as service_desk_remark
+	from 
+		itsm2.service_desk as desk
+		inner join itsm2.sup_project_group as sup on
+			sup.sup_project_group_id = desk.sup_project_group_id 
+		inner join itsm2.district_group_map as dist_sup on
+			dist_sup.sup_project_group_id = sup.sup_project_group_id
+		inner join itsm2.district_info as dist on
+			dist.district_id = dist_sup.district_id
+		inner join itsm2.dining_room as dining on
+			dining.district_id = dist.district_id
+		inner join itsm2.dining_desk_map as dining_desk on
+			dining_desk.service_desk_id = desk.service_desk_id and
+			dining_desk.dining_room_id = dining.dining_room_id		
+  	where 1=1 
+  		<if test="districtName != null">
+  			and dist.district_name = #{districtName}
+		</if>
+  		<if test="diningName != null">
+  			and dining.dining_room_name = #{diningName}
+		</if>
+  		<if test="vendorName != null">
+  			and sup.sup_project_group_name = #{vendorName}
+		</if>
+  </select>
 </mapper>

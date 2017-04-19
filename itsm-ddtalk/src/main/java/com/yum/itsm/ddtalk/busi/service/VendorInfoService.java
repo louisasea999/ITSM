@@ -2,6 +2,7 @@ package com.yum.itsm.ddtalk.busi.service;
 
 import java.util.List;
 
+import com.yum.itsm.ddtalk.busi.entity.ServiceDesk;
 import com.yum.itsm.ddtalk.busi.entity.SupProjectGroup;
 
 public interface VendorInfoService {
@@ -16,4 +17,6 @@ public interface VendorInfoService {
 	void updateSupProjectGroupInfo();
 	
 	void sendMsgByRobot(String issueKey, String deskName, String title, String text);
+	
+	ServiceDesk getServiceDesk(String districtname, String diningname, String vendorname);
 }
