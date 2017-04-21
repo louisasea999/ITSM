@@ -14,7 +14,7 @@ var config = require('./config'),
 
 var app = express();
 
-app.set('port', process.env.PORT || 8080);  
+app.set('port', process.env.PORT || 7777);  
 
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 

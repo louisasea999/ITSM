@@ -8,60 +8,60 @@ var slaHelper = require('./common/slaHelper');
 
 var router = express.Router();
 
-router.get('/v1/issues', function(req, res, next) {
-    ctrl.getIssueList('Task').then(function(issues) {
+router.get('/v1/issues', function (req, res, next) {
+    ctrl.getIssueList('Task').then(function (issues) {
         if (typeof issues === "string") {
             res.json(JSON.parse(issues));
         } else {
             res.json(issues);
         }
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })
 })
 
-router.get('/v1/subtasks', function(req, res, next) {
-    ctrl.getIssueList('Sub-task').then(function(issues) {
+router.get('/v1/subtasks', function (req, res, next) {
+    ctrl.getIssueList('Sub-task').then(function (issues) {
         if (typeof issues === "string") {
             res.json(JSON.parse(issues));
         } else {
             res.json(issues);
         }
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })
 })
 
-router.get('/v1/issues/:issueId', function(req, res, next) {
-    ctrl.getIssueById(req.params.issueId).then(function(issue) {
+router.get('/v1/issues/:issueId', function (req, res, next) {
+    ctrl.getIssueById(req.params.issueId).then(function (issue) {
         if (typeof issue === "string") {
             res.json(JSON.parse(issue));
         } else {
             res.json(issue);
         }
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })
 })
 
-router.get('/v1/issue/changelog/:issueId', function(req, res, next) {
-    ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function(issue) {
+router.get('/v1/issue/changelog/:issueId', function (req, res, next) {
+    ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function (issue) {
         if (typeof issue === "string") {
             res.json(JSON.parse(issue));
         } else {
             res.json(issue);
         }
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })
 })
 
-router.get('/v1/issue/sla/:issueId', function(req, res, next) {
-    ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function(issue) {
+router.get('/v1/issue/sla/:issueId', function (req, res, next) {
+    ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function (issue) {
         var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
         // var myIssue = config.sample.changelog;		
 
@@ -77,16 +77,21 @@ router.get('/v1/issue/sla/:issueId', function(req, res, next) {
             }
             var endDate = myIssue.fields[global.customFields.endIssueDate.id]; //'2017-04-19T09:34:11.748+0000'; // todo
             var startDate = myIssue.fields.created; //'2017-04-12T09:34:11.748+0000'; // todo		
+            var priority = myIssue.fields.priority.name;
+            var serveHours =  0;
 
-            var serveHours = slaHelper.getServeHours(startDate, endDate, watchers, global.standard.workHours[0], global.standard.workHours[1]);
+            if(priority === "P3") {
+                serveHours = slaHelper.getServeHours(startDate, endDate, watchers, global.standard.noWorkHours[0], global.standard.noWorkHours[1]);
+            } else {
+                serveHours = slaHelper.getServeHours(startDate, endDate, watchers, global.standard.workHours[0], global.standard.workHours[1]);
+            }            
 
             var sla = 0;
-            var zone = myIssue.fields[global.customFields.zone.id]; // todo
+            var zone = myIssue.fields[global.customFields.zone.id] || "1"; // todo
             var standardHours = 0; // todo
             var timeoutCount = 1; //todo
-            var priority = myIssue.fields.priority.name;
 
-            slaHelper.getStandardHours(zone, priority, function(err, hour) {
+            slaHelper.getStandardHours(parseInt(zone, 10), priority, function (err, hour) {
                 if (err) {
                     res.status(400).json(err);
                 }
@@ -99,100 +104,160 @@ router.get('/v1/issue/sla/:issueId', function(req, res, next) {
             });
         }
 
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })
 })
 
-router.post('/v1/issue', function(req, res, next) {
+router.post('/v1/issue', function (req, res, next) {
     var issue = req.body;
 
-    ctrl.createIssue(issue).then(function(newIssue) {
+    ctrl.createIssue(issue).then(function (newIssue) {
         res.json(newIssue);
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })
 })
 
-router.post('/v1/issue/plugin/update/:issueId', function(req, res, next) {
-    ctrl.getIssueById(req.params.issueId).then(function(issue) {
+router.post('/v1/issue/plugin/update/:issueId', function (req, res, next) {
+    res.json({});
+    ctrl.getIssueById(req.params.issueId + '?expand=changelog').then(function (issue) {
         var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
         var eventType = myIssue.fields[global.customFields.eventType.id];
         var storeArea = myIssue.fields[global.customFields.storeArea.id];
         var storeNo = myIssue.fields[global.customFields.storeNo.id];
 
-        if (eventType) {
-            var requestUrl = config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + eventType.value;
+        var histories = myIssue.changelog.histories;
 
-            ctrl.extService(encodeURI(requestUrl)).then(function(result) {
-                var result = typeof result === "string" ? JSON.parse(result) : result;
-                if (result && result.data && result.data.serviceDeskName) {
-                    // call jira robot
-                    ctrl.extService(encodeURI(config.ddRobot + "?issuekey=" + req.params.issueId + "&deskname=" + result.data.serviceDeskName));
+        if ((Array.isArray(histories) && histories.length === 0)) {
+            var defaultEventType = "";
+            if (eventType == null) {
+                defaultEventType = "甲服务商项目组";
+            } else {
+                defaultEventType = eventType.value;
+            }
+            if (defaultEventType !== "") {
+                var requestUrl = config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + defaultEventType;
 
-                    var serveStationId = global.customFields.serveStation.id;
-                    var serveStation = result.data.serviceDeskName;
+                ctrl.extService(encodeURI(requestUrl)).then(function (result) {
+                    var result = typeof result === "string" ? JSON.parse(result) : result;
+                    if (result && result.data && result.data.serviceDeskName) {
 
-                    var body = config.sample.updateVendor;
-                    body[serveStationId] = serveStation;
 
-                    // update serve station
-                    ctrl.updateIssue(req.params.issueId, body);
+                        var serveStationId = global.customFields.serveStation.id;
+                        var serveStation = result.data.serviceDeskName;
 
-                    var vendor = eventType.value.indexOf("乙") !== -1 ? "Vendor2" : "Vendor1";
-                    // update assignee
-                    ctrl.updateAssignee(req.params.issueId, vendor);
-                }
-            }).catch(function(err) {
-                output(err);
-            });
+                        var body = {
+                            "fields": {}				
+                        };
+                        body["fields"][serveStationId] = serveStation;
+
+                        slaHelper.getZone(serveStation, storeNo, function(err, myZone) {
+                            body["fields"][global.customFields.zone.id] = myZone + "";
+                            // update serve station
+                            ctrl.updateIssue(req.params.issueId, body).then(function () {
+                                var vendor = defaultEventType.indexOf("乙") !== -1 ? "Vendor2" : "Vendor1";
+                                // update assignee
+                                ctrl.updateAssignee(req.params.issueId, vendor);
+                            })
+                        })
+							
+                        
+                    }
+                }).catch(function (err) {
+                    output(err);
+                });
+            }
+        } else if ((myIssue.fields.status.name == "In Progress")) {
+			
+			var defaultEventType = "";
+            if (eventType == null) {
+                defaultEventType = "甲服务商项目组";
+            } else {
+                defaultEventType = eventType.value;
+            }
+			if (defaultEventType !== "") {
+				var requestUrl = config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + defaultEventType;
+
+                ctrl.extService(encodeURI(requestUrl)).then(function (result) {
+					var result = typeof result === "string" ? JSON.parse(result) : result;
+					// call itsm robot
+					var serveStation = myIssue.fields[global.customFields.serveStation.id];
+					if (result && result.data && result.data.serviceDeskName) {
+						var serveStationId = global.customFields.serveStation.id;
+                        var serveStation = result.data.serviceDeskName;
+						if (serveStation) {
+							// ctrl.extService(encodeURI(config.ddRobot + "?issuekey=" + myIssue.key + "&deskname=" + serveStation));
+							slaHelper.getRobotToken(function(err, rows){
+								var token = '';
+								if(err) {return;}
+								for(var k = 0;k < rows.length;k++) {
+									if(serveStation === rows[k]['service_desk_name']) {
+										token = rows[k]['custom_robot_token'];
+										break;
+									}
+								}
+								var link = {
+									"msgtype": "link", 
+									"link": {
+										"text": myIssue.key, 
+										"title": myIssue.key, 
+										"picUrl": "", 
+										"messageUrl": "http://itsmpoc6341.cloudapp.net:7777/pages/requestCloseCase.html?key=" + myIssue.key
+									}
+								}
+								ctrl.sendLink(config.itsmRobot + token, link);
+							})
+						}
+					}
+				});
+			}
+        } else {
+
         }
         // comment this line in prod environment
         // res.json({});
-    }).catch(function(err) {
-        res.json(err);
-        output(err);
-    })
-    ctrl.getIssueById(req.params.issueId).then(function(issue) {
-        var myIssue = typeof issue === "string" ? JSON.parse(issue) : issue;
-        var eventType = myIssue.fields[global.customFields.eventType.id];
-        var storeArea = myIssue.fields[global.customFields.storeArea.id];
-        var storeNo = myIssue.fields[global.customFields.storeNo.id];
-
-        if (eventType) {
-            ctrl.extService(config.ddtalk + "?districtname=" + storeArea + "&diningname=" + storeNo + "&vendorname=" + eventType.value).then(function(result) {
-                if (result && result.data && result.data.serviceDeskName) {
-                    ctrl.extService(config.ddRobot + "?issuekey=" + req.params.issueId + "&deskname=" + result.data.serviceDeskName);
-                }
-            }).catch(function(err) {
-                output(err);
-            });
-        }
-    }).catch(function(err) {
+    }).catch(function (err) {
+        // res.json(err);
         output(err);
     })
 })
 
-router.post('/v1/issue/end/:issueId', function(req, res, next) {
+router.post('/v1/issue/end/:issueId', function (req, res, next) {
     var issueId = req.params.issueId;
     var body = req.body;
 
-    ctrl.endIssue(issueId, body).then(function(result) {
+	//body["update"][global.customFields.endIssueDate.id] = [{"set":new Date().toISOString()}];	
+	
+    ctrl.endIssue(issueId, body).then(function (result) {
         res.json(result);
-    }).catch(function(err) {
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })
 })
 
-router.put('/v1/issue/:issueId', function(req, res, next) {
+router.put('/v1/issue/:issueId', function (req, res, next) {
     var issue = req.body;
 
-    ctrl.updateIssue(req.params.issueId, issue).then(function(data) {
+    ctrl.updateIssue(req.params.issueId, issue).then(function (data) {
         res.json({ status: 'ok' });
-    }).catch(function(err) {
+    }).catch(function (err) {
+        res.status(err.statusCode).json(err);
+        output(err);
+    })
+})
+
+router.get('/v1/user/search/:username', function (req, res, next) {
+    ctrl.getUser(req.params.username).then(function (user) {
+        if (typeof user === "string") {
+            res.json(JSON.parse(user));
+        } else {
+            res.json(user);
+        }
+    }).catch(function (err) {
         res.status(err.statusCode).json(err);
         output(err);
     })

@@ -34,6 +34,12 @@ const queryTableByName = function (tablename, cb) {
     });
 }
 
+const queryString = function(str, cb) {
+    pool.query(str, null, function(err, result) {
+        cb(err, result);
+    })
+}
+
 const queryTable = function(tablename, cb) {
     pool.query(`select * from ${currentschema}.${tablename}`, null, function(err, result) {
         cb(err, result);
@@ -43,6 +49,7 @@ const queryTable = function(tablename, cb) {
 // exports.queryTableByName = queryTableByName;
 
 exports.queryTable = queryTable;
+exports.queryString = queryString;
 
 // queryTable(config.db.table.sla_config, function (err, result) {
 //     if (err) {

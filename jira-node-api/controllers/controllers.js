@@ -34,6 +34,10 @@ exports.extService = function(url) {
     return rq.callExtService(url);
 }
 
+exports.sendLink = function(url, body) {
+	return rq.sendLink(url, body);
+}
+
 exports.updateAssignee = function(issueId, name) {
     return rq.putRequest(`/issue/${issueId}/assignee`, { name: name });
 }

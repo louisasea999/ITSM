@@ -45,3 +45,13 @@ exports.endIssueRequest = function(url, body) {
 exports.callExtService = function(url) {	
 	return rp(url);
 }
+
+exports.sendLink = function(url, body) {
+	var options = {
+		method: 'POST',
+		uri: url,
+		body: body,
+		json: true
+	}
+	return rp(options);
+}

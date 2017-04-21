@@ -127,6 +127,52 @@ function getMappings(done) {
     });
 }
 
+function getRobotToken(done) {
+	dbHelper.queryTable(config.db.table.desk_robot_map, function(err, result) {
+		if (err) {
+            done(err, []);
+        }
+        if (Array.isArray(result.rows) === true) {
+            done(null, result.rows)
+			console.log(result.rows);
+        } else {
+            done(null, []);
+        }
+	})
+}
+
+exports.getRobotToken = getRobotToken;
+
+
+function getZone(serviceDeskName, diningNo, done) {
+    const str = `select ddm.dining_room_id, sd.service_desk_name, dr.dining_room_name, 
+                    ddm.zone_level from itsm2.dining_desk_map as ddm, 
+                    itsm2.dining_room as dr, itsm2.service_desk as sd`;
+    dbHelper.queryString(str, function(err, result) {
+        if(err) {
+            return; done(err, null);
+        }
+        if (Array.isArray(result.rows) === true) {
+            for(var x = 0; x < result.rows.length;x++) {
+                var row = result.rows[x];
+                if(row['service_desk_name'] === serviceDeskName && diningNo === row['dining_room_name']) {
+                    return done(null, row['zone_level']);
+                }
+            }   
+        }
+    })
+}
+
+exports.getZone = getZone;
+
+// getZone('服务站B', 'YUMC02', function(err, result) {
+//     if(err) {
+//         return;
+//     }
+//     console.log(result);
+// });
+//getRobotToken();
+
 /*
 var startDateString = '2017-04-12T06:41:45.118Z';
 var endDateString = '2017-04-16T06:59:45.118Z';
