@@ -34,7 +34,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //   next();
 // })
 
-app.use('/', router);
+// app.use('/', router);
+app.use('/v1/issue', require('./routes/issues'));
+app.use('/user', require('./routes/users'));
 
 // error handler
 if (config.debug) {  
